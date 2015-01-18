@@ -1,0 +1,24 @@
+
+\noindent \textbf{Algorytm stabilizacji wysoko¶ci}
+
+\noindent Dane wej¶ciowe:
+\begin{itemize}
+	\item $d_1$, $d_2$ -- pomiary z dwóch czujników odleg³o¶ci: górnego i dolnego,
+	\item $q$ -- orientacja quadrocoptera wzglêdem zewnêtrznego uk³adu odniesienia, w postaci kwaternionu (z Pixhawka),
+\end{itemize}
+
+\noindent Dane wyj¶ciowe:
+\begin{itemize}
+	\item $F_z$ -- si³a w osi \emph{z} quadrocoptera. 
+\end{itemize}
+~\\
+\textbf{Kroki algorytmu}
+\begin{enumerate}
+	\item Obliczenie rzeczywistych odleg³o¶ci od pod³o¿a i sufitu na podstawie odczytów sensorów oraz orientacji quadrocoptera wzglêdem zewnêtrznego uk³adu odniesienia.
+	\item Fuzja pomiarów -- wybranie do stabilizacji odleg³o¶ci, która wolniej siê zmienia (mniejsza pochodna). Celem jest uniezale¿nienie wysoko¶ci od niewielkich przeszkód.
+	\item Regulator PID:
+\begin{itemize}
+	\item wej¶cie: wybrana wysoko¶æ $h$,
+	\item wyj¶cie: sterowanie w postaci si³y w osi Z.
+\end{itemize} 
+\end{enumerate}

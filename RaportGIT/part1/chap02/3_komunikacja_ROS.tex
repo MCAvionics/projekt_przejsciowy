@@ -1,0 +1,26 @@
+
+Komunikacja ze sterownikiem quadrocoptera odbywa siê z wykorzystaniem protoko³u \href{http://en.wikipedia.org/wiki/MAVLink}{\textbf{MAVLink}}, który zosta³ zaprojektowany do wymiany informacji miêdzy podsystemami robota oraz do komunikacji ze stacj± kontroli (\href{http://en.wikipedia.org/wiki/Ground_control_station}{\textbf{GCS}}). Specyfikacjê protoko³u mo¿na znale¼æ pod nastêpuj±cym odno¶nikiem: \href{https://pixhawk.ethz.ch/mavlink/}{https://pixhawk.ethz.ch/mavlink}.\\
+
+Dla dwóch wersji ROS'a: hydro i indigo zosta³ zaimplementowany protokó³ MAVLink, w postaci pakietu \href{http://wiki.ros.org/mavros}{\textbf{mavros}}. Pakiet ten umo¿liwia z poziomu ROS'a dostêp do parametrów sterownika, oraz pozwala wysy³aæ do niego komendy steruj±ce. Ponadto, pakiet ten umo¿liwia dodawanie w³asnych pluginów. Dok³adny opis jest dostêpny pod nastêpuj±cym odno¶nikiem: \href{http://wiki.ros.org/mavros}{http://wiki.ros.org/mavros}. 
+
+Poni¿ej wymienione zosta³y wybrane funkcjonalno¶ci pakietu \textbf{mavros} w przypadku za³adowania domy¶lnego zestawu pluginów.
+\begin{itemize}
+\item Publikowanie topic'ów zawieraj±cych dane z IMU (plugin \textbf{imu\_pub}), miêdzy innymi:
+	\begin{itemize}
+	\item orientacja obliczona przez sterownik (\textit{$\sim$imu/data}),
+	\item warto¶ci zmierzone przez IMU (\textit{$\sim$imu/data\_raw}),
+	\item odczyty magnetometru (\textit{$\sim$imu/mag}),
+	\item temperatura (\textit{$\sim$imu/temperature}),
+	\item ci¶nienie powietrza (\textit{$\sim$imu/FluidPressure}).
+	\end{itemize}
+\item Subskrybowanie topic'ów z komendami lotu:
+	\begin{itemize}
+	\item zadane prêdko¶ci (\textit{$\sim$setpoint/cmd\_vel}),
+	\item zadane przyspieszenia (\textit{$\sim$setpoint/accel}),
+	\item zadane prêdko¶ci k±towe (\textit{$\sim$setpoint/att\_vel}),
+	\item zadana poza (\textit{$\sim$setpoint/attitude}).
+	\end{itemize}
+\end{itemize}
+~\\
+	
+Warto równie¿ wspomnieæ o dwóch podobnych pakietach: \href{https://github.com/cberzan/roscopter}{\textbf{roscopter}} i \href{https://github.com/mavlink/mavlink_ros}{\textbf{mavlink\_ros}}. Pierwszy z nich wystêpuje dla ROS'a w wersjach: groovy i hydro. Jego funkcjonalno¶ci s± jednak ograniczone w porównaniu do pakietu \textbf{mavros}. Natomiast drugi pakiet, \textbf{mavlink\_ros} jest przestarza³y, a twórcy zalecaj± zast±pienie go pakietem \textbf{mavros}.

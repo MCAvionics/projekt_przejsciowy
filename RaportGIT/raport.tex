@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper,twoside,openright,fleqn]{mwrep}
+\documentclass[12pt,a4paper,oneside,openright,fleqn]{mwrep}%\documentclass[12pt,a4paper,twoside,openright,fleqn]{mwrep}
 %\documentclass[12pt,a4paper,twoside,openright,fleqn]{memoir}
 
 % przebudowanie z fontami - gubi initial view i metadane
@@ -30,7 +30,9 @@
 
 % dodatkowe pakiety
 %\usepackage{pdfpages}
-%\usepackage{subfigure}
+\usepackage{subfigure}
+
+
 
 %Od Tomka Kubika
 \usepackage{color}
@@ -209,16 +211,16 @@
 
 %--------------------------------------------------------------------------------------------------------
 \clearpage
-	\section{Zdalne debagowanie, Krzysiek}
-	\input{part1/chap01/21_debagownaie} 
-		\subsection{Dostêpne rozwi±zania, Mateusz}
-		\input{part1/chap01/22_dost_rozw}
-			\subsubsection{Ground Station, Mateusz} 
-			\input{part1/chap01/23_ground_station}
-		\subsection{Link radiowy, Mateusz}
-		\input{part1/chap01/24_link_rad}
-		\subsection{Przegl±d rozwi±zañ FPV, Krzysiek}
-		\input{part1/chap01/25_przeglad_rozw_FPV}
+%	\section{Zdalne debagowanie, Krzysiek}
+%	\input{part1/chap01/21_debagownaie} 
+%		\subsection{Dostêpne rozwi±zania, Mateusz}
+%		\input{part1/chap01/22_dost_rozw}
+%			\subsubsection{Ground Station, Mateusz} 
+%			\input{part1/chap01/23_ground_station}
+%		\subsection{Link radiowy, Mateusz}
+%		\input{part1/chap01/24_link_rad}
+%		\subsection{Przegl±d rozwi±zañ FPV, Krzysiek}
+%		\input{part1/chap01/25_przeglad_rozw_FPV}
 
 %--------------------------------------------------------------------------------------------------------
 	\section{Czujniki odleg³o¶ci, Alicja}
@@ -288,7 +290,8 @@
 			\input{part1/chap02/8a_specyfikacja_potrzeb}
 			\subsubsection{Wykonanie i uruchomienie p³ytki PCB, Micha³}
 			\input{part1/chap02/8b_wykonananie_i_uruchomienie}
-			\subsubsection{Oprogramowanie p³ytki, Micha³}
+			\newpage
+			\subsection{Oprogramowanie interfejsu, Micha³}
 			\input{part1/chap02/8c_oprogramowanie_plytki}
 			\subsubsection{Komunikacja ROS-czujniki, Daniel}
 			\input{part1/chap02/8d_komunikacja_ROS}

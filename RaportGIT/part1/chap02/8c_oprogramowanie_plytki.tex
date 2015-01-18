@@ -1,0 +1,153 @@
+	Urz±dzenie spe³nia rolê interfejsu steruj±cego wybranymi podzespo³ami quadrocoptera oraz jednostki pomiarowej, mierz±cej odleg³o¶ci robota od przeszkód. Wyposa¿one zosta³o w mikrokontroler Atmel Atmega32. Aktualnie zaimplementowane funkcjonalno¶ci s± nastêpuj±ce:
+\begin{itemize}
+				\item cykliczne wykonywanie pomiarów napiêæ czujników odleg³o¶ci (porty ADC1-ADC7), 
+				\item pomiar odleg³o¶ci poprzez zliczanie czasu trwania impulsów (PW) generowanych przez sonary:
+					\begin{itemize}
+					\item przerwania zewnêtrzne,
+					\item timer zliczaj±cy czas.		
+					\end{itemize}													
+				\item wysy³anie pomiarów do komputera nadrzêdnego (UART),
+				\item
+				sterowanie o¶wietleniem quadrocoptera,
+				\item dekodowanie sygna³u PPM z zadajnika RC,
+				\item obs³uga Pixhawk Failsafe.
+		\end{itemize}	
+
+Oprogramowanie zosta³o utworzone w jêzyku C, z wykorzystaniem ¶rodowiska Atmel Studio 6, które jest nieodp³atnie udostêpniane przez producenta mikrokontrolerów. Szczegó³owa dokumentacja oprogramowania zosta³a utworzona z wykorzystaniem generatora Doxygen.
+
+\subsubsection{Protokó³ komunikacji z komputerem nadrzêdnym}
+
+W celu umo¿liwienia komunikacji urz±dzenia z komputerem nadrzêdnym konieczne by³o zaprojektowanie odpowiedniego protoko³u komunikacyjnego. Warto zaznaczyæ, ¿e do omawianej komunikacji wykorzystuje siê interfejs szeregowy UART. \\
+
+G³ówn± ide± zaprojektowanego protoko³u komunikacji jednostki pomiarowej z komputerem jest wykorzystanie architektury klient-serwer. Rolê klienta pe³ni aplikacja uruchomiona na komputerze nadrzêdnym, która wysy³a odpowiednio zakodowane rozkazy. Natomiast interfejs sensorów dekoduje i realizuje otrzymywane rozkazy. W dalszej czê¶ci przedstawiono szczegó³owy opis protoko³u.\\
+
+\subsubsection{Weryfikacja poprawno¶ci ramek}
+\noindent\textbf{Suma kontrolna}\\
+
+W celu weryfikowania poprawno¶ci transmisji zaimplementowano obliczanie prostej sumy kontrolnej. Algorytm zlicza liczbê bitów o stanie wysokim w ci±gu wys³anych bajtów. Metoda ta nie zapewnia du¿ej odporno¶ci na zak³ócenia, poniewa¿ jest du¿e prawdopodobieñstwo, ¿e suma bitów o wysokim stanie niepoprawnego ci±gu bajtów bêdzie równa sumie poprawnego. Jednak  zalet± takiej sumy kontrolnej jest niewielka z³o¿ono¶æ obliczeniowa.\\
+
+\noindent\textbf{Potwierdzanie rozkazów}\\
+
+Zwiêkszenie niezawodno¶ci transmisji zrealizowano przez implementacjê potwierdzania rozkazów. Potwierdzanie dotyczy tylko rozkazów, dla których nie jest oczekiwana transmisja zwrotna, czyli miêdzy innymi rozkazów konfiguracyjnych. W przypadku tej grupy oczekuje siê potwierdzenia w postaci krótkiej ramki sk³adaj±cej siê z kodu rozkazu oraz sumy kontrolnej.
+
+\subsubsection{Opis protoko³u}
+
+  W pierwszym odebranym bajcie danych przez jednostkê pomiarow±, dwa najstarsze bity s± bitami
+  kontrolnymi o warto¶ciach wysokiego stanu logicznego (11).
+  Kolejne 6 bitów okre¶la rozkaz, który nale¿y wykonaæ. W ten sposób mo¿na zakodowaæ do 64 ró¿nych rozkazów, co wydaje
+  siê byæ warto¶ci± zupe³nie wystarczaj±c±. W przypadku, gdy nie ma dodatkowych danych dla jednostki pomiarowej, drugi bajt zawiera sumê kontroln±. Ogólna postaæ ramki danych zosta³a przedstawiona na rysunku \ref{fig:ramka_danych}.  \\
+
+	\begin{figure}[h!]
+	  \begin{center}
+	    \includegraphics[angle=0, width=12cm]{grafika/md_postac_ramki_danych.png}
+	    \caption{Ogólna postaæ ramki danych}
+	    \label {fig:ramka_danych}
+	  \end{center}
+	\end{figure}  
+  
+  Zaimplementowany protokó³ zak³ada przesy³anie bardziej znacz±cych bajtów przed mniej znacz±cymi (Big endian).
+  Ka¿dy dodatkowo przesy³any ci±g danych jest weryfikowany sum± kontroln±, której algorytm zosta³ przedstawiony w poprzednim podrozdziale. Rozkazy podzielono na cztery czê¶ci w zale¿no¶ci od warto¶ci pierwszych
+  czterech bitów:
+
+    \begin{description}
+		\item[0xC (1100)]
+			¿±dania przes³ania informacji zwrotnej,
+		\item[0xD (1101)]
+			rozkazy konfiguracyjne,
+		\item[0xE (1110)]
+			pozosta³e rozkazy,
+		\item[0xF (1111)]
+			pozosta³e rozkazy.
+	\end{description}
+	
+\noindent W kolejnych podrozdzia³ach przedstawiono opisy poszczególnych grup rozkazów. Rozkazy opisane zosta³y przez podanie odpowiadaj±cych im warto¶ci bajtów i krótkich opisów dzia³ania.
+~\\
+
+\subsubsection{¯±dania przes³ania informacji zwrotnej - 0xC}
+
+\begin{description}
+\item[1100 0000 - 0xC0]~\\
+	Weryfikacja poprawno¶ci dzia³ania transmisji. Oczekuje siê odpowiedzi \\w postaci 0101 0101 - 0x55.
+\item[1100 1001 - 0xC1]~\\
+		Polecenie wys³ania zmierzonych warto¶ci z sensorów odleg³o¶ci oraz odczytanych warto¶ci z sygna³u PPM. Jednostk± pomiarów sensorów Sharp s± \emph{mV}. W przypadku sonarów odleg³o¶æ podawana jest w \emph{cm}. Warto¶ci sygna³u PPM dla kolejnych kana³ów podawane jest w \emph{$\mu$s} Kolejno¶æ pomiarów w ramce okre¶lona zosta³a nastêpuj±co:
+\begin{itemize}
+\item 2 bajty - napiêcie w mV odczytane z sensora Sharp 1,
+\item 2 bajty - napiêcie w mV odczytane z sensora Sharp 2,
+\item 2 bajty - napiêcie w mV odczytane z sensora Sharp 3,
+\item 2 bajty - napiêcie w mV odczytane z sensora Sharp 4,
+\item 2 bajty - napiêcie w mV odczytane z sensora Sharp 5,
+\item 2 bajty - napiêcie w mV odczytane z sensora Sharp 6,
+\item 2 bajty - napiêcie w mV odczytane z sensora Sharp 7.
+\item 2 bajty - odleg³o¶æ zmierzona sonarem nr 1,
+\item 2 bajty - odleg³o¶æ zmierzona sonarem nr 2,
+\item 2 bajty - szeroko¶æ impulsu w $\mu s$ w sygnale PPM dla kana³u nr1,
+\item 2 bajty - szeroko¶æ impulsu w $\mu s$ w sygnale PPM dla kana³u nr2,
+\item 2 bajty - szeroko¶æ impulsu w $\mu s$ w sygnale PPM dla kana³u nr3,
+\item 2 bajty - szeroko¶æ impulsu w $\mu s$ w sygnale PPM dla kana³u nr4,
+\item 2 bajty - szeroko¶æ impulsu w $\mu s$ w sygnale PPM dla kana³u nr5,
+\item 2 bajty - szeroko¶æ impulsu w $\mu s$ w sygnale PPM dla kana³u nr6,
+\item 2 bajty - szeroko¶æ impulsu w $\mu s$ w sygnale PPM dla kana³u nr7,
+\item 2 bajty - szeroko¶æ impulsu w $\mu s$ w sygnale PPM dla kana³u nr8,
+\end{itemize}		
+\end{description}
+\subsubsection{Rozkazy konfiguracyjne - 0xD}
+\begin{description}
+\item[1101 0000 - 0xD0]~\\
+		Polecenie uruchomienia o¶wietlenia quadrocoptera.
+\item[1101 0001 - 0xD1]~\\
+		Polecenie wy³±czenia o¶wietlenia quadrocoptera.
+\item[1101 0010 - 0xD2]~\\
+		W³±czenie Pixhawk Failsafe (ustawienie stanu wysokiego).
+\item[1101 0011 - 0xD3]~\\
+		Wy³±czenie Pixhawk Failsafe (ustawienie stanu niskiego).
+\end{description}
+
+\subsection{Dekodowanie sygna³u PPM, Micha³}
+ W celu umo¿liwienia rêcznego sterowania quadrocopterem przez operatora nale¿a³o zrealizowaæ dekodowanie sygna³u PPM odbieranego przez aparaturê. Sygna³ ten pod³±czony jest do wykonanego interfejsu i dekodowany przez umieszczony w nim mikrokontroler ATmega32. \\ 
+ 
+PPM (Pulse Position Modulation) jest sygna³em, w którym informacje kodowane s± z wykorzystaniem modulacji po³o¿enia impulsów. Umo¿liwia przesy³anie warto¶ci w kilku kana³ach (w przypadku dostêpnej aparatury jest to 8 kana³ów). Postaæ takiego sygna³u przedstawiona zosta³a na rysunku \ref{fig:ppm_1}.
+\begin{center}
+\begin{figure}[ht!]
+	\label{fig:ppm_1}
+	\includegraphics[width=0.9\textwidth]{grafika/md_ppm.jpg}
+\end{figure}
+\end{center}
+
+Po zdekodowaniu sygna³u PPM, warto¶ci o poszczególnych kana³ach wysy³ane s± do komputera nadrzêdnego \emph{nano6060}, gdzie przetwarzane s± w ¶rodowisku \emph{ROS} i nastêpnie wysy³ane do sterownika quadrocoptera Pixhawk'a. Takie podej¶cie umo¿liwia rêczne sterowanie, ale tak¿e realizacjê korekcji sterowania z wykorzystaniem modu³u antykolizyjnego.\\
+
+\noindent \textbf{Realizacja dekodowania sygna³u PPM na mikrokontrolerze}\\
+
+Na potrzeby dekodowania sygna³u PPM wykorzystano przerwanie zewnêtrzne generowane w zale¿no¶ci od rodzaju zbocza sygna³u.  Rozpoznawanie pocz±tku ramki zrealizowane zosta³o przez badanie przekroczenia maksymalnego odstêpu miêdzy impulsami, które w przypadku zwracanych warto¶ci kana³ów wynosi 2ms. Poni¿ej przedstawiono funkcjê realizuj±c± obs³ugê przerwania generowanego w przypadku zmiany stanu pinu do którego pod³±czono sygna³ PPM.
+
+%====================================================================
+\begin{lstlisting}[language=C, frame=single,tabsize=2, caption={Obs³uga przerwania realizuj±cego dekodowanie PPM}] 
+ISR (INT2_vect)
+{
+	cli();
+	if (MCUCR & _BV(ISC2)) // rising edge interrupt
+	{
+		TCNT2 = 0; // Timer2 reset
+		timeCntPPM = 0;
+		MCUCR &= ~_BV(ISC2); // change to falling edge detect
+	}
+	else // falling edge interrupt
+	{
+		if ((timeCntPPM + TCNT2) > MAX_PPM_WIDTH) // new frame
+		{
+			channelPPMcnt = 0;
+		}
+		else // measurement for PPM channel
+		{
+			channelPPM[channelPPMcnt] = timeCntPPM + TCNT2;
+			if (channelPPMcnt < 7) // increase channel counter
+			{
+				channelPPMcnt++;
+			}				
+		}	
+	}
+	GIFR |= (1 << INTF1);	// interrupt flag clear
+	sei();
+}
+\end{lstlisting}
+
+
