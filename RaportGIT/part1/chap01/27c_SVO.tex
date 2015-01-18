@@ -1,0 +1,69 @@
+\clearpage
+VO (ang. Visual Odometry) jest to proces estymacji ruchu pojazdu poprzez badanie zmian ruchu dziêki zdjêciom otrzymanym z pok³adowej kamery.
+Warunki dobrej estymacji to
+\begin{itemize}
+\item odpowiednie o¶wietlenie sceny,
+\item dostosowanie szybko¶ci zmienno¶ci otoczenia do u¿ytego algorytmu, preferuje siê raczej scenê statyczn±,
+\item wybór odpowiednich zdjêæ do przetwarzania.
+\end{itemize}
+
+\subsubsection{Zalety}
+Ze wzglêdu na formê zawodów, quadrocopter bêdzie porusza³ siê w zamkniêtym pomieszczeniu, gdzie jak wiadomo sygna³ GPS zawodzi. Dlatego zdecydowano siê na u¿ycie kamery pok³adowej. Wizualna odometria mo¿e wspó³pracowaæ z innymi rozwi±zaniami, dlatego finalnie do stabilizacji w punkcie system wizyjny zostanie po³±czony z czujnikami laserowymi oraz ultrad¼wiêkowymi. Zminimalizuje to b³±d estymacji ruchu, a co za tym idzie, bêdzie mo¿na przeciwdzia³aæ dryfowi.
+
+\subsubsection{Ogólny schemat algorytmu SVO } 
+Program SVO (Semi-direct Monocular Visual Odometry) [odwolanie do artykulu] jest zaimplementowany w ROSie. Wykorzystuje on obrazy dostarczone z pok³adowej kamery. Quadrocopter zbiera informacje ze ¶rodowiska poprzez zdjêcia w dyskretnych chwilach czasu
+\begin{equation*}
+I_1,I_2, \ldots, I_n.
+\end{equation*}
+Odpowiednie macierze transformacji opisuj± relacjê pomiêdzy dwiema pozycjami kamery
+\begin{equation*}
+A_k=
+  \begin{bmatrix}
+    R_{k,k-1} & T_{k,k-1}\\
+    0 & 1
+  \end{bmatrix}.
+\end{equation*}
+Pozycjê kamery mo¿na obliczyæ nastêpuj±co
+\begin{equation*}
+C_k=C_{k-1}\cdot A_k,
+\end{equation*}
+pocz±wszy od znanej pozycji $C_0$, ustawianej jako parametr.
+G³ównym zadaniem algorytmu jest obliczenie transformacji $A_k$, po to ¿eby obliczyæ pozycjê kamery $C_k$, a co za tym idzie jej trajektorii, wykorzystuj±c do tego obrazy $I_k$.
+		\begin{figure}[h!]
+		\centering
+			\includegraphics[scale=0.7]{grafika/schemat_alg.png}
+			\caption{Schemat algorytmu SVO}
+			\label{schemSVO}
+		\end{figure}
+Rysunek~\ref{schemSVO} przedstawia ogólny schemat algorytmu SVO. Jest on podzielony na dwa g³ówne w±tki, z czego jawnie korzystamy tylko z w±tku estymuj±cego ruch kamery. Mo¿na za pomoc± tego rozwi±zania zaimplementowaæ algorytm SLAM.
+\subsubsection{Etapy algorytmu SVO}
+Estymacjê ruchu/po³o¿enia kamery mo¿na podzieliæ na trzy etapy
+\begin{itemize}
+\item etap pierwszy
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[scale=0.7]{grafika/1.png}
+			\caption{pierwszy etap [odwolanie do artykulu]}
+			\label{1etap}
+		\end{figure}
+		Rysunek~\ref{1etap} przedstawia zmiana pozycji miêdzy wcze¶niejsz± i obecn± ramk± danych po¶rednio przenosi pozycjê \textit{p} na odwzorowanie punktów w nowym obrazie. Algorytm minimalizuje fotometryczny b³±d poprawki dotycz±cej tych samych 3D punktów \textit{p}.
+\item drugi etap
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[scale=0.7]{grafika/2.png}
+			\caption{drugi etap [odwolanie do artykulu]}
+			\label{2etap}
+		\end{figure}
+		Ze wzglêdu na niedok³adno¶ci w punktach 3D oraz w estymacji pozycji kamery, fotometryczny b³±d pomiêdzy odpowiadaj±cymi poprawkami (niebieskie kwadraty) w obecnej ramce i~poprzedniej dodatkowo minimalizuje siê przez optymalizacjê pozycji 2D ka¿dego fragmentu indywidualnie, co jest pokazane na rysunku~\ref{2etap}.
+\item trzeci etap
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[scale=0.7]{grafika/3.png}
+			\caption{trzeci etap [odwolanie do artykulu]}
+			\label{3etap}
+		\end{figure}
+		Rysunek~\ref{3etap} wizualizuje ostatni etap, w którym to estymacja ruchu, pozycja kamery i struktura (punkty 3D) s± optymalizowane, aby zminimalizowaæ b³±d odwzorowania, który zosta³ obliczony w poprzednim kroku.
+\end{itemize}
+
+
+
