@@ -1,0 +1,130 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; File name: ` ~/.emacs '
+;;; ---------------------
+;;;
+;;; If you need your own personal ~/.emacs
+;;; please make a copy of this file
+;;; an placein your changes and/or extension.
+;;;
+;;; Copyright (c) 1997-2002 SuSE Gmbh Nuernberg, Germany.
+;;;
+;;; Author: Werner Fink, <feedback@suse.de> 1997,98,99,2002
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; My window config
+
+ (if window-system
+     (setq default-frame-alist
+          '(
+;;            (width . 80)     ; not gut - emacs starts smaller and
+;;            (height . 60)    ; then resizes alias used insteed
+             (background-mode . dark)
+;;            (scroll-bar-width . 0)
+            (tool-bar-lines . 0)
+;;            (menu-bar-lines . 0)
+;;            (scroll-bar-background . "grey75")
+;;            (scroll-bar-foreground)
+;;            (right-fringe . 8)
+;;            (left-fringe . 8)
+;;            (line-spacing)
+            (screen-gamma)
+            (border-color . "black")
+            (cursor-color . "DarkGoldenrod1")
+            (mouse-color . "DarkOrange")
+             (background-color . "black")
+;;             (foreground-color . "white")
+             (foreground-color . "LimeGreen")
+;;             (foreground-color . "gray")
+            (vertical-scroll-bars)
+;;            (internal-border-width . 1)
+;;            (border-width . 2)
+;;             (font . "9x15")
+;;             (font . "9x15bold")
+             )))
+
+;; additional color scheme -- to select use M-x color-theme-<TAB> RET
+;; package emacs-goodies-el must be installed
+;(setq load-path (append load-path (list "~/.emacs.d/emacs-color-theme-solarized")))
+;(require 'color-theme-solarized)
+
+;; My setings
+
+(setq current-language-environment "Polish")
+;;(set-default-coding-systems 'utf-8)
+;;(set-keyboard-coding-system 'utf-8)
+;;(set-clipboard-coding-system 'utf-8)
+;;(set-terminal-coding-system 'utf-8)
+;;(prefer-coding-system 'utf-8)
+
+;;(setq-default ispell-program-name "aspell")
+(setq ispell-dictionary "polish")
+
+;; Sprawdzanie pisowni w locie
+;;(add-hook 'latex-mode-hook 'flyspell-mode)
+(add-hook 'latex-mode-hook (lambda ()
+    (turn-on-auto-fill)
+    (flyspell-mode t))) 
+;;(add-hook 'tex-mode-hook 'flyspell-mode)
+(add-hook 'tex-mode-hook (lambda ()
+    (turn-on-auto-fill)
+    (flyspell-mode t))) 
+;;(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'text-mode-hook (lambda ()
+    (flyspell-mode t))) 
+;;(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
+;;(setq flyspell-issue-welcome-flag nil)
+
+;; Przesowanie zawartosci drugiego okana w gore 'crtl+PageUp'
+;; i 'crtl+PageDown' w dol
+(global-set-key [(control next)] 'scroll-other-window)
+(global-set-key [(control prior)] 'scroll-other-window-down)
+
+;; Changes all yes/no questions to y/n type
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(put 'downcase-region 'disabled nil)
+
+;; Magic space by Michal Jankowski <michalj@fuw.edu.pl>
+;; 'Rêcznie' mo¿na j± w³±czyæ za pomoc± M-x local-set-key SPC tex-magic-space.
+;; Mo¿na te¿ u¿yæ funkcji tex-toggle-magic-space, przypisanej do C-c SPC.
+(defun tex-magic-space ()
+  "Magic-space - inserts non-breakable space after a single-letter word."
+  (interactive)
+  (if (string-match
+       "^\\(\\s \\|~\\)?[aeiouwz]$"
+       (buffer-substring (max (point-min) (- (point) 2)) (point)))
+      (insert "~")
+    (insert " ")
+    (and auto-fill-function
+         (funcall auto-fill-function))))
+
+;; Przypisuje/wy³±cza przypisanie tex-magic-space do spacji,
+;; (przydatne przy pisaniu matematyki), tylko dla trybów LaTeX-owych
+(defun tex-toggle-magic-space ()
+  "Toggles TeX magic space, which inserts non-breakable space after a single-letter word"
+  (interactive)
+;   (if (local-key-binding " " 'tex-magic-space)
+;       (local-unset-key " ")
+;     (local-set-key " " tex-magic-space)
+  (progn
+    (if (equal (lookup-key TeX-mode-map " ") 'tex-magic-space)
+	(progn
+	  (define-key TeX-mode-map " " nil)
+	  (local-unset-key " ")) ; to be sure
+      (define-key TeX-mode-map " " 'tex-magic-space))
+    (message "SPC is binded to %s" (lookup-key TeX-mode-map " "))))
+
+;; ------------------------------------------------------------------------
+;; Przypisania klawiszy dla trybów LaTeX-owych
+
+;; Automatyczne w³±czenie magicznej spacji (przywi±zuje samotne
+;; spójniki do nastepuj±cych po nich wyrazów; przyk³ad : a~teraz)
+;; For AUC TeX
+(eval-after-load "tex" '(define-key TeX-mode-map " " 'tex-magic-space))
+(eval-after-load "tex" '(define-key TeX-mode-map "\C-c " 'tex-toggle-magic-space))
+;; For tex-mode included in Emoacs
+(eval-after-load "tex-mode" '(define-key tex-mode-map " " 'tex-magic-space))
+(eval-after-load "tex-mode" '(define-key tex-mode-map "\C-c " 'tex-toggle-magic-space))
+
+;; Wylaczenie ekranu powitalnego
+(setq inhibit-splash-screen t)

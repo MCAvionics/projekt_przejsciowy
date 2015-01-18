@@ -1,0 +1,621 @@
+\documentclass[12pt,a4paper,twoside,openright,fleqn]{mwrep}
+\usepackage[latin2]{inputenc}
+\usepackage[OT4,plmath]{polski}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+%\usepackage[a4paper,left=3.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[width=16cm,height=25cm]{geometry}
+\usepackage{fancyvrb}
+\usepackage{listings}
+%\usepackage{bold-extra}
+\usepackage[unicode=true]{hyperref}
+\usepackage{color}
+\usepackage{cite}
+
+\pagestyle{uheadings}
+
+% Definicje ustalaj±ce wygl±d wydruków programów
+\definecolor{darkgray}{rgb}{0.95,0.95,0.95}
+\lstset{frame=tb, backgroundcolor=\color{darkgray}}
+\lstset{numbers=left, numberstyle=\tiny, stepnumber=2, numbersep=5pt}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}\bfseries}
+
+
+\hypersetup{
+    pdfpagemode=UseOutlines,   % otwiera dokument w trybie jednej strony
+    pdfpagelayout=SinglePage,  %
+    pdfstartpage=1,            % na podanej stronie
+    bookmarksopen=true,        % rozwiniêcie zak³adek
+    bookmarksopenlevel=1,   % do jakiego poziomu
+    colorlinks=true,   % kolorowanie odno¶ników zamiast ramki wokó³ nich
+    citecolor=cyan,   % kolor odno¶ników do bibliografii, domy¶lnie zielony
+    filecolor=red,   % kolor odno¶ników do lokalnych plików, domy¶nie magenta
+    linkcolor=blue,   % kolor odno¶ników wewnêtrznych, domy¶lnie czerwony
+    menucolor=green,   % kolor pozycji menu Acrobata, domy¶lnie czerwony
+    urlcolor=blue,   % kolor odno¶ników do adresów internetowych, domy¶lnie cyan
+                               % DANE DOKUMENTACJI
+    pdfauthor={Janusz Jakubiak, Robert Muszyñski},
+    pdftitle={Projekt przej¶ciowy --- wzór dokumentacji},
+    pdfsubject={Wykorzystanie LaTeXa do sk³adu dokumentacji projektowej},
+    pdfkeywords={dokumentacja, LaTeX}
+ }
+
+                                   % DEFINICJE W£ASNE
+\newcommand{\dd}{\text{d}}
+\newtheorem{uwaga}{Uwaga}
+\newtheorem{twr}{Twierdzenie}
+
+
+\title{Projekt przej¶ciowy --- wzór dokumentacji}
+\author{Janusz Jakubiak, Robert Muszyñski}
+\date{\today}
+
+
+\begin{document}
+\VerbatimFootnotes
+
+\maketitle
+\tableofcontents
+
+\chapter{Uwagi ogólne}
+
+Niniejszy dokument zosta³ przygotowany w~celu u³atwienia pracy nad
+dokumentacj± opracowywan± w~ramach Projektu przej¶ciowego. Zawarto
+w~nim podstawowe zalecenia dla autorów oraz zwiêz³y opis sposobu
+wykorzystania narzêdzi w~procesie edycji. Podczas opracowywania
+dokumentacji projektu nale¿y stosowaæ siê do umieszczonych poni¿ej
+wskazówek.
+
+\section{Narzêdzia}
+
+Dopuszcza siê jedynie przygotowanie dokumentacji w~systemie sk³adu
+dokumentów tekstowych \LaTeX{} \cite{latex, latex_wiki}. Do
+formatowania tekstu nale¿y korzystaæ wy³±cznie z~rozwi±zañ opisanych
+w~rozdziale~\ref{roz:latex} --- w~przypadku braku potrzebnego uk³adu
+sposób jego przeprowadzenia nale¿y skonsultowaæ z~osobami prowadz±cymi
+przedmiot. Równocze¶nie zabrania siê ,,rêcznego'' formatowania tekstu
+poprzez przemieszczanie jego fragmentów, czy wymuszanie podzia³u,
+poniewa¿ takie postêpowanie utrudni zadanie koñcowego sk³adu ca³ego
+opracowania.
+
+Formatem dokumentu docelowego jest pdf, w~zwi±zku z~czym, do
+kompilacji nale¿y u¿yæ polecenia \verb+pdflatex+. W~celu
+zweryfikowania kompletno¶ci instalacji, po zainstalowaniu
+i~skonfigurowaniu \LaTeX{}a, a~przed rozpoczêciem pracy nad
+dokumentacj±, nale¿y za jego pomoc± skompilowaæ niniejszy dokument.
+Zbie¿no¶æ wygl±du uzyskanego pdfa z~dostarczonym pdfem wzorcowym
+oznacza, ¿e mo¿na przyst±piæ do dalszej pracy\footnote{Nale¿y zadbaæ,
+  by w~trakcie kompilacji nie pojawia³y siê ostrze¿enia
+  o~niezdefiniowanych elementach, wielokrotnie zdefiniowanych
+  etykietach, wystaj±cym na margines tek¶cie czy te¿ ¼le z³o¿onych
+  liniach --- to samo dotyczy przygotowywanej dokumentacji!
+  Ewentualne niepowodzenie procesu kompilacji zapewne jest spowodowane
+niezainstalowaniem w~systemie wykorzystywanych w~tym dokumencie pakietów.}.
+
+\subsection{Narzêdzia pomocnicze}
+
+Przygotowanie dokumentu mo¿e wymagaæ opracowania wykresów, diagramów,
+czy innych elementów graficznych. Nale¿y zadbaæ by w~miarê mo¿liwo¶ci
+by³y one zapisane w~formacie wektorowym (pdf, ps, eps). Przy
+wykorzystaniu elementów rastrowych nale¿y zadbaæ, by by³y one zapisane
+z~wykorzystaniem metod kompresji bezstratnej (png); przy braku takiej
+mo¿liwo¶ci dopuszcza siê wykorzystanie obrazów skompresowanych
+stratnie (jpg), jednak¿e wysokiej jako¶ci.
+
+Do tworzenia grafik wektorowych w~rodzaju diagramów, schematów
+blokowych zaleca siê wykorzystanie programu Inkscape,
+\cite{inkscape,inkscape_wiki}. Grafiki do wykorzystania w~dokumencie
+\LaTeX{}owym powinny zostaæ zapisane w~formacie pdf. Zaleca siê, by
+pliki wektorowe zapisane w~innych formatach przed do³±czeniem zosta³y
+przekszta³cone równie¿ do formatu pdf (narzêdzia \verb+ps2pdf+,
+\verb+epstopdf+).  Obróbki formatów bitmapowych mo¿na dokonywaæ
+z~³atwo¶ci± programem GIMP \cite{gimp,gimp_wiki}.
+
+Poniewa¿ sam \LaTeX{} jest jedynie systemem sk³adu tekstu, do pracy
+z~nim potrzebny jest edytor tekstowy. Wygodnie jest korzystaæ w~tym
+celu z~którego¶ z~edytorów dostosowanych do sk³adni
+\LaTeX{}a\footnote{Ale oczywi¶cie mo¿liwe jest u¿ycie dowolnego
+  edytora tekstu, byle tylko pozwala³ on na zapisywanie plików
+  w~wybranej do pracy stronie kodowej.}. W~przypadku przynajmniej
+podstawowej znajomo¶ci sk³adni \LaTeX{}a na wygodn± pracê pozwoli
+odpowiednio skonfigurowany edytor ogólnego przeznaczenia, jak
+chocia¿by GNU Emacs\footnote{W celu u³atwienia konfiguracji emacsa do
+  tego opisu do³±czony jest przyk³adowy plik konfiguracyjny
+  \verb+emacs_conf+. Jego zawarto¶æ nale¿y dodaæ do lokalnego pliku
+  konfiguracyjnego emacsa (\verb+.emacs+). Zaleca siê równie¿
+  zainstalowanie pakietu \verb+color-theme-solarized+ i~odmarkowanie
+  odpowiednich linii w~dostarczonym pliku konfiguracyjnym. A~przede
+  wszystkim warto zadbaæ, by w~emacsie by³ zainstalowany pakiet
+  AUC\TeX, \cite{auctex}, który definiuje u¿yteczne pozycje w~menu,
+  jak \verb+Preview+, \verb+LaTeX+, czy \verb+Command+, wiele skrótów
+  klawiszowych, a~tak¿e mo¿liwo¶æ czê¶ciowego podgl±du dokumentu
+  bezpo¶rednio w~emacsie.} \cite{emacs, emacs_wiki}. Uwadze
+pocz±tkuj±cych poleca siê edytory w~pe³ni dedykowane \LaTeX{}owi,
+takie jak LEd \cite{led} czy Kile \cite{kile}.
+
+\section{Zawarto¶æ}
+
+Nale¿y zadbaæ by przygotowywana dokumentacja stanowi³a spójn±
+i~kompletn± ca³o¶æ. Powinna ona zawieraæ jedynie informacje dotycz±ce
+meritum podejmowanej tematyki, odwo³uj±c siê do ¼róde³ uzupe³niaj±cych
+je. Jej elementy powinny opisywaæ:
+\begin{itemize}
+\item cel i~przeznaczenie pracy (sformu³owanie problematyki),
+\item w~zwiêz³y sposób wykorzystane narzêdzia i~metodologie,
+\item zastosowane rozwi±zanie,
+\item sposób i~wyniki weryfikacji rozwi±zania (analizy, symulacje,
+  eksperymenty),
+\item wnioski p³yn±ce z~przeprowadzonych prac.
+\end{itemize}
+Czê¶æ dotycz±ca narzêdzi i~metodologii mo¿e zawieraæ opis aktualnego
+stanu wiedzy w~podejmowanej tematyce, a~tak¿e przegl±d dostêpnych
+narzêdzi, znajduj±cych w~niej zastosowanie. Wnioski powinny zarówno
+podsumowywaæ przeprowadzone dzia³ania, jak i~wskazywaæ kierunek
+dalszych prac.
+
+\chapter{Wykorzystanie \LaTeX{}a do sk³adu dokumentacji}
+\label{roz:latex}
+
+\LaTeX jest jêzykiem s³u¿±cym do formatowania dokumentów tekstowych
+(raportów, artyku³ów, ksi±¿ek, plakatów, prezentacji, stron www)
+\cite{latex, latex_wiki, latex_wikibooks, tex_pl, tex}. Nie stanowi on
+samodzielnego ¶rodowiska a~jest jedynie zestawem makr stanowi±cych
+nadbudowê dla systemu sk³adu \TeX{} \cite{tex_wiki}. £agodne
+wprowadzenie do \LaTeX{}a zapewniaj± pozycje
+\cite{lshort2e,lshortpie}.
+
+\section{Preambu³a i~w³asne definicje}
+
+Jako formatki pliku ¼ród³owego przygotowywanej dokumentacji
+(\verb+.tex+) nale¿y u¿yæ pliku ¼ród³owego tego opisu. W~szczególno¶ci
+nie nale¿y modyfikowaæ ¿adnych elementów preambu³y (czê¶æ zawarta
+przed poleceniem \verb+\begin{document}+), poza informacjami o~tytule
+i~autorach opracowania (w tym zawieraj±cych je elementów polecenia
+\verb+\hypersetup+ --- ustalaj±cego w³asno¶ci dokumentu pdf)
+i~sposobie kodowania dokumentu (w dopuszczalnym zakresie --- zobacz
+podrozdzia³~\ref{sec:polskie_znaki}). Dopuszcza siê w~razie potrzeby
+dodanie w³asnych definicji (które nale¿y umie¶ciæ po komentarzu
+\verb+% DEFINICJE W£ASNE+). Wszelkie potrzeby u¿ycia pakietów systemu
+(\verb+usepackage+) poza do³±czonymi w~tym dokumencie nale¿y
+konsultowaæ z~osobami prowadz±cymi przedmiot.
+
+\section{Uk³ad dokumentu}
+
+Opracowywany dokument bêdzie stanowi³ rozdzia³ wiêkszej ca³o¶ci, st±d
+nale¿y go tak traktowaæ co powoduje, ¿e jego tytu³ bêdzie podany jako
+tytu³ rozdzia³u, oznaczony poleceniem \verb+\chapter{tytu³}+.  W~celu
+wskazania uk³adu logicznego tworzonego rozdzia³u nale¿y u¿ywaæ
+nastêpuj±cego zestawu poleceñ:
+\begin{itemize}
+\item \verb+\section{tytu³}+, 
+\item \verb+\subsection{tytu³}+,
+\item \verb+\subsubsection{tytu³}+ 
+\item \verb+\paragraph{tytu³}+,
+\item \verb+\subparagraph{tytu³}+.
+\end{itemize}
+S± to jedyne jednostki logiczne, na które mo¿na podzieliæ
+tekst. W~przypadku d³ugich tytu³ów mo¿na podaæ ich krótsz± wersjê do
+spisu tre¶ci i~nag³ówków (zakoñczon± wielokropkiem i~tak±, by
+zajmowa³a co najwy¿ej jedn± liniê) u¿ywaj±c opcjonalnych argumentów
+wy¿ej wymienionych poleceñ, tj.
+\begin{verbatim}
+  \section[tytu³, który\ldots]{tytu³, który jest d³ugi}
+\end{verbatim}
+
+Przy wyró¿nianiu w~tek¶cie akapitów (o których informuje siê system
+\LaTeX{} pozostawiaj±c w~pliku ¼ród³owym pust± liniê) nale¿y zadbaæ, by
+przypadkowo nie spowodowaæ przej¶cia do nowego akapitu po równaniach,
+wyliczeniach i~im podobnych obiektach, wprowadzaj±c po nich rzeczon±
+pust± liniê. Mo¿e siê ona pojawiæ jedynie wtedy, gdy dany obiekt jest
+ostatnim elementem w~akapicie. I~tak to równianie
+\begin{equation}
+  x^2+y^2=z^2
+\end{equation}
+nie jest ostatnim elementem akapitu, wiêc nastêpuj±ca po nim linia
+z³o¿ona jest bez wciêcia akapitowego, za¶ umieszczone poni¿ej jest
+\begin{equation}
+  x^2+y^2=z^2.
+\end{equation}
+
+A~tu zaczyna siê akapit kolejny, wiêc w~pliku ¼ród³owym poprzedza go
+pusta linia, przez co w~efekcie powy¿sza linia tekstu zaczyna siê od wciêcia
+akapitowego.
+
+\section{Krój i~wielko¶æ pisma}
+
+Zasadniczo, nie nale¿y nadu¿ywaæ w~tek¶cie ró¿nego kroju pisma w~celu
+wyró¿nienia jego fragmentów. Jednak¿e czasami \emph{mo¿na} co¶
+podkre¶liæ poleceniem \verb+\emph{...}+ czy \textbf{mo¿e} nawet
+poleceniem \verb+\textbf{...}+. Do zapisania \texttt{nazw} programów
+mo¿e przydaæ siê jeszcze polecenie \verb+\texttt{...}+ czy te¿
+\verb+\verb+. \textsc{Jednak¿e} \texttt{stosowanie} \textmd{zbyt}
+\textup{wielu} \textsl{wyró¿nieñ} \emph{zdecydowanie}
+\textnormal{zmniejszy} \textsf{czytelno¶æ} \textbf{wprowadzanego}
+\textit{w ten} \textrm{sposób} tekstu. Podobnie samowolne ró¿nicowanie
+wielko¶ci czcionki (od {\tiny\verb+\tiny+}, poprzez
+{\scriptsize\verb+\scriptsize+},
+{\footnotesize\verb+\footnotesize+},
+{\small\verb+\small+},
+{\normalsize\verb+\normalsize+},
+{\large\verb+\large+},
+{\Large\verb+\Large+},
+{\LARGE\verb+\LARGE+},
+{\huge\verb+\huge+},
+a¿ po {\Huge\verb+\Huge+)} jest zabronione.
+
+\subsection{Polskie znaki diakrytyczne}
+\label{sec:polskie_znaki}
+
+Dokonanie sk³adu w~jêzyku polskim wymaga ustalenia sposobu kodowania
+polskich znaków diakrytycznych oraz wyboru odpowiednich regu³
+formatowania (w tym w³a¶ciwych czcionek). Do tego celu s³u¿± pakiety
+\verb+inputenc+ oraz \verb+polski+. Pierwszy z~nich wymaga podania
+opcji okre¶laj±cej stosowan± stronê kodow±. I~tak polecenia
+\begin{verbatim}
+\usepackage[latin2]{inputenc}
+\usepackage[cp1250]{inputenc}
+\end{verbatim}
+pozwalaj± odpowiednio na zapisywanie znaków zgodnie ze standardem
+kodowania \texttt{ISO 8859-2} (\texttt{Latin-2}) oraz
+\texttt{Windows-1250} (\texttt{CP-1250}). Dopuszczalne s± jedynie
+powy¿ej wymienione kodowania, preferowane jest za¶ kodowanie
+\texttt{Latin-2}.
+
+Dodatkowo, podczas sk³adu tekstu nale¿y zadbaæ, by w~\LaTeX{}u by³y
+w³±czone polskie wzorce przenoszenia wyrazów (hyphenation). Je¶li
+jaki¶ wyraz nie jest dzielony przez \LaTeX{}a poprawnie, mo¿na zadaæ
+jego podzia³ zaznaczaj±c wszystkie mo¿liwe miejsca jego podzia³u
+sekwencj± \verb+\-+, np.\ wpisuj±c go w~postaci
+\verb+za\-z\-na\-cza\j±c+.
+
+
+\section{¦rodowiska}
+
+Jednym ze sposobów formatowania tekstu jest stosowanie ¶rodowisk,
+zwanych te¿ otoczeniami. Ka¿dorazowo ¶rodowisko rozpoczyna siê
+poleceniem \verb+\begin{nazwa}+ i~koñczy poleceniem
+\verb+\end{nazwa}+. ¦rodowiska mog± byæ zagnie¿d¿ane, jednak nie mog±
+siê ,,przeplataæ''.
+
+\subsection{¦rodowiska wyliczeniowe}
+
+W~przypadku zaistnienia potrzeby wyliczania zestawu elementów nale¿y
+stosowaæ otoczenie \verb+\begin{itemize}...\end{itemize}+. W~tek¶cie
+objawi siê ono jako
+\begin{itemize}
+\item element pierwszy,
+\item element drugi,
+\item oraz kolejny.
+\end{itemize}
+Je¶li wymagane jest ponumerowanie kolejnych pozycji, wówczas w~sukrus
+przychodzi otoczenie \verb+\begin{enumerate}...\end{enumerate}+, które daje
+\begin{enumerate}
+\item element pierwszy,
+\item element drugi,
+\item oraz kolejny.
+\end{enumerate}
+Do opisu elementów nale¿y u¿yæ otoczenia
+\verb+\begin{description}...\end{description}+:
+\begin{description}
+\item[twierdzenie] --- rzecz o~zasadniczym znaczeniu, które pojawia
+  siê zawsze wtedy, gdy istnieje potrzeba wypowiedzenia\ldots
+\item[lemat] --- twierdzenie pomocnicze, które\ldots
+\item [definicja] --- a~to przyjmujemy na wiarê.
+\end{description}
+
+Przy zagnie¿d¿eniu tych ¶rodowisk dostaniemy przyk³adowo:
+\begin{itemize}
+\item element pierwszy,
+  \begin{itemize}
+  \item element pierwszy,
+  \item element drugi,
+  \end{itemize}
+\item element drugi,
+  \begin{enumerate}
+  \item element pierwszy,
+  \item element drugi,
+  \end{enumerate}
+\item oraz kolejny.
+\end{itemize}
+Nale¿y tu jednak zachowaæ umiar i~zdrowy rozs±dek.
+
+
+\subsection{¦rodowiska do wyró¿nieñ}
+
+Otoczenie \verb+quote+ nadaje siê do sk³adania d³u¿szych cytatów oraz
+przyk³adów. I~tak, je¿eli chodzi o~dlugo¶æ wierszy to regu³±
+kciuka jest, ¿e:
+\begin{quote}
+Przeciêtnie wiersz nie powinien zawieraæ wiêcej ni¿ 66 znaków.
+Dlatego w~{\LaTeX}u standardowe strony maj± szerokie marginesy.
+\end{quote}
+Dlatego te¿ w~gazetach stosuje siê druk wielo³amowy. 
+
+Istniej± ponadto dwa otoczenia o podobnym zastosowaniu:
+\verb+quotation+ i~\verb+verse+. Przy wyró¿nieniach d³u¿szych ni¿
+jeden akapit nale¿y zastosowaæ ¶rodowisko \verb+quotation+, za¶
+\verb+verse+ zapewne w~opracowywanych tu dokumentach nie znajdzie
+zastosowania.
+
+Do wyró¿nieñ mo¿na te¿ definiowaæ w³asne ¶rodowiska poleceniem
+\verb+\newtheorem+ (w preambule dokumentu). W~tym dokumencie dla
+przyk³adu utworzono dwa takie ¶rodowiska: \verb+uwaga+ oraz
+\verb+twr+, które objawiaj± siê jak poni¿ej i~pozwalaj± na odwo³ywanie
+siê do nich poprzez odsy³acze (zobacz podrozdzia³~\ref{odsylacze}).
+
+\begin{uwaga}
+  Samo wykorzystanie systemu sk³adu tekstu \LaTeX{} nie zapewni
+  profesjonalnego wygl±du sk³adanego tekstu.
+\end{uwaga}
+
+\begin{twr}
+  Jednak¿e odrobina wysi³ku i~przestrzeganie podstawowych regu³
+  pozwoli na uzyskanie takiego efektu.
+\end{twr}
+
+\subsection{Wydruki programów}
+
+Wszelkie przywo³ania programów i~ich wiêkszych fragmentów nale¿y
+umieszczaæ w~otoczeniu \verb+lstlisting+, z~uprzednim wskazaniem
+jêzyka w~jakim zosta³y napisane (polecenie
+\verb+\lstset{language=...}+ \cite{listings,listings_wiki}.
+\lstset{language=C++}
+\begin{lstlisting}
+for(i = 0; i < 10; i++){
+  // zwiêksz warto¶æ wska¼nika
+  *p++ = i;
+  House h = new house();
+  int romms = h.getRooms():
+}
+\end{lstlisting}
+Mo¿liwe jest do³±czeniu programu z~zewnêtrznego pliku poleceniem
+\verb+\lstinputlisting+. W~obu przypadkach mog± one byæ automatycznie
+numerowane i~posiadaæ tytu³ (tak jak rysunki).  
+\lstset{language=C}
+\lstinputlisting[caption=Przyk³adowy program w~C,
+  label=lst:dzialania]{dzialanie.c} 
+
+W~razie potrzeby przedstawienia ma³ych fragmentów programu
+bezpo¶rednio w~liniach tekstu nale¿y siê pos³u¿yæ poleceniem
+\verb+\lstinline+\footnote{sposób u¿ycia jak polecenia \verb+\verb+},
+co da przyk³adowo efekt w~postaci \lstinline|for(i = 0; i < 10; i++)|.
+  Gdy ¶rodowisko \verb+lstlisting+ nie obs³uguje wykorzystanego
+ jêzyka, i~¿aden z~jêzyków dostêpnych w~nim nie nadaje siê do
+ wykorzystania, mo¿na pos³u¿yæ siê w~zastêpstwie ¶rodowiskiem
+ \verb+Verbatim+\footnote{nie myliæ z~\verb+verbatim+}.
+\begin{Verbatim}[frame=lines]
+for(i = 0; i < 10; i++){
+  // zwiêksz warto¶æ wska¼nika
+  *p++ = i;
+  House h = new house();
+  int romms = h.getRooms():
+}
+\end{Verbatim}
+
+\subsection{Wyra¿enia matematyczne}
+
+Wszelkie wystêpuj±ce w~dokumencie wyra¿enia matematyczne mog± pojawiaæ
+siê bezpo¶rednio w~tek¶cie (jak równanie $x^2+bx+c=0$ podane tu dla
+przyk³adu ze zmienn± niezale¿n± $x$), i~wtedy s± oznaczone za pomoc±
+pary znaków \verb+$$+, lub zostaæ wystawione. Wtedy równanie takie
+\begin{equation}
+\label{rown1}
+x^2+bx+c=0,
+\end{equation}
+gdzie $x$ jest zmienn± niezale¿n±, mo¿e mieæ automatycznie nadany
+numer, lub nie
+\begin{equation*}
+  x^2+bx+c=0.
+\end{equation*}
+Istnieje wiele ró¿nych otoczeñ pozwalaj±cych na definiowanie
+wystawionych wyra¿eñ matematycznych, jednak¿e w~tej pracy zaleca siê
+stosowanie dwóch z~nich: \verb+equation+ do sk³adu równañ wystawionych
+zajmuj±cych pojedyncz± liniê oraz \verb+multline+ do sk³adu równañ
+wieloliniowych (miejsce ³amania równania nale¿y zaznaczaæ rêcznie przy
+ u¿yciu dwuznaku~\verb+\\+). Oba ¶rodowiska maj± wersjê z~gwiazdk±
+ (bez numeru). Konstrukcje przydatne przy definiowaniu równañ zawiera
+ poni¿szy przyk³ad:
+\begin{multline}
+  \begin{pmatrix}
+    \dot{x}\\
+    \ddot{\varphi}\\
+    \tilde{\alpha}
+  \end{pmatrix}=
+  \left(
+  \frac{\hat{Q}(\ddot{q},\dot{q})+J(q)J^T(q)}{2}
+  \right)
+  \begin{bmatrix}
+    \sin^3(x) & \cos(\xi)\\
+    J^{-1}(\theta) & \bar{\xi}\\
+    \pi & e^{-\i\phi}
+  \end{bmatrix}
+  \begin{pmatrix}
+    a_{11} \\ a_{12}
+  \end{pmatrix}+\\+
+  \int_{-1}^t \exp\{\frac{x^2}{\sigma^2}\} \dd t\sum_{-\infty}^\infty
+    \bar{a}\times\bar{b}+\prod_{i=1}^nA_{i-1}^i
+    \begin{pmatrix}
+      {\varepsilon_{11}}_d-{\varepsilon_{11}}\\
+      {\varepsilon_{12}}_d-{\varepsilon_{12}}\\
+      {\varepsilon_{13}}_d-{\varepsilon_{13}}\\
+    \end{pmatrix}.
+\end{multline}
+
+
+
+Do równania~(\ref{rown1}) mo¿na siê odwo³aæ w~tek¶cie za pomoc±
+odsy³aczy (zobacz podrozdzia³~\ref{odsylacze}). Proszê zwróciæ uwagê
+na fakt, ¿e równania s± normalnymi elementami zapisywanych zdañ,
+obowi±zuj± wiêc zwyczajowe zasady interpunkcji i~je¶li równanie koñczy
+zdanie, musi siê po nim znale¼æ kropka.
+
+\section{Obiekty p³ywaj±ce}
+
+Zazwyczaj w~dokumentach znajduj± siê elementy, o~po³o¿eniu których
+decyduje system sk³adu z~uwzglêdnieniem ewentualnych sugestii
+autora. Elementy takie nazywane s± obiektami p³ywaj±cymi i~typowo
+stanowi± je umieszczane w~tek¶cie rysunki i~tabele\footnote{Istnieje
+  wiele opinii na temat sposobu umieszczania obiektów p³ywaj±cych
+  w~tek¶cie: u~góry strony, na dole, na oddzielnych stronach, po
+  prostu w~tek¶cie, wy¶rodkowane, dosuniête do lewej, z~podpisem na
+  dole, u~góry. Tutaj bêdziemy umieszczali je u~góry strony lub na
+  oddzielnych stronach. Okre¶laj± to opcje podane do otoczeñ, tutaj
+  \verb+[tp]+.}. Najczê¶ciej posiadaj± one w³asny tytu³ i~opatrzone s±
+numerem, który pozwala na odwo³ywanie siê do nich. Bezwzglêdnie nale¿y
+przestrzegaæ zasady, by w~tek¶cie dokumentu znalaz³y siê odwo³ania do
+wszystkich obiektów p³ywaj±cych. Je¶li w~pracy znajduje siê rysunek,
+do którego nie odnosimy siê w~tek¶cie, to taki rysunek nale¿y z~niej
+usun±æ!
+
+\LaTeX{} standardowo dostarcza dwóch rodzajów ¶rodowisk p³ywaj±cych:
+\verb+figure+ i~\verb+table+. W~zasadzie pierwsze z~nich przeznaczone
+jest do umieszczania rysunków, drugie za¶ tabel, aczkolwiek pozwalaj±
+one na umieszczanie w~nich dowolnych elementów. I~tak rysunek~\ref{rys:p1}
+zawiera rysunek, za¶ rysunek~\ref{rys:p2} zawiera po prostu tekst.
+\begin{figure}[tp]
+\centering
+  \includegraphics[width=0.6\textwidth]{logopwrpl}
+  \caption{Przyk³ad u¿ycia otoczenia \texttt{figure}}
+  \label{rys:p1}  
+\end{figure}%   <- by unikn±æ w~tek¶cie wynikowym ewentualnej podwójnej spacji 
+\begin{figure}[tp]
+\centering
+  \fbox{\Large Bo trzeba to wyra¼nie napisaæ!}
+  \caption{Rysunek nie zawieraj±cy rysunku}
+  \label{rys:p2}  
+\end{figure}
+Przyk³adem wykorzystania drugiego rodzaju otoczenia jest
+tabela~\ref{tab:p1}, zawieraj±ca tabelê zdefiniowan± przy u¿yciu
+otoczenia \verb+tabular+.
+\begin{table}[tp]
+  \caption{Przyk³ad u¿ycia otoczenia \texttt{table}}
+  \label{tab:p1}
+  \centering
+  \begin{tabular}{||c|c|c||}
+    \hline\hline
+{\bf kolumna 1} & {\bf kolumna 2} & {\bf kolumna 3} \\\hline\hline
+1 & 345 & 711 \\
+2 & 543 & 171 \\
+3 & 435 & 117 \\\hline\hline
+  \end{tabular}
+\end{table}
+W~przypadku obu otoczeñ, by \LaTeX{} w~sposób poprawny umieszcza³ je na
+stronie, nale¿y definiowaæ je mo¿liwie blisko miejsca pierwszego
+odwo³ania, najlepiej zaraz po zdaniu, które to odwo³anie zawiera, tak
+jak to zrobiono tutaj\footnote{dbaj±c o~to, by w~ten sposób
+  przypadkowo nie rozpocz±æ nowego akapitu wskutek pozostawienia
+  pustych linii przed lub po definiowanym obiekcie}.
+
+Tytu³y rysunków nale¿y umieszczaæ pod nimi, podpisy tabel i~listingów
+--- nad.  Nale¿y tak¿e pamiêtaæ, ¿e zgodnie z~polskimi regu³ami sk³adu
+tekstów na koñcu podpisu rysunku, tabeli, wydruku programu nie
+umieszczamy kropki.
+
+\section{Odsy³acze}
+\label{odsylacze}
+
+Z~pewno¶ci± w~tek¶cie dokumentacji pojawi siê konieczno¶æ odwo³ania do
+ umieszczanych w~niej rysunków, tabel, czy innych fragmentów tekstu.
+  Wszystkie miejsca do których siê odwo³ujemy musz± zostaæ oznaczone
+ przy u¿yciu polecenia \verb+\label{etykieta}+, a~odwo³ania do nich
+ realizowane ka¿dorazowo przy u¿yciu polecenia \verb+\ref{etykieta}+
+ (przyk³adowo by go dokonaæ nale¿y napisaæ:
+ \verb+jak wspomniano w~rozdziale~\ref{rozdz6}+,
+ \verb+Rysunek~\ref{schemat} zawiera...+\footnote{Je¶li etykieta
+ zosta³a umieszczona wewn±trz rysunku bêdzie ona przechowywa³a numer
+ rysunku, je¶li wewn±trz rozdzia³u --- numer rozdzia³u, za¶ je¶li
+ wewn±trz równania otrzyma numer tego¿.}). W~celu odniesienia siê do
+ strony na której umieszczono etykietê nale¿ pos³u¿yæ siê poleceniem
+ \verb+\pageref{etykieta}+. W~celu unikniêcia problemów w~trakcie
+ sk³adu koñcowego dokumentu z~powtarzaj±cymi siê etykietami, zaleca
+ siê, by rozpoczyna³y siê one inicja³ami autora\footnote{oczywi¶cie po
+   ustaleniu czy s± one unikalne w~ramach ca³ej grupy}.
+
+\section{Bibliografia}
+
+Wszystkie pozycje umieszczone w~bibliografii musz± byæ w~dokumencie
+zacytowane. Wykorzystanie mechanizmu dostarczanego przez narzêdzie
+Bib\TeX{} zapewni taki stan. Analogicznie, je¶li fragment tekstu jest
+sk±d¶ zaczerpniêty, lub stanowi streszczenie jakiego¶ dzie³a
+(artyku³u, raportu, fragmentu ksi±¿ki itp.), musi po nim bezwzglêdnie
+znale¼æ siê odwo³anie do ¼ród³a. Tak¿e w~przypadku przywo³ywania
+metod, algorytmów, wyników badañ, eksperymentów nale¿y podaæ ¼ród³o
+ich pochodzenia w~postaci cytowania.
+
+
+Pozycje cytowanej literatury powinny byæ umieszczone w~pliku
+z~rozszerzeniem \verb+bib+ w~formacie zgodnym z~formatem przyk³adowego
+pliku \verb+bibliografia.bib+ i~cytowane w~tek¶cie za pomoc± polecenia
+\verb+\cite+ z~podaniem odpowiedniego klucza. W~przypadku cytowania
+wiêkszej liczby pozycji w~jednym miejscu, wszystkie odpowiadaj±ce im
+klucze powinny byæ umieszczone wewn±trz pojedynczego polecenia
+\verb+\cite+ i~oddzielone od siebie przecinkami
+(\verb+\cite{klucz1, klucz2, klucz3}+).
+
+Plik \verb+bibliografia.bib+ zawiera przyk³ady typowych pozycji
+wystêpuj±cych w~cytowaniach (ksi±¿ka --- \verb+Book+, artyku³
+w~czasopi¶mie --- \verb+Article+, referat konferencyjny ---
+\verb+InProceedings+, dokumentacja techniczna --- \verb+TechReport+,
+praca magisterska i~doktorska --- \verb+MastersThesis+,
+\verb+PhdThesis+, oraz strona www, tutaj umieszczana jako
+\verb+Misc+\footnote{Edytor emacs po wczytaniu pliku bibliografii
+  wchodzi w~odpowiedni tryb edycji dostarczaj±c m.in.\ dodatkowych
+  pozycji menu Entry-Types i~BibTeX-Edit znacznie u³atwiaj±cych edycjê
+  i~wiele wie o~formacie tego pliku.}) \cite{Kismet, Li2011, Samuel,
+  Aibo04, juszk11, Mertz, emacs}. Warto zauwa¿yæ, ¿e odwo³ania do
+stron www zostaj± umieszczone wewn±trz komendy \verb+\url+. Nale¿y
+jeszcze dodaæ, ¿e w~zakresach stron zawsze u¿ywamy pó³pauzy
+(\verb+--+), za¶ je¶li chcemy by jaki¶ element by³ pozostawiany przez
+Bib\TeX{}a bez zmian (np.\ nazwa w³asna zapisana z~du¿ej litery
+w~¶rodku zdania, lub wrêcz du¿ymi literami) to nale¿y go obj±æ
+dodatkow± par± nawiasów klamrowych.
+
+W~celu utworzenia bibliografii, po zacytowaniu pozycji nale¿y
+uruchomiæ polecenie \verb+pdflatex+, kolejno \verb+bibtex+ (w³a¶ciwe
+utworzenia bibliografii) i~w~koñcu dwukrotnie polecnie \verb+pdflatex+
+(jej do³±czenie do pliku wynikowego).
+
+\section{Drobiazgi}
+\label{sec:drobiazgi}
+
+Dobrze jest zadbaæ by po jednoliterowych spójnikach, przyimkach i~im
+podobnych umieszczana by³a twarda spacja, oznaczana w~\LaTeX{}u
+znakiem tyldy (np.\ \verb+i~podobnych+). Tak samo po³±czone
+z~poprzedzaj±cym s³owem powinny byæ numery rozdzia³ów, rysunków
+itp.\ (przyk³adowo \verb+jak wskazano w~rozdziale~\ref{sec:drobiazgi}+,
+co wyprodukuje tekst: jak wskazano w~rozdziale~\ref{sec:drobiazgi}).
+Emacs potrafi dodawaæ wiêkszo¶æ tak wymaganych twardych spacji
+w~sposób automatyczny w~trakcie wpisywania tekstu.
+
+Proszê zwróciæ uwagê na to, ¿e w~\LaTeX{}u funkcjonuj± 4 ró¿ne
+,,poziome kreski'', a~mianowicie ,,-'', ,,--'', ,,---'', oraz
+,,$-$''. Pierwsza z~nich to ³±cznik, druga to pó³pauza, kolejna ---
+my¶lnik, i~w~koñcu ostatnia, znak minusa. Uzyskujemy je zapisuj±c
+odpowiednio \verb+-+\footnote{w spolonizowanym \LaTeX{}u tak¿e jako
+  \verb+/dywiz+}, \verb+--+, \verb+---+ i \verb+-+ w~otoczeniu
+matematycznym. O~zasadach u¿ycia mo¿na poczytaæ w~,,Nie za krótkim
+wprowadzeniu...'' \cite{lshort2e}.
+
+%% W~trakcie sk³adu dobrze jest, by \LaTeX{} ,,wiedzia³'' gdzie koñcz± siê
+%% zdania. A~poniewa¿ nie ka¿da kropka koñczy zdanie, nale¿y wszelkie
+%% kropki nie koñcz±ce zdania oznaczaæ znakiem uko¶nika~\verb+\+
+%% (przyk³adowo
+%% \verb+gdy np.\ nale¿y np. napisaæ na przyk³ad+\footnote{Oczywi¶cie
+%%   kropka po drugim np.\ te¿ powinno zostaæ oznaczone uko¶nikiem -- tu
+%%   tego nie uczyniono by pokazaæ jaka jest ró¿nica w~efekcie koñcowym
+%%   i~by pojawi³ siê pretekst to zrobienia przypisu, które to w³a¶nie
+%%   nale¿y robiæ w~ten sposób --- bez spacji po wyrazie za którym on
+%%   wystêpuje i~przed ewentualnym znakiem interpunkcyjnym. Je¶li przypis
+%%   stanowi samodzielne zdanie (zdania) koñczymy go kropk±. W~przeciwnym
+%%   razie pozostawiamy bez.}, co objawi siê tekstem: gdy np.\ nale¿y
+%% np. napisaæ na przyk³ad\footnote{Tu pewnie ¿adna, bo tradycyjnie
+%%   w~kontynentalnej Europie nie wyró¿nia siê zdañ np.\ przez wiêkszy
+%%   odstêp miêdzy nimi.}).
+
+Wielokropek za¶ zapisujemy jako \ldots (\verb+\ldots+).
+
+\bibliographystyle{plabbrv}
+\bibliography{bibliografia}
+
+\end{document}

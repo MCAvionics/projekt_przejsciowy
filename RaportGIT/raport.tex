@@ -1,0 +1,374 @@
+\documentclass[12pt,a4paper,twoside,openright,fleqn]{mwrep}
+%\documentclass[12pt,a4paper,twoside,openright,fleqn]{memoir}
+
+% przebudowanie z fontami - gubi initial view i metadane
+%  poprawka - sprawdzic skrypt
+%   http://www.capca.ucalgary.ca/~wdobler/utils/compress-newsletter
+% wersja kompaktowa: /ebook lub /printer
+% gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress -dSubsetFonts=true -dEmbedAllFonts=true -dNOPAUSE -dQUIET -dBATCH -sOutputFile=/tmp/r.pdf raport.pdf
+
+% poprawka z pdfmark (na razie tylko initialview
+% gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress -dNOPAUSE -dQUIET -dBATCH -sOutputFile=/tmp/raport_pp2012.pdf raport.pdf -c "[ /PageMode /UseOutlines /DOCVIEW pdfmark"
+
+\usepackage[latin2]{inputenc}
+\usepackage[OT4,plmath]{polski}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+%\usepackage[a4paper,left=3.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[width=16cm,height=25cm]{geometry}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\renewcommand*{\lstlistingname}{Wydruk}
+%\usepackage{bold-extra}
+\usepackage[unicode=true]{hyperref}
+\usepackage{color}
+\usepackage{cite}
+%poprawka do mwcls by odsylacze dzialaly dobrze w pdf
+%patrz: http://www.man.torun.pl/archives/arc/gust-l/2009-08/msg00024.html
+%\usepackage{gmutils}
+
+% dodatkowe pakiety
+%\usepackage{pdfpages}
+%\usepackage{subfigure}
+
+%Od Tomka Kubika
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+%\definecolor{nicered}{rgb}{.647,.129,.149}
+\definecolor{nicered}{rgb}{.0,.0,.0}
+
+\definecolor{pwrdark}{RGB}{154,52,45}
+\definecolor{ekadark}{RGB}{153,0,31}
+
+\pagestyle{uheadings}
+
+
+%\usepackage[sectionbib]{chapterbib}  %niestety nie dzia³a w klasie mwrep 
+                                      %nie ma b³êdu przy klasie memoir!
+\usepackage{chapterbib}
+
+\graphicspath{{./part1/chap01/},{./part1/chap02/},{./part1/chap03/},{./part1/chap04/},{./part1/chap05/},{./part1/chap06/},{./part1/chap07/grafika/},{./part1/chap08/},{./part1/chap09/},{./part2/chap01/},{./part2/chap02/},{./part2/chap03/},{./part2/chap04/},{./part2/chap05/}}
+
+% Definicje ustalaj±ce wygl±d wydruków programów
+\definecolor{darkgray}{rgb}{0.95,0.95,0.95}
+\lstset{frame=tb, backgroundcolor=\color{darkgray}}
+\lstset{numbers=left, numberstyle=\tiny, stepnumber=2, numbersep=5pt}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}\bfseries}
+
+
+%%% Strona tytu³owa
+\newcommand*{\titleTH}{\begingroup% T&H Typography
+\raggedleft
+%\includegraphics[width=\textwidth]{logopwrpl}\\
+\vspace*{6cm}
+{{\fontsize{28}{28}\selectfont 	\bf \mbox{QUADROCOPTER}}}\\[\baselineskip]
+%{{\fontsize{28}{28}\selectfont 	\bf QUADROTORA}}\\[1.5\baselineskip]
+{{\fontsize{24}{24}\selectfont 	(sterowanie, stabilizacja, autopilot)}}\\[2cm]
+%{\textcolor{nicered}{\fontsize{28}{28}\fontfamily{put}\bfseries\selectfont 	ROBOTYKI}}\\[2cm]
+{\fontsize{18}{18}\selectfont \it Projekt przej¶ciowy 2014/15}\\[0.5\baselineskip]
+{\fontsize{18}{18}\selectfont \it specjalno¶ci Robotyka}\\[0.5\baselineskip]
+{\fontsize{18}{18}\selectfont \it na Wydziale Elektroniki}\\
+\vfill
+{\Large Politechnika Wroc³awska 2014}\par
+\vspace*{3\baselineskip}
+\endgroup}
+
+%%% Strona redakcyjna
+\newcommand*{\titleStopka}{\begingroup% T&H Typography
+%\flushleft
+\vspace*{1cm}\noindent
+{\small Autorzy}\\[4pt]
+ {\small\it Marcin Ciopcia \\ Micha³ Drwiêga\\ Daniel Gut\\ Alicja Jurasik\\ Agata Le¶\\ Kacper Nowosad \\Piotr Semberecki\\ Hanna Sienkiewicz \\Mateusz Stachowski\\ Pawe³ Urbaniak \\Krzysztof Zawada}\\[\baselineskip]
+\noindent{\small Sk³ad raportu wykonano w systemie  \LaTeX}
+
+\vfill
+\includegraphics[width=3cm]{by-nc-sa}\\
+\noindent
+{\footnotesize Praca udostêpniana na licencji Creative Commons: \emph{Uznanie autorstwa-U¿ycie niekomercyjne-Na tych samych warunkach 3.0}, Wroc³aw 2014. Pewne prawa zastrze¿one na rzecz Autorów. Zezwala siê na niekomercyjne wykorzystanie tre¶ci pod warunkiem wskazania Autorów jako w³a¶cicieli praw do tekstu oraz zachowania niniejszej informacji licencyjnej tak d³ugo, jak tylko na utwory zale¿ne bêdzie udzielana taka sama licencja. Tekst licencji dostêpny na stronie: \url{http://creativecommons.org/licenses/by-nc-sa/3.0/pl/}}\\[10pt]
+
+\endgroup}
+
+
+
+
+\hypersetup{
+    pdfpagemode=UseOutlines,   % otwiera dokument w trybie jednej strony
+    pdfpagelayout=SinglePage,  %
+    pdfstartpage=1,            % na podanej stronie
+    bookmarksopen=true,        % rozwiniêcie zak³adek
+    bookmarksopenlevel=0,   % do jakiego poziomu
+    colorlinks=true,   % kolorowanie odno¶ników zamiast ramki wokó³ nich
+    citecolor=ekadark,   % kolor odno¶ników do bibliografii, domy¶lnie zielony % bylo cyan
+    filecolor=red,   % kolor odno¶ników do lokalnych plików, domy¶nie magenta
+    linkcolor=ekadark,   % kolor odno¶ników wewnêtrznych, domy¶lnie czerwony %bylo blue
+    menucolor=green,   % kolor pozycji menu Acrobata, domy¶lnie czerwony
+    urlcolor=ekadark,   % kolor odno¶ników do adresów internetowych, domy¶lnie cyan %bylo blue
+                               % DANE DOKUMENTACJI
+    pdfauthor={Praca zbiorowa},
+    pdftitle={},
+    pdfsubject={Projekt przej¶ciowy 2014/15 specjalno¶ci Robotyka na Wydziale Elektroniki Politechniki Wroc³awskiej},
+    pdfkeywords={narzêdzia komputerowe, modelowanie, sterowanie, quadrotor}
+ }
+
+
+                                   % DEFINICJE W£ASNE
+\newcommand{\dd}{\text{d}}
+\newtheorem{uwaga}{Uwaga}
+\newtheorem{twr}{Twierdzenie}
+
+\newcommand{\MATLAB}{{\sc Matlab}}
+
+\title{Projekt przej¶ciowy --- ca³o¶æ}
+\author{}
+\date{\today}
+
+%% Ustawienia prawej strony spisu tre¶ci i kropek http://42.pl/tex/latex2e/spisy/spis.html
+\makeatletter
+\renewcommand{\@tocrmarg}{9em minus 0em}
+%\newcommand{\@pnumwidth}{1.55em}
+%\newcommand{\@dotsep}{4.5}
+\makeatother
+% oraz odstêpu po numerze rozdzia³u
+\SetTOCIndents{{}%
+{11.\enspace}%
+{9.10.\enspace}%
+{9.9.10.\enspace}%
+{9.9.9.10\enspace}%
+{\quad}%
+{\quad}}
+
+\newcommand{\nohyphens}{\hyphenpenalty=10000\exhyphenpenalty=10000\relax}
+
+\newcommand{\chapauthor}[1]{\vspace{-6mm}
+\noindent
+{\mbox{}\hfill\it\large #1}
+\vspace{3mm}}
+
+
+%\includeonly{part1/chap02/maina,part1/chap02/mainb}
+%\includeonly{part2/chap05/main}
+%\includeonly{part1/chap08/main}
+%\includeonly{wstep}
+
+\begin{document}
+\VerbatimFootnotes
+
+
+%\maketitle
+
+\thispagestyle{empty} \titleTH \clearpage
+\thispagestyle{empty} \titleStopka \clearpage
+{
+\nohyphens
+\tableofcontents
+}
+\bibliographystyle{plabbrv}
+
+
+
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\part{Wstêp}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Wstêp, Piotrek}
+\input{part0/chap00/0_wstep}
+%--------------------------------------------------------------------------------------------------------
+	\section{Quadrocopter, Krzysiek}
+	\input{part0/chap00/1_quadro}
+		\subsection{W³asno¶ci obiektu, Daniel}
+		\input{part0/chap00/2_wlasn_obiektu}
+%--------------------------------------------------------------------------------------------------------
+	\section{Dostêpne rozwi±zania, Kacper}
+	\input{part0/chap00/3_dostep_rozw}
+%--------------------------------------------------------------------------------------------------------
+	\section{Cel pracy, Hania}
+	\input{part0/chap00/4_cel_pracy}
+
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\part{Zadania}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\chapter{Stabilizacja w punkcie - przygotowania, Daniel}
+\input{part1/chap01/0_wstep}
+%--------------------------------------------------------------------------------------------------------
+	\section{Interfejs do istniej±cego oprogramowania i sprzêtu, Kacper}
+	\input{part1/chap01/9_interfejs}
+		\subsection{Flying Machine Arena, Micha³ }
+		\input{part1/chap01/10_FlyMachA} 
+		\subsection{Rozpoznanie protoko³u quadrocoptera, Daniel}
+		\input{part1/chap01/11_rozpozn_protok} 
+			\subsubsection{Przygotowanie specyfikacji interfejsu, Piotr}
+			\input{part1/chap01/13_przygoto_specyf} 
+			\subsubsection{Wybór interfejsu,  Piotr}
+			\input{part1/chap01/14_wybor_interf}
+		\subsection{Rozpoznanie mo¿liwo¶ci platformy, Daniel} 
+
+%--------------------------------------------------------------------------------------------------------
+\clearpage
+	\section{Zdalne debagowanie, Krzysiek}
+	\input{part1/chap01/21_debagownaie} 
+		\subsection{Dostêpne rozwi±zania, Mateusz}
+		\input{part1/chap01/22_dost_rozw}
+			\subsubsection{Ground Station, Mateusz} 
+			\input{part1/chap01/23_ground_station}
+		\subsection{Link radiowy, Mateusz}
+		\input{part1/chap01/24_link_rad}
+		\subsection{Przegl±d rozwi±zañ FPV, Krzysiek}
+		\input{part1/chap01/25_przeglad_rozw_FPV}
+
+%--------------------------------------------------------------------------------------------------------
+	\section{Czujniki odleg³o¶ci, Alicja}
+	\input{part1/chap01/1_cz_odl_wstep}
+		\subsection{Dobór czujników odleg³o¶ci, Hania}
+		\input{part1/chap01/2_dobor_cz_odleg}
+			\subsubsection{Specyfikacja potrzeb, Hania}
+			\input{part1/chap01/3_specyf_pot}	
+			\subsubsection{Dostêpne rozwi±zania, Alicja}
+			\input{part1/chap01/4_dostep_rozw}
+			\subsubsection{Dobór czujników, Hania}
+			\input{part1/chap01/5_dobor_cz}
+		\subsection{Rozmieszczenie czujników odleg³o¶ci, Pawe³}
+		\input{part1/chap01/6_rozm_cz}
+			\subsubsection{Przegl±d rozwi±zañ, Pawe³}
+			\input{part1/chap01/7_przeglad_rozw}
+			\subsubsection{Propozycja rozmieszczenia, Pawe³}
+			\input{part1/chap01/8_prop_rozm}		
+%--------------------------------------------------------------------------------------------------------
+	\section{Algorytmy rozpoznawania przesuniêcia, Kacper}
+		\input{part1/chap01/27_alg_rozp_przes}
+			\subsection{Algorytm Lucas---Kanade, Piotrek}
+			\input{part1/chap01/27a_LK}
+			\subsection{Zmodyfikowany PTAM, Kacper}
+			 \input{part1/chap01/27b_PTAM}
+			 \subsection{Algorytm SVO, Hania}
+			 \input{part1/chap01/27c_SVO}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Stabilizacja w punkcie - realizacja, Krzysiek}
+\input{part1/chap02/0_wstep}
+	
+	\section{Ahsokam Marcin}
+	%	\subsection{Monta¿ p³yty g³ównej}
+	%	\subsection{Ubuntu 12.04.5}
+	%	\subsection{Pixhawk}
+	%	\subsection{¦rodowisko maszyny wirtualnej, Marcin}		
+	%		\subsection{ROS Hydro}
+	%		\subsubsection{Uprawnienia u¿ytkownika}			
+	%	\subsection{Link USB i TCP}
+	%	\subsection{Paczka mavros}
+	%	\subsubsection{Wsparcie czasu rzeczywistego, Marcin}
+			
+	\section{Uruchomienie platformy lataj±cej, Marcin}
+		\subsection{Uzbrajanie silników, Marcin}
+			
+	\section{Uruchomienie kamery 3D, Micha³}
+	\input{part1/chap02/2a_urucomienie_kamery}
+	
+	\section{Uruchomienie komunikacji, Micha³}
+		\input{part1/chap02/3_komunikacja_ROS}
+			\subsection{Komunikacja ROS---kamera, Mateusz} %kamera 2d
+			\input{part1/chap02/4_ROS-kamera}
+			\subsection{Komunikacja ROS---MAVLINK, Mateusz}
+			\input{part1/chap02/4_ROS-mavlink}
+			\subsection{Komunikacja ROS---GroundStation, Krzysiek} 
+			\input{part1/chap02/4_ROS-GS}
+			\subsection{Komunikacja ROS---czujniki, Daniel} 
+			\input{part1/chap02/4_ROS-czujniki}			
+			\subsection{Komunikacja MAVLINK---PixHawk, Mateusz}
+			\input{part1/chap02/4_ROS-pixhawk}
+	
+	\section{Czujniki odleg³o¶ci}
+		\subsection{P³ytka PCB, Alicja}
+		\input{part1/chap02/8_PCB}
+			\subsubsection{Specyfikacja potrzeb, Marcin}
+			\input{part1/chap02/8a_specyfikacja_potrzeb}
+			\subsubsection{Wykonanie i uruchomienie p³ytki PCB, Micha³}
+			\input{part1/chap02/8b_wykonananie_i_uruchomienie}
+			\subsubsection{Oprogramowanie p³ytki, Micha³}
+			\input{part1/chap02/8c_oprogramowanie_plytki}
+			\subsubsection{Komunikacja ROS-czujniki, Daniel}
+			\input{part1/chap02/8d_komunikacja_ROS}
+		\subsection{Monta¿ czujników na platformie docelowej, Mateusz}
+		\input{part1/chap02/9_montaz_czujnikow}
+			
+
+		\section{Implementacja algorytmów przesuniêcia, Kacper}
+		\input{part1/chap02/28_implem_alg}
+			\subsection{Algorytm Lucas---Kanade, Piotrek}
+			\input{part1/chap02/28a_LK}
+			\subsection{Zmodyfikowany PTAM, Kacper}
+			 \input{part1/chap02/28b_PTAM}
+			 \subsection{Algorytm SVO, Hania}
+			 \input{part1/chap02/28c_SVO}
+		
+		\section{Stabilizacja w poziomie, Alicja}	
+		\input{part1/chap02/29_stab_w_poz}	 
+			\subsection{Fuzja sensoryczna, Alicja}
+			\input{part1/chap02/29_fuzja}	
+				\subsubsection{Czujniki wykorzystywane w fuzji, Alicja}
+				\input{part1/chap02/29_fuzja_czujniki}
+				\subsubsection{Dostêpne rozwi±zania, Alicja}
+				 \input{part1/chap02/29_fuzja_dostepne_rozw}
+				 \subsubsection{Realizacja, Hania} %dolaczyc obrazek z paczkami
+				 \input{part1/chap02/29_fuzja_realizacja}
+			
+		\section{Stabilizacja w pionie, Pawe³}
+		\input{part1/chap02/30_stab_w_pionie}	
+			\subsection{Fuzja sensoryczna, Micha³}
+			\input{part1/chap02/30_fuzja}
+				\subsubsection{Czujniki wykorzystywane w fuzji, Pawe³}
+				\input{part1/chap02/30_fuzja_czujniki}
+				\subsubsection{Realizacja, Micha³}
+				\input{part1/chap02/30_fuzja_realizacja}
+				
+		\section{Algorytm stabilizacji w punkcie}	
+		
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Stabilizacja w pomieszczeniu}
+\input{part1/chap03/0_wstep}
+	
+	\section{Sterownik nadrzêdny, Marcin}
+	\input{part1/chap03/0_wstep}
+		\subsection{Zdarzeniowy sterownik antykolizyjny, Pawe³}
+		\input{part1/chap03/1_ster_anty}
+			\subsubsection{Analiza wykonalno¶ci, Pawe³}
+			\input{part1/chap03/1_ster_anty_analiza}
+			\subsubsection{Specyfikacja, Pawe³}
+			\input{part1/chap03/1_ster_anty_specyf}
+		\subsection{Lot wzd³u¿ ¶ciany, Krzysiek}
+		\input{part1/chap03/1_lot}
+			\subsubsection{Analiza wykonalno¶ci, Mateusz}
+			\input{part1/chap03/1_lot_analiza}
+			\subsubsection{Specyfikacja, Mateusz}
+			\input{part1/chap03/1_lot_specyf}
+			
+
+	
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\part{Testy}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Testy stabilizacji}
+	\section{Testy integracyjne na platformie docelowej}
+		\subsection{Testy modu³u ROS}
+		\subsection{Testy modu³u czujników}	
+
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\part{Zakoñczenie}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Podsumowanie}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Dodatki}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Bibliografia}
+
+
+
+\end{document}

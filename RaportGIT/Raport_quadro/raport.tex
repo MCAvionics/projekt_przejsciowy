@@ -1,0 +1,296 @@
+\documentclass[12pt,a4paper,twoside,openright,fleqn]{mwrep}
+%\documentclass[12pt,a4paper,twoside,openright,fleqn]{memoir}
+
+% przebudowanie z fontami - gubi initial view i metadane
+%  poprawka - sprawdzic skrypt
+%   http://www.capca.ucalgary.ca/~wdobler/utils/compress-newsletter
+% wersja kompaktowa: /ebook lub /printer
+% gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress -dSubsetFonts=true -dEmbedAllFonts=true -dNOPAUSE -dQUIET -dBATCH -sOutputFile=/tmp/r.pdf raport.pdf
+
+% poprawka z pdfmark (na razie tylko initialview
+% gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress -dNOPAUSE -dQUIET -dBATCH -sOutputFile=/tmp/raport_pp2012.pdf raport.pdf -c "[ /PageMode /UseOutlines /DOCVIEW pdfmark"
+
+%\usepackage[utf8]{inputenc}
+\usepackage[OT4,plmath]{polski}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+%\usepackage[a4paper,left=3.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[width=16cm,height=25cm]{geometry}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\renewcommand*{\lstlistingname}{Wydruk}
+%\usepackage{bold-extra}
+\usepackage[unicode=true]{hyperref}
+\usepackage{color}
+\usepackage{cite}
+%poprawka do mwcls by odsylacze dzialaly dobrze w pdf
+%patrz: http://www.man.torun.pl/archives/arc/gust-l/2009-08/msg00024.html
+%\usepackage{gmutils}
+
+% dodatkowe pakiety
+%\usepackage{pdfpages}
+%\usepackage{subfigure}
+
+%Od Tomka Kubika
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+%\definecolor{nicered}{rgb}{.647,.129,.149}
+\definecolor{nicered}{rgb}{.0,.0,.0}
+
+\definecolor{pwrdark}{RGB}{154,52,45}
+\definecolor{ekadark}{RGB}{153,0,31}
+
+\pagestyle{uheadings}
+
+
+%\usepackage[sectionbib]{chapterbib}  %niestety nie dzia�a w klasie mwrep 
+                                      %nie ma b��du przy klasie memoir!
+\usepackage{chapterbib}
+
+\graphicspath{{./part1/chap01/},{./part1/chap02/},{./part1/chap03/},{./part1/chap04/},{./part1/chap05/},{./part1/chap06/},{./part1/chap07/grafika/},{./part1/chap08/},{./part1/chap09/},{./part2/chap01/},{./part2/chap02/},{./part2/chap03/},{./part2/chap04/},{./part2/chap05/}}
+
+% Definicje ustalaj�ce wygl�d wydruk�w program�w
+\definecolor{darkgray}{rgb}{0.95,0.95,0.95}
+\lstset{frame=tb, backgroundcolor=\color{darkgray}}
+\lstset{numbers=left, numberstyle=\tiny, stepnumber=2, numbersep=5pt}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}\bfseries}
+
+
+%%% Strona tytu�owa
+\newcommand*{\titleTH}{\begingroup% T&H Typography
+\raggedleft
+%\includegraphics[width=\textwidth]{logopwrpl}\\
+\vspace*{6cm}
+{{\fontsize{28}{28}\selectfont 	\bf \mbox{QUADROCOPTER}}}\\[\baselineskip]
+%{{\fontsize{28}{28}\selectfont 	\bf QUADROTORA}}\\[1.5\baselineskip]
+{{\fontsize{24}{24}\selectfont (motaż, sterowanie, stabilizacja)}}\\[2cm]
+%{\textcolor{nicered}{\fontsize{28}{28}\fontfamily{put}\bfseries\selectfont 	ROBOTYKI}}\\[2cm]
+{\fontsize{18}{18}\selectfont \it Projekt przej�ciowy 2014/15}\\[0.5\baselineskip]
+{\fontsize{18}{18}\selectfont \it specjalno�ci Robotyka}\\[0.5\baselineskip]
+{\fontsize{18}{18}\selectfont \it na Wydziale Elektroniki}\\
+\vfill
+{\Large Politechnika Wroc�awska 2014}\par
+\vspace*{3\baselineskip}
+\endgroup}
+
+%%% Strona redakcyjna
+\newcommand*{\titleStopka}{\begingroup% T&H Typography
+%\flushleft
+\vspace*{1cm}\noindent
+{\small Autorzy}\\[4pt]
+ {\small\it Marcin Ciopcia \\ Micha� Drwi�ga\\ Daniel Gut\\ Alicja Jurasik\\ Agata Le�\\ Kacper Nowosad \\Piotr Semberecki\\ Hanna Sienkiewicz \\Mateusz Stachowski\\ Pawe� Urbaniak \\Krzysztof Zawada}\\[\baselineskip]
+\noindent{\small Sk�ad raportu wykonano w systemie  \LaTeX}
+
+\vfill
+\includegraphics[width=3cm]{by-nc-sa}\\
+\noindent
+{\footnotesize Praca udost�pniana na licencji Creative Commons: \emph{Uznanie autorstwa-U�ycie niekomercyjne-Na tych samych warunkach 3.0}, Wroc�aw 2014. Pewne prawa zastrze�one na rzecz Autor�w. Zezwala si� na niekomercyjne wykorzystanie tre�ci pod warunkiem wskazania Autor�w jako w�a�cicieli praw do tekstu oraz zachowania niniejszej informacji licencyjnej tak d�ugo, jak tylko na utwory zale�ne b�dzie udzielana taka sama licencja. Tekst licencji dost�pny na stronie: \url{http://creativecommons.org/licenses/by-nc-sa/3.0/pl/}}\\[10pt]
+
+\endgroup}
+
+
+
+
+\hypersetup{
+    pdfpagemode=UseOutlines,   % otwiera dokument w trybie jednej strony
+    pdfpagelayout=SinglePage,  %
+    pdfstartpage=1,            % na podanej stronie
+    bookmarksopen=true,        % rozwini�cie zak�adek
+    bookmarksopenlevel=0,   % do jakiego poziomu
+    colorlinks=true,   % kolorowanie odno�nik�w zamiast ramki wok�� nich
+    citecolor=ekadark,   % kolor odno�nik�w do bibliografii, domy�lnie zielony % bylo cyan
+    filecolor=red,   % kolor odno�nik�w do lokalnych plik�w, domy�nie magenta
+    linkcolor=ekadark,   % kolor odno�nik�w wewn�trznych, domy�lnie czerwony %bylo blue
+    menucolor=green,   % kolor pozycji menu Acrobata, domy�lnie czerwony
+    urlcolor=ekadark,   % kolor odno�nik�w do adres�w internetowych, domy�lnie cyan %bylo blue
+                               % DANE DOKUMENTACJI
+    pdfauthor={Praca zbiorowa},
+    pdftitle={},
+    pdfsubject={Projekt przej�ciowy 2014/15 specjalno�ci Robotyka na Wydziale Elektroniki Politechniki Wroc�awskiej},
+    pdfkeywords={narz�dzia komputerowe, modelowanie, sterowanie, quadrotor}
+ }
+
+
+                                   % DEFINICJE W�ASNE
+\newcommand{\dd}{\text{d}}
+\newtheorem{uwaga}{Uwaga}
+\newtheorem{twr}{Twierdzenie}
+
+\newcommand{\MATLAB}{{\sc Matlab}}
+
+\title{Projekt przej�ciowy --- ca�o��}
+\author{}
+\date{\today}
+
+%% Ustawienia prawej strony spisu tre�ci i kropek http://42.pl/tex/latex2e/spisy/spis.html
+\makeatletter
+\renewcommand{\@tocrmarg}{9em minus 0em}
+%\newcommand{\@pnumwidth}{1.55em}
+%\newcommand{\@dotsep}{4.5}
+\makeatother
+% oraz odst�pu po numerze rozdzia�u
+\SetTOCIndents{{}%
+{11.\enspace}%
+{9.10.\enspace}%
+{9.9.10.\enspace}%
+{9.9.9.10\enspace}%
+{\quad}%
+{\quad}}
+
+\newcommand{\nohyphens}{\hyphenpenalty=10000\exhyphenpenalty=10000\relax}
+
+\newcommand{\chapauthor}[1]{\vspace{-6mm}
+\noindent
+{\mbox{}\hfill\it\large #1}
+\vspace{3mm}}
+
+
+%\includeonly{part1/chap02/maina,part1/chap02/mainb}
+%\includeonly{part2/chap05/main}
+%\includeonly{part1/chap08/main}
+%\includeonly{wstep}
+
+\begin{document}
+\VerbatimFootnotes
+
+
+%\maketitle
+
+\thispagestyle{empty} \titleTH \clearpage
+\thispagestyle{empty} \titleStopka \clearpage
+{
+\nohyphens
+\tableofcontents
+}
+\bibliographystyle{plabbrv}
+
+
+
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\part{Wst�p}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Wst�p}
+\input{part0/chap00/0_wstep}
+%--------------------------------------------------------------------------------------------------------
+	\section{Quadrocopter}
+	\input{part0/chap00/1_quadro}
+		\subsection{W�asno�ci obiektu}
+		\input{part0/chap00/2_wlasn_obiektu}
+%--------------------------------------------------------------------------------------------------------
+	\section{Dost�pne rozwi�zania}
+	\input{part0/chap00/3_dostep_rozw}
+%--------------------------------------------------------------------------------------------------------
+	\section{Cel pracy}
+	\input{part0/chap00/4_cel_pracy}
+
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\part{Zadania}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Stabilizacja w punkcie}
+\input{part1/chap01/0_wstep}
+%--------------------------------------------------------------------------------------------------------
+	\section{Czujniki odleg�o�ci}
+	\input{part1/chap01/1_cz_odl_wstep}
+		\subsection{Dob�r czujnik�w odleg�o�ci}
+		\input{part1/chap01/2_dobor_cz_odleg}
+			\subsubsection{Specyfikacja potrzeb}
+			\input{part1/chap01/3_specyf_pot}	
+			\subsubsection{Dost�pne rozwi�zania}
+			\input{part1/chap01/4_dostep_rozw}
+			\subsubsection{Dob�r czujnik�w}
+			\input{part1/chap01/5_dobor_cz}
+		\subsection{Rozmieszczenie czujnik�w odleg�o�ci}
+		\input{part1/chap01/6_rozm_cz}
+			\subsubsection{Przegl�d rozwi�za�}
+			\input{part1/chap01/7_przeglad_rozw}
+			\subsubsection{Propozycja rozmieszczenia}
+			\input{part1/chap01/8_prop_rozm}
+		\subsection{Płytka PCB}
+			\subsubsection{Specyfikacja potrzeb}
+			\input{part1/chap01/8a_specyfikacja_potrzeb}
+			\subsubsection{Wykonanie i uruchomienie płytki PCB}
+			\input{part1/chap01/8b_wykonananie_i_uruchomienie}
+			\subsubsection{Oprogramowanie płytki}
+			\input{part1/chap01/8c_oprogramowanie_plytki}
+			\subsubsection{Komunikacja ROS-czujniki}
+			\input{part1/chap01/8d_komunikacja_ROS}
+
+%--------------------------------------------------------------------------------------------------------
+	\section{Interfejs do istniej�cego oprogramowania i sprz�tu}
+	\input{part1/chap01/9_interfejs}
+		\subsection{Flying Machine Arena}
+		\input{part1/chap01/10_FlyMachA}
+		\subsection{Rozpoznanie protoko�u quadrocoptera}
+		\input{part1/chap01/11_rozpozn_protok}
+		\subsection{Specyfikacja interfejsu}
+		\input{part1/chap01/12_specyf_inter}
+			\subsubsection{Przygotowanie specyfikacji interfejsu}
+			\input{part1/chap01/13_przygoto_specyf}
+			\subsubsection{Wyb�r interfejsu}
+			\input{part1/chap01/14_wybor_interf}
+		\subsection{Rozpoznanie mo�liwo�ci platformy}
+		\input{part1/chap01/15_rozpoznanie}
+		\subsection{Elektronika}
+		\input{part1/chap01/16_elektronika}
+			\subsubsection{Projekt}
+			\input{part1/chap01/17_projekt}
+			\subsubsection{Uruchomienie}
+			\input{part1/chap01/18_uruchomienie}
+		\subsection{Oprogramowanie interfejsu}
+		\input{part1/chap01/19_oprogramowanie}
+		\subsection{Testy}
+		\input{part1/chap01/20_testy}
+		
+%--------------------------------------------------------------------------------------------------------
+	\section{Zdalne debagowanie}
+	\input{part1/chap01/21_debagownaie}
+		\subsection{Dost�pne rozwi�zania}
+		\input{part1/chap01/22_dost_rozw}
+			\subsubsection{Ground Station}	
+			\input{part1/chap01/23_ground_station}
+		\subsection{Link radiowy}
+		\input{part1/chap01/24_link_rad}
+		\subsection{Przegl�d rozwi�za� FPV}
+		\input{part1/chap01/25_przeglad_rozw_FPV}
+		
+%--------------------------------------------------------------------------------------------------------
+	\section{Algorytm stabilizacji w punkcie}	
+	\input{part1/chap01/26_alg_stab_w_p}
+		\subsection{Algorytmy rozpoznawania przesuni�cia}
+		\input{part1/chap01/27_alg_rozp_przes}
+		\subsection{Implementacja algorytmu}
+		\input{part1/chap01/28_implem_alg}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Stabilizacja w pomieszczeniu}
+\input{part1/chap02/0_wstep}
+
+	
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\part{Testy}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Testy stabilizacji}
+
+
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+\part{Zako�czenie}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Podsumowanie}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Dodatki}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Bibliografia}
+
+
+
+\end{document}
