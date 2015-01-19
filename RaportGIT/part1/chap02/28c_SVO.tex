@@ -1,3 +1,21 @@
+\subsubsection{Uruchomienie kamery}
+Do dzia³ania algorytmu SVO jest potrzebny obraz z kamery, która zosta³a uruchomiona dziêki sterownikom zaimplementowanym w paczce \textit{usb\_cam}. Po uruchomieniu algorytmu, nale¿y uruchomiæ plik launchowy, dostarczaj±cy obraz z kamery. Poni¿szy wydruk przedstawia uruchomienie kamery.
+
+
+\begin{lstlisting}[language=XML, frame=single,tabsize=1, caption={Uruchomienie kamery}] 
+<launch>
+  <node name="usb_cam" pkg="usb_cam" type="usb_cam_node"
+  // output="screen" >
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="mjpeg" />
+    <param name="camera_frame_id" value="usb_cam" />
+    <param name="io_method" value="mmap"/>
+  </node>
+</launch>
+\end{lstlisting}
+
 \subsubsection{Kalibracja kamery}
 Do uruchomienia algorytmu potrzebny jest plik kalibracyjny. Kalibracjê kamery wykonano standardowym narzêdziem zaimplementowanym w ROSie w paczce  \texttt{camera\_calibration}. Wynikiem tej operacji jest plik *.yml. Na potrzeby algorytmu przkonwertowano plik *.yml na format *.yaml.
 
@@ -7,8 +25,8 @@ Do uruchomienia algorytmu potrzebny jest plik kalibracyjny. Kalibracjê kamery wy
 	\caption{Konwersja pliku *.yml na *.yaml}
 	\label{yml}
 \end{figure}
-Rysunek \ref{yml} przedstawia rêczne przekonwertowanie pliku kalibracyjne.
-\subsubsection{Rezultat algorytmu}
+Rysunek \ref{yml} przedstawia rêczne przekonwertowanie pliku kalibracyjnego.
+\subsubsection{Pozycja kamery}
 Do dalszego przetwarzania informacji dostarczonych z dzia³aj±cej paczki SVO mo¿na wykorzystaæ wiadomo¶æ publikowan± poprzez topic \texttt{/svo/points}.
 \begin{figure}
 \centering
@@ -16,4 +34,6 @@ Do dalszego przetwarzania informacji dostarczonych z dzia³aj±cej paczki SVO mo¿n
 	\caption{Wycinek informacji zawartych w topicu \texttt{/svo/points}}
 	\label{t}
 \end{figure}
-Rysunek \ref{t} pokazuje strukturê kluczowego topicu SVO. ...
+Rysunek \ref{t} pokazuje strukturê kluczowego topicu SVO. Typ wiadomo¶ci to \textit{visualization\_msgs}. Wiadomo¶æ ta jest zbiorem informacji u¿ywanych przez takie pakiety jak, np. \textit{rviz}. G³ówn± wiadomo¶ci± w tym topicu jest \textit{visualization\_msgs/Marker}. Do dalszego przetwarzania u¿yto komunikatu zawieraj±cego informacjê o pozycji kamery. Mo¿na t± informacjê uzyskaæ poprzez subskrybowanie siê do tego topicu.
+\subsubsection{Modyfikacja}
+Algorytm SVO posiada w±tek u¿ytkownika. Program zmodyfikowano tak, by dzia³a³ automatycznie, bez czekania na akcjê u¿ytkownika, który decydowa³ o starcie algorytmu, przy jego wcze¶niejszym resecie.
