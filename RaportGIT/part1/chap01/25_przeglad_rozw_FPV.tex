@@ -1,0 +1,67 @@
+% !TeX spellcheck = de_DE
+Termin FPV (First Person View) mo¿na przet³umaczyæ jako \textit{"Widok z pierwszego planu"} (lub te¿ \textit{"Widok pierwszoplanowy"}). Jest to technika wykorzystywana w modelarstwie, daj±ca podgl±d obrazu z kabiny zdalnie sterowanego pojazdu. Pozwala to na lepsz± orientacjê w terenie, oraz lepsze wykrywanie przeszkód i problemów z pojazdem. 
+	 \begin{figure}[htbp]
+	  \begin{center}
+	    \includegraphics[width=0.9\textwidth]{./grafika/schemat_fpv.png}
+	    \caption{Schemat pod³±czenia i dzia³ania FPV}
+	    \label{fig:por}
+	  \end{center}
+	 \end{figure}
+
+
+System FPV zbudowany jest z:
+	\begin{description}
+	\item Kamery analogowej umieszczonej na modelu RC,
+	\item Zestawu transmituj±cego zdalnie obraz z modelu ( zestaw Nadajnik-odbiornik) 
+	\item Ekranu pokazuj±cego obraz z kamery na ziemi,
+	\item Dodatków pokazuj±cych parametry lotu (OSD)
+	\end{description}
+Ka¿dy z elementów infrastruktury FPV musi byæ przystosowany do pracy z modelami lataj±cymi. W przypadku budowanego modelu nale¿a³o postawiæ przez wyborem kilka za³o¿eñ, jakie powinien spe³niaæ FPV:
+	\begin{description}
+		\item Zasiêg ok 500m - zasiêg i moc nadajnika ma tutaj du¿e znaczenie. Projektowany quadrocopter poruszaæ siê bêdzie po otwartej przestrzeni, jak i we wnêtrzu budynku. Moc nadajnika powinna byæ na tyle du¿a by móc rekompensowaæ straty sygna³u wynikaj±ce ze betonowaych ¶cian. 
+		\item ma³a waga - ca³y modu³ musi byæ stosunkowo lekki. Na budowanym dronie znajdzie siê wiele dodatkowych elementów podnosz±cych jego wagê, dlatego ka¿dy z nich powinien byæ mo¿liwie jak najl¿ejszy. 
+		\item kamera wykorzystana w module powinna mieæ stosunkowo jak najwy¿sz± rozdzielczo¶æ. Jednak w zwi±zku z ma³± przepustowo¶ci± nadajnika nale¿y unikaæ wysokich rozdzielczo¶æ HD. Warto¶æ, która jest wykorzystywana w wiêkszo¶ci rozwiazañ to rozdzielczo¶æ pomiêdzy 520 TVL a 650 TVL. 
+		\item Wykorzystanie gotowych zestawów ? pozwoli to unikn±æ problemów przy pod³±czaniu, konfigurowaniu i obs³udze ca³ego zestawu.
+	\end{description}
+Przegl±d rozwi±zañ FPV rozpocz±³ siê od przejrzenia forów po¶wiêconych tej dziedzinie modelarstwa. Zdobyte tam informacjê i porady pozwoli³y na  wybór jednego gotowego ju¿ zestawu  \textbf{\textit{Nadajnik-odbiornik-kamera}.}\\
+ \begin{figure}[ht]
+	  \begin{center}
+	    \includegraphics[width=0.9\textwidth]{./grafika/zestaw_fpv.png}
+	    \caption{Wybrany gotowy zestaw FPV}
+	    \label{fig:por}
+	  \end{center}
+	 \end{figure}
+G³ówne cechy zestawu:
+		\begin{itemize}
+	\item 	Czêstotliwo¶æ pracy 5,8 GHz
+	\item	Moc znamieniowa nadajnika 500mW
+	\item   Niewielkie rozmiary nadajnika
+	\item	Zastosowanie innej czêstotliwo¶c pracy ni¿ stosowane w sterowaniu modelami
+	\item	Niewielkie zapotrzebowanie na energiê
+	\item	Waga wraz z anten± 65,5g
+	\item	Kamera CCD 1/3 SONY
+	\item	Rozdzielczo¶æ 420TVL
+	\item	Obiektyw 3,6mm
+		\end{itemize}
+	\\ Wybrany zestaw to jeden z najlepszych zestawów do transmisji video FPV, stosowany równie¿ przez profesjonalistów do filmowania z powietrza. Pomimo du¿ego zasiêgu cechuje siê odporno¶ci± na zak³ócenia.\\\\
+	 \begin{figure}[ht]
+			  \begin{center}
+			    \includegraphics[width=0.9\textwidth]{./grafika/fatshark.png}
+			    \caption{Przyk³ad obrazu widzianego w goglachFPV FatShark Atittude V2}
+			    \label{fig:por}
+			  \end{center}
+			 \end{figure}
+	Przesy³any obraz jest w formacie analogowym, dlatego aby móc go  ogl±daæ na ziemi potrzebny jest ekran. \\
+	W tym celu mo¿na u¿ywaæ zwyk³ego telewizora, ekranu w stacji naziemnej lub laptopa z zainstalowan± kart± telewizyjn±. Powy¿sze sposoby sprawdzaj± siê jednak kiedy korzystamy z FPV jako sprzêtu nagrywaj±cego, a dronem latamy utrzymuj±c go w zasiêgu wzroku. Kiedy jednak chcemy lataæ pojazdem po za zasiêgiem wzroku, lub podczas lotu chcemy obserwowaæ otoczenie z perspektywy quadrocoptera rozwi±zania te powoduj± ci±g³± konieczno¶æ zerkania na ekran. Pole widzenia zostaje ci±gle zak³ócone przez otoczenie, a operator musi staæ przy ekranie.\\ 
+	W przypadku tego projektu, quadrocopter ma wlecieæ do wnêtrza budynku. Spowoduje to utratê kontaktu wzrokowego pilota z maszyn±. Aby móg³ on widzieæ obraz z wnêtrza budynku a jednocze¶nie sprawnie pilotowaæ zaproponowano u¿ycie gogli FPV. \\
+	Jest to specjalne urz±dzenie, sk³adaj±ce siê z ekranu LCD oraz specjalnej soczewki, zamkniête  w formie zak³adanych na g³owê gogli. U¿ywaj±c ich, pilot ma wra¿enie jakby sta³ przed bardzo du¿ym ekranem, jednocze¶nie mog±c obj±æ wzrokiem ca³± jego powierzchnie. 
+	 \begin{figure}[ht]
+				  \begin{center}
+				    \includegraphics[width=0.9\textwidth]{./grafika/fatshark_dom.png}
+				    \caption{Gogle FPV Fatshark Dominator }
+				    \label{fig:por}
+				  \end{center}
+				 \end{figure}
+
+ Wybrany zestaw FPV nie zosta³ zakupiony, gdy¿ okaza³o siê ¿e na potrzeby tego projektu zamontowany zostanie zestaw udostêpniony przez Ko³o Naukowe JEDI. 
+	
