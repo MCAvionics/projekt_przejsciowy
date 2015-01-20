@@ -1,0 +1,161 @@
+G³ównym celem pracy jest wystartowanie w zawodach IMAV 2015 (ang. International Micro Air Vehicles). Aby to umo¿liwiæ nale¿a³o zrealizowaæ zadnia programowe, sprzêtowe jak i wdro¿yæ siê w tematykê robotów mobilnych - quadrocopterów. Konkurs IMAV dostarcza wiele wyzwañ. Stabilizacja w punkcie, stabilizacja w pomieszczeniu, lot wzd³u¿ ¶ciany oraz autopilot to g³ówne zadania, których zrealizowanie stwarza w pe³ni autonomiczny quadrocopter. Ich osi±gniêcie zale¿y od wykonania mniejszych zadañ. Wa¿nym aspektem jest samo sterowanie, które wymaga informacji o aktualnym po³o¿eniu i o przesuniêciu.  Cele postawione do zrealizowania stabilizacji w punkcie to
+Do celów nale¿± równie¿ testy wszystkiego co zosta³o wytworzone. ....
+
+%\chapter{Stabilizacja w punkcie - przygotowania, Daniel}
+%\input{part1/chap01/0_wstep}
+%%--------------------------------------------------------------------------------------------------------
+%	\section{Interfejs do istniej±cego oprogramowania i sprzêtu, Kacper}
+%	\input{part1/chap01/9_interfejs}
+%		\subsection{Flying Machine Arena, Micha³ }
+%		\input{part1/chap01/10_FlyMachA} 
+%		\subsection{Rozpoznanie protoko³u quadrocoptera, Daniel}
+%		\input{part1/chap01/11_rozpozn_protok} 
+%			\subsubsection{Przygotowanie specyfikacji interfejsu, Piotr}
+%			\input{part1/chap01/13_przygoto_specyf} 
+%			\subsubsection{Wybór interfejsu,  Piotr}
+%			\input{part1/chap01/14_wybor_interf}
+%		\subsection{Rozpoznanie mo¿liwo¶ci platformy, Daniel} 
+%
+%	\section{Zdalne debagowanie, Krzysiek}
+%	\input{part1/chap01/21_debagownaie} 
+%		\subsection{Dostêpne rozwi±zania, Mateusz}
+%		\input{part1/chap01/22_dost_rozw}
+%			\subsubsection{Ground Station, Mateusz} 
+%			\input{part1/chap01/23_ground_station}
+%		\subsection{Link radiowy, Mateusz}
+%		\input{part1/chap01/24_link_rad}
+%		\subsection{Przegl±d rozwi±zañ FPV, Krzysiek}
+%		\input{part1/chap01/25_przeglad_rozw_FPV}
+%
+%	\section{Czujniki odleg³o¶ci, Alicja}
+%	\input{part1/chap01/1_cz_odl_wstep}
+%		\subsection{Dobór czujników odleg³o¶ci, Hania}
+%		\input{part1/chap01/2_dobor_cz_odleg}
+%			\subsubsection{Specyfikacja potrzeb, Hania}
+%			\input{part1/chap01/3_specyf_pot}	
+%			\subsubsection{Dostêpne rozwi±zania, Alicja}
+%			\input{part1/chap01/4_dostep_rozw}
+%			\subsubsection{Dobór czujników, Hania}
+%			\input{part1/chap01/5_dobor_cz}
+%		\subsection{Rozmieszczenie czujników odleg³o¶ci, Pawe³}
+%		\input{part1/chap01/6_rozm_cz}
+%			\subsubsection{Przegl±d rozwi±zañ, Pawe³}
+%			\input{part1/chap01/7_przeglad_rozw}
+%			\subsubsection{Propozycja rozmieszczenia, Pawe³}
+%			\input{part1/chap01/8_prop_rozm}		
+%%--------------------------------------------------------------------------------------------------------
+%	\section{Algorytmy rozpoznawania przesuniêcia, Kacper}
+%		\input{part1/chap01/27_alg_rozp_przes}
+%			\subsection{Algorytm Lucas---Kanade, Piotrek}
+%			\input{part1/chap01/27a_LK}
+%			\subsection{Zmodyfikowany PTAM, Kacper}
+%			 \input{part1/chap01/27b_PTAM}
+%			 \subsection{Algorytm SVO, Hania}
+%			 \input{part1/chap01/27c_SVO}
+%
+%% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%\chapter{Stabilizacja w punkcie - realizacja, Krzysiek}
+%\input{part1/chap02/0_wstep}
+%	
+%	\section{Ahsokam Marcin}
+%	%	\subsection{Monta¿ p³yty g³ównej}
+%	%	\subsection{Ubuntu 12.04.5}
+%	%	\subsection{Pixhawk}
+%	%	\subsection{¦rodowisko maszyny wirtualnej, Marcin}		
+%	%		\subsection{ROS Hydro}
+%	%		\subsubsection{Uprawnienia u¿ytkownika}			
+%	%	\subsection{Link USB i TCP}
+%	%	\subsection{Paczka mavros}
+%	%	\subsubsection{Wsparcie czasu rzeczywistego, Marcin}
+%			
+%	\section{Uruchomienie platformy lataj±cej, Marcin}
+%		\subsection{Uzbrajanie silników, Marcin}
+%			
+%	\section{Uruchomienie kamery 3D, Micha³}
+%	\input{part1/chap02/2a_urucomienie_kamery}
+%	
+%	\section{Uruchomienie komunikacji, Micha³}
+%		\input{part1/chap02/3_komunikacja_ROS}
+%			\subsection{Komunikacja ROS---kamera, Mateusz} %kamera 2d
+%			\input{part1/chap02/4_ROS-kamera}
+%			\subsection{Komunikacja ROS---MAVLINK, Mateusz}
+%			\input{part1/chap02/4_ROS-mavlink}
+%			\subsection{Komunikacja ROS---GroundStation, Krzysiek} 
+%			\input{part1/chap02/4_ROS-GS}
+%			\subsection{Komunikacja ROS---czujniki, Daniel} 
+%			\input{part1/chap02/4_ROS-czujniki}			
+%			\subsection{Komunikacja MAVLINK---PixHawk, Mateusz}
+%			\input{part1/chap02/4_ROS-pixhawk}
+%	
+%	\section{Czujniki odleg³o¶ci}
+%		\subsection{P³ytka PCB, Alicja}
+%		\input{part1/chap02/8_PCB}
+%			\subsubsection{Specyfikacja potrzeb, Marcin}
+%			\input{part1/chap02/8a_specyfikacja_potrzeb}
+%			\subsubsection{Wykonanie i uruchomienie p³ytki PCB, Micha³}
+%			\input{part1/chap02/8b_wykonananie_i_uruchomienie}
+%			\newpage
+%			\subsection{Oprogramowanie interfejsu, Micha³}
+%			\input{part1/chap02/8c_oprogramowanie_plytki}
+%			\subsubsection{Komunikacja ROS-czujniki, Daniel}
+%			\input{part1/chap02/8d_komunikacja_ROS}
+%		\subsection{Monta¿ czujników na platformie docelowej, Mateusz}
+%		\input{part1/chap02/9_montaz_czujnikow}
+%			
+%
+%		\section{Implementacja algorytmów przesuniêcia, Kacper}
+%		\input{part1/chap02/28_implem_alg}
+%			\subsection{Algorytm Lucas---Kanade, Piotrek}
+%			\input{part1/chap02/28a_LK}
+%			\subsection{Zmodyfikowany PTAM, Kacper}
+%			 \input{part1/chap02/28b_PTAM}
+%			 \subsection{Algorytm SVO, Hania}
+%			 \input{part1/chap02/28c_SVO}
+%		
+%		\section{Stabilizacja w poziomie, Alicja}	
+%		\input{part1/chap02/29_stab_w_poz}	 
+%			\subsection{Fuzja sensoryczna, Alicja}
+%			\input{part1/chap02/29_fuzja}	
+%				\subsubsection{Czujniki wykorzystywane w fuzji, Alicja}
+%				\input{part1/chap02/29_fuzja_czujniki}
+%				\subsubsection{Dostêpne rozwi±zania, Alicja}
+%				 \input{part1/chap02/29_fuzja_dostepne_rozw}
+%				 \subsubsection{Realizacja, Hania} %dolaczyc obrazek z paczkami
+%				 \input{part1/chap02/29_fuzja_realizacja}
+%			
+%		\section{Stabilizacja w pionie, Pawe³}
+%		\input{part1/chap02/30_stab_w_pionie}	
+%			\subsection{Fuzja sensoryczna, Micha³}
+%			\input{part1/chap02/30_fuzja}
+%				\subsubsection{Czujniki wykorzystywane w fuzji, Pawe³}
+%				\input{part1/chap02/30_fuzja_czujniki}
+%				\subsubsection{Realizacja, Micha³}
+%				\input{part1/chap02/30_fuzja_realizacja}
+%				
+%		\section{Algorytm stabilizacji w punkcie}	
+%		
+%% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%\chapter{Stabilizacja w pomieszczeniu}
+%\input{part1/chap03/0_wstep}
+%	
+%	\section{Sterownik nadrzêdny, Marcin}
+%	\input{part1/chap03/0_wstep}
+%		\subsection{Zdarzeniowy sterownik antykolizyjny, Pawe³}
+%		\input{part1/chap03/1_ster_anty}
+%			\subsubsection{Analiza wykonalno¶ci, Pawe³}
+%			\input{part1/chap03/1_ster_anty_analiza}
+%			\subsubsection{Specyfikacja, Pawe³}
+%			\input{part1/chap03/1_ster_anty_specyf}
+%		\subsection{Lot wzd³u¿ ¶ciany, Krzysiek}
+%		\input{part1/chap03/1_lot}
+%			\subsubsection{Analiza wykonalno¶ci, Mateusz}
+%			\input{part1/chap03/1_lot_analiza}
+%			\subsubsection{Specyfikacja, Mateusz}
+%			\input{part1/chap03/1_lot_specyf}
+%
+%\part{Testy}
+%% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%\chapter{Testy stabilizacji}
+%	\section{Testy integracyjne na platformie docelowej}
+%		\subsection{Testy modu³u ROS}
+%		\subsection{Testy modu³u czujników}	
