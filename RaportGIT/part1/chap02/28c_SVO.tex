@@ -5,7 +5,7 @@ Do dzia³ania algorytmu SVO jest potrzebny obraz z kamery, która zosta³a uruchomi
 \begin{lstlisting}[language=XML, frame=single,tabsize=1, caption={Uruchomienie kamery}] 
 <launch>
   <node name="usb_cam" pkg="usb_cam" type="usb_cam_node"
-  // output="screen" >
+  / output="screen" >
     <param name="video_device" value="/dev/video0" />
     <param name="image_width" value="640" />
     <param name="image_height" value="480" />
@@ -19,7 +19,7 @@ Do dzia³ania algorytmu SVO jest potrzebny obraz z kamery, która zosta³a uruchomi
 \subsubsection{Kalibracja kamery}
 Do uruchomienia algorytmu potrzebny jest plik kalibracyjny. Kalibracjê kamery wykonano standardowym narzêdziem zaimplementowanym w ROSie w paczce  \texttt{camera\_calibration}. Wynikiem tej operacji jest plik *.yml. Na potrzeby algorytmu przkonwertowano plik *.yml na format *.yaml.
 
-\begin{figure}[h!]
+\begin{figure}[tp]
 \centering
 	\includegraphics[scale=0.6]{grafika/kali.png}
 	\caption{Konwersja pliku *.yml na *.yaml}
@@ -28,7 +28,7 @@ Do uruchomienia algorytmu potrzebny jest plik kalibracyjny. Kalibracjê kamery wy
 Rysunek \ref{yml} przedstawia rêczne przekonwertowanie pliku kalibracyjnego.
 \subsubsection{Pozycja kamery}
 Do dalszego przetwarzania informacji dostarczonych z dzia³aj±cej paczki SVO mo¿na wykorzystaæ wiadomo¶æ publikowan± poprzez topic \texttt{/svo/points}.
-\begin{figure}
+\begin{figure}[tp]
 \centering
 	\includegraphics[scale=0.6]{grafika/topic.png}
 	\caption{Wycinek informacji zawartych w topicu \texttt{/svo/points}}

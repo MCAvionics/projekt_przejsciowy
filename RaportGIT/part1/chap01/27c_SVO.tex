@@ -28,9 +28,9 @@ C_k=C_{k-1}\cdot A_k,
 \end{equation*}
 pocz±wszy od znanej pozycji $C_0$, ustawianej jako parametr.
 G³ównym zadaniem algorytmu jest obliczenie transformacji $A_k$, po to ¿eby obliczyæ pozycjê kamery $C_k$, a co za tym idzie jej trajektorii, wykorzystuj±c do tego obrazy $I_k$.
-		\begin{figure}[h!]
+		\begin{figure}[tp]
 		\centering
-			\includegraphics[scale=0.7]{grafika/schemat_alg.png}
+			\includegraphics[scale=0.7]{grafika/schemat_alg.PNG}
 			\caption{Schemat algorytmu SVO \cite{svo}}
 			\label{schemSVO}
 		\end{figure}
@@ -39,25 +39,25 @@ Rysunek~\ref{schemSVO} przedstawia ogólny schemat algorytmu SVO. Jest on podziel
 Estymacjê ruchu/po³o¿enia kamery mo¿na podzieliæ na trzy etapy
 \begin{itemize}
 \item etap pierwszy
-		\begin{figure}[h!]
+		\begin{figure}[tp]
 			\centering
-			\includegraphics[scale=0.7]{grafika/1.png}
+			\includegraphics[scale=0.7]{grafika/1.PNG}
 			\caption{pierwszy etap \cite{svo}}
 			\label{1etap}
 		\end{figure}
 		Rysunek~\ref{1etap} przedstawia zmiana pozycji miêdzy wcze¶niejsz± i obecn± ramk± danych po¶rednio przenosi pozycjê \textit{p} na odwzorowanie punktów w nowym obrazie. Algorytm minimalizuje fotometryczny b³±d poprawki dotycz±cej tych samych 3D punktów \textit{p}.
 \item drugi etap
-		\begin{figure}[h!]
+		\begin{figure}[tp]
 			\centering
-			\includegraphics[scale=0.7]{grafika/2.png}
+			\includegraphics[scale=0.7]{grafika/2.PNG}
 			\caption{drugi etap \cite{svo}}
 			\label{2etap}
 		\end{figure}
 		Ze wzglêdu na niedok³adno¶ci w punktach 3D oraz w estymacji pozycji kamery, fotometryczny b³±d pomiêdzy odpowiadaj±cymi poprawkami (niebieskie kwadraty) w obecnej ramce i~poprzedniej dodatkowo minimalizuje siê przez optymalizacjê pozycji 2D ka¿dego fragmentu indywidualnie, co jest pokazane na rysunku~\ref{2etap}.
 \item trzeci etap
-		\begin{figure}[h!]
+		\begin{figure}[tp]
 			\centering
-			\includegraphics[scale=0.7]{grafika/3.png}
+			\includegraphics[scale=0.7]{grafika/3.PNG}
 			\caption{trzeci etap \cite{svo}}
 			\label{3etap}
 		\end{figure}

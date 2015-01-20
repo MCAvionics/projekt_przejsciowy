@@ -9,6 +9,7 @@
 
 % poprawka z pdfmark (na razie tylko initialview
 % gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress -dNOPAUSE -dQUIET -dBATCH -sOutputFile=/tmp/raport_pp2012.pdf raport.pdf -c "[ /PageMode /UseOutlines /DOCVIEW pdfmark"
+\usepackage{graphicx}
 
 \usepackage[latin2]{inputenc}
 \usepackage[OT4,plmath]{polski}
@@ -30,8 +31,10 @@
 
 % dodatkowe pakiety
 %\usepackage{pdfpages}
-\usepackage{subfigure}
-
+%\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 
 
 %Od Tomka Kubika
@@ -231,7 +234,7 @@
 			\input{part1/chap01/3_specyf_pot}	
 			\subsubsection{Dostêpne rozwi±zania, Alicja}
 			\input{part1/chap01/4_dostep_rozw}
-			\subsubsection{Dobór czujników, Hania}
+			\subsubsection{Dobór czujników, Alicja}
 			\input{part1/chap01/5_dobor_cz}
 		\subsection{Rozmieszczenie czujników odleg³o¶ci, Pawe³}
 		\input{part1/chap01/6_rozm_cz}
