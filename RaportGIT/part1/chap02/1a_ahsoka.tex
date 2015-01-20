@@ -1,0 +1,102 @@
+\subsection{Wybór ¶rodowiska pracy}
+Do realizacji sterowania wielowirnikowcem wymagane jest ¶rodowsko, które spe³nia szereg wymagañ, m. in.:
+\begin{enumerate}
+	\item Jest niezawodne.
+	\item Nie wymaga zbyt du¿ych zasobów sprzêtowych.
+	\item Jest ³atwe w konfiguracji.
+	\item Zapewnia wsparcie narzêdziom wykorzystywanym w projekcie.
+\end{enumerate}
+
+Dlatego te¿ zdecydowano, aby projekt by³ realizowany przy u¿yciu ¶rodowiska Linux. Poniewa¿ najpopularniejsz± dystrybucj± jest w tej chwili Ubuntu Server, co implikuje du¿± ilo¶æ dobrze napisanej dokumentacji/poradników, dobre wsparcie techniczne, bogactwo uruchomionych i gruntownie przetestowanych narzedzi - wybór ten okaza³ siê najlepsz± z rozpatrywanych opcji.
+
+Pomimo pocz±tkowej chêci pracy na aktualnym wydaniu LTS, tzn 14.04.1, o wiele lepsz± alternatyw± okaza³a siê wersja 12.04.5 LTS - ze wzglêdu na fakt, i¿ ROS Hydro, dedykowany na tê platformê zawiera wiêcej przydatnych modu³ów, które w wypaku u¿ycia nowszej wersji, wymaga³yby portowania. 
+
+Do realizacji projektu wykorzystano Ubuntu 12.04.5 wraz z ROS Hydro. Ze wzglêdu na problem z cyfrowym podpisem paczek dla polskiego repozytorium, u¿yto wersji angielskiej.
+
+\subsection{¦rodowisko maszyny wirtualnej}
+Do celów zapoznania siê z ¶rodowiskiem ROS stworzono, przy u¿yciu porogramowania Virtualbox, ¶rodowisko typu sandbox. We wczesnych etapach projektow s³u¿y³o ono do bezpiecznego eksperymentowania ze ¶rodowiskiem. Dziêki faktowi, i¿ by³a to maszyna wirtualna - przeinstalowanie ca³ego systemu by³o banaln± operacj±.
+Pnadto na maszynie wirtualnej ka¿dy z u¿ytkowników mia³ prawa administratora, przez co móg³ testowaæ oprogramiwanie przed docelow± instalacj± na platformie lataj±cej.
+
+\subsection{¦rodowisko uruchomieniowe - Nano 6060}
+Jako platformê docelow± wybrano komputer x86 typu Small-Form-Factor. Ze wzglêdu na miern±, w dniu dzisiejszym, kompatybilno¶æ systemu ROS z platform± ARM - po rozpoznaniu mo¿liwo¶ci, zarzucono ten pomys³.
+
+Wybór pad³ na produkt firmy Portwell, komputer Nano 6060 [\ref{fig:NANO6060}]. Jest to zwarta, kompaktowa konstrukcja (format mini-ITX), przez co nadaje siê do monta¿u na obiektach lataj±cych.
+\begin{figure}[]
+\centering
+\includegraphics[width=0.9\textwidth]{grafika/nano6060.jpg}
+\caption{Fotografia u¿ytego komputera pok³adowego - Nano 6060}
+\label{fig:NANO6060}
+\end{figure}
+
+\newpage
+
+Kluczowe parametry zastosowanego komputera:
+\begin{enumerate}
+	\item Procesor Intel Atom  E3845 - 4x 1.91 GHz
+	\item 4 Gb pamiêci RAM DDR3 .
+	\item Dysk SSD.
+	\item Z³±cze mini-PCIe - pos³u¿y³o do monta¿u karty sieciowej Atheros AR9285
+	\item Zasilanie 12V
+\end{enumerate}
+
+Komputer jest zasilany z baterii robota za pomoc± przetwornicy step-down.
+
+\subsection{Pixhawk}
+Jako kontroler lotu u¿yto komputera pok³adowego Pixhawk [\ref{fig:PX}]. Dziêki obs³udze protokolu mavlink oraz zaimplementowanym procedurom do sterownika nadrzêdnego stanowi³ on rozs±dny wybór.
+
+\begin{figure}[]
+\centering
+\includegraphics[width=0.9\textwidth]{grafika/pixhawk.jpg}
+\caption{Fotografia u¿ytego kontrolera lotu - Pixhawk}
+\label{fig:PX}
+\end{figure}
+ 
+Kontrolrer jest podpiêty do komputera pok³adowego za pomoc± z³±cza USB - co pozwala na administrowanie systemem Pixhawka, oraz poprzez przej¶æiówk UART - USB - s³u¿±c± do czytania danych telemetrycznych.
+
+Do kontrolera popiêty jest tak¿e GPS oraz system konroli stanu zasilania.
+
+\subsection{Administracja maszyn±}
+	\subsubsection{Wymagane oprogramowanie}
+Aby uruchomiæ projekt, oprócz zainstalwoania systemu, nale¿y zainstalowaæ nastêpuj±ce paczki:
+\begin{itemize}
+\item build-essential
+\item dselect
+\item geany
+\item geany-common
+\item geany-plugins
+\item geany-plugins-common
+\item git
+\item guvcview
+\item h264enc
+\item libcanberra-gtk-module
+\item libgtk2.0-dev
+\item liblapack-dev
+\item live-config-systemd
+\item openssh-blacklist
+\item openssh-blacklist-extra
+\item openssl-blacklist
+\item openssl-blacklist-extra
+\item python-dev
+\item python-pip
+\item python-rosdep
+\item python-rosinstall
+\item python-software-properties
+\item ros-hydro-camera-calibration
+\item ros-hydro-cmake-modules
+\item ros-hydro-desktop-full
+\item ros-hydro-gscam
+\item ros-hydro-mavlink
+\item ros-hydro-mavros
+\item ros-hydro-mavros-extras
+\item ros-hydro-usb-cam
+\item screen
+\item wireless-tools
+\item wpasupplicant
+\end{itemize} 
+	\subsubsection{Uprawnienia u¿ytkownika}
+Aby usprawniæ pracê nad projektem zwykli u¿ytkownicy wspó³dzielili konto uzytkownika \emph{start}. Ma on uprawnienia jedynie do modyfikowania workspace'a programu catkin oraz pe³ni dostêp do wymaganych peryferów, gdy¿ nale¿y do grup: \emph{dialout} oraz \emph{video}.
+Oprócz tego na maszynie istnieje konto administratora - \emph{tano}.
+
+\subsection{Paczka mavros}
+Do obs³ugi komunikacji pomiêdzy Pihawkiem a systemem ROS wykorzytano modu³ \emph{mavros}. Uruchamia ona topic \emph{/mavros/} oraz zapewnia ³±cze dla programu QGroundControl za pomoc± protoko³u UDP. Dziêki tej ostatniej funkcjonalno¶ci mo¿liwe jest zarz±dzanie robotem za pomoc± ³±cza WiFi, b±d¼ ethernet.
+
