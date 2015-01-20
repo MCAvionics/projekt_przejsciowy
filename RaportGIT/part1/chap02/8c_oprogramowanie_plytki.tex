@@ -22,11 +22,12 @@ W celu umo¿liwienia komunikacji urz±dzenia z komputerem nadrzêdnym konieczne by³
 G³ówn± ide± zaprojektowanego protoko³u komunikacji jednostki pomiarowej z komputerem jest wykorzystanie architektury klient-serwer. Rolê klienta pe³ni aplikacja uruchomiona na komputerze nadrzêdnym, która wysy³a odpowiednio zakodowane rozkazy. Natomiast interfejs sensorów dekoduje i realizuje otrzymywane rozkazy. W dalszej czê¶ci przedstawiono szczegó³owy opis protoko³u.\\
 
 \subsubsection{Weryfikacja poprawno¶ci ramek}
-\noindent\textbf{Suma kontrolna}\\
+
+\noindent\textbf{Suma kontrolna}
 
 W celu weryfikowania poprawno¶ci transmisji zaimplementowano obliczanie prostej sumy kontrolnej. Algorytm zlicza liczbê bitów o stanie wysokim w ci±gu wys³anych bajtów. Metoda ta nie zapewnia du¿ej odporno¶ci na zak³ócenia, poniewa¿ jest du¿e prawdopodobieñstwo, ¿e suma bitów o wysokim stanie niepoprawnego ci±gu bajtów bêdzie równa sumie poprawnego. Jednak  zalet± takiej sumy kontrolnej jest niewielka z³o¿ono¶æ obliczeniowa.\\
 
-\noindent\textbf{Potwierdzanie rozkazów}\\
+\noindent\textbf{Potwierdzanie rozkazów}
 
 Zwiêkszenie niezawodno¶ci transmisji zrealizowano przez implementacjê potwierdzania rozkazów. Potwierdzanie dotyczy tylko rozkazów, dla których nie jest oczekiwana transmisja zwrotna, czyli miêdzy innymi rozkazów konfiguracyjnych. W przypadku tej grupy oczekuje siê potwierdzenia w postaci krótkiej ramki sk³adaj±cej siê z kodu rozkazu oraz sumy kontrolnej.
 
@@ -110,6 +111,7 @@ PPM (Pulse Position Modulation) jest sygna³em, w którym informacje kodowane s± z
 \begin{figure}[ht!]
 	\label{fig:ppm_1}
 	\includegraphics[width=0.9\textwidth]{grafika/md_ppm.jpg}
+	\caption{Sposób kodowania informacji w sygnale PPM}
 \end{figure}
 \end{center}
 

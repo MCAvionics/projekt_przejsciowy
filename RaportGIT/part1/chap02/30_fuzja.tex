@@ -1,5 +1,21 @@
 
-\noindent \textbf{Algorytm stabilizacji wysoko¶ci}
+W celu zapewnienia stabilizacji wysoko¶ci quadrocoptera realizowany jest algorytm sterowania, wykorzystuj±cy fuzjê danych z sensorów odleg³o¶ci Sharp oraz orientacji quadrocoptera. Zadaniem fuzji danych pomiarowych jest obliczenie rzeczywistej wysoko¶ci quadrocoptera wzglêdem pod³o¿a. Obliczenie tej wysoko¶ci posiadaj±c jedynie pomiary z sensorów odleg³o¶ci nie jest mo¿liwe, ze wzglêdu na znaczne zmiany orientacji robota w trakcie lotu, co eliminuje bezpo¶rednie wykorzystanie zmierzonej warto¶ci jako wysoko¶ci.
+
+	\begin{figure}[h!]
+	  \begin{center}
+	    \includegraphics[angle=0, width=0.6\textwidth]{grafika/md_uklady_odniesienia.png}
+	    \caption{Zale¿no¶ci geometryczne rzeczywistej wysoko¶ci od mierzonej odleg³o¶ci}
+	    \label{fig:ramki_odniesienia}
+	  \end{center}
+	\end{figure} 
+
+Na rysunku \ref{fig:ramki_odniesienia} przedstawiono zewnêtrzny uk³ad odniesienia: $x$, $y$, $z$ oraz uk³ad lokalny: $x_1$, $y_1$, $z_1$, zwi±zany z sensorem odleg³o¶ci i jednocze¶nie robotem lataj±cym. Posiadaj±c orientacjê quadrocoptera odczytan± ze sterownika Pixhawk, wykorzystuj±c zale¿no¶ci geometryczne, mo¿na wyznaczyæ wysoko¶æ rzeczywist± $h$ na podstawie zmierzonej odleg³o¶ci~$d$. 
+
+
+
+
+\subsubsection{Algorytm stabilizacji wysoko¶ci}
+
 
 \noindent Dane wej¶ciowe:
 \begin{itemize}
@@ -12,10 +28,10 @@
 	\item $F_z$ -- si³a w osi \emph{z} quadrocoptera. 
 \end{itemize}
 ~\\
-\textbf{Kroki algorytmu}
+Kroki algorytmu:
 \begin{enumerate}
 	\item Obliczenie rzeczywistych odleg³o¶ci od pod³o¿a i sufitu na podstawie odczytów sensorów oraz orientacji quadrocoptera wzglêdem zewnêtrznego uk³adu odniesienia.
-	\item Fuzja pomiarów -- wybranie do stabilizacji odleg³o¶ci, która wolniej siê zmienia (mniejsza pochodna). Celem jest uniezale¿nienie wysoko¶ci od niewielkich przeszkód.
+	\item Wybranie do stabilizacji odleg³o¶ci, która wolniej siê zmienia (mniejsza pochodna). Celem jest uniezale¿nienie wysoko¶ci od niewielkich przeszkód.
 	\item Regulator PID:
 \begin{itemize}
 	\item wej¶cie: wybrana wysoko¶æ $h$,
