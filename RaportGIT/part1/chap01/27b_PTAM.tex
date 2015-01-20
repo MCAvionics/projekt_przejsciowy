@@ -1,0 +1,57 @@
+
+\subsubsection{Algorytm PTAM - Parallel Tracking and Mapping}
+PTAM jest algorytmem rozwi±zuj±cym to samo zadanie, co algorytm
+monoSLAM, zaproponowanym w~2007 roku przez George Klein. Podej¶cie to
+wykorzystuje jedn± kamerê 6-DOF do ¶ledzenia ruchu kamery i~mapowania
+otoczenia tworz±c chmurê punktów \ref{PT_SM2}. Algorytm ten wyró¿nia siê spo¶ród
+innych algorytmów monoSLAM, tym ¿e zadanie ¶ledzenia ruchu
+i~mapowania jest realizowane w~czasie rzeczywistym. Ró¿nicê tej metody mo¿na
+podsumowaæ w~kilku punktach:
+  \begin{itemize}
+    \item ¶ledzenie i~mapowanie odbywa siê w~dwóch równoleg³ych
+      w±tkach,
+    \item mapowanie jest oparte na klatkach kluczowych, które s±
+        przetwarzane przy u¿yciu metod wsadowych (Bundle Adjustment),
+    \item mapa jest gêsto zainicjowana przez pary punktów stereo,
+      gdzie wykorzystano algorytm piêciu punktów,
+    \item nowe punkty s± inicjowane przez wyszukiwanie epipolarne.
+  \end{itemize} 
+		\begin{figure}[h!]
+		\centering
+			\includegraphics[scale=0.8]{grafika/ptam2.jpg}
+			\caption{PTAM - Parallel Tracking and Mapping}
+			\label{PT_SM2}
+		\end{figure}
+
+Algorytm PTAM wyszczególnia dwa procesy: ¶ledzenia i~mapowania \ref{PT_SM}.
+Proces ¶ledzenia przemieszczenia kamery, przy za³o¿eniu, ¿e posiadamy
+mapê punktów 3D, odbywa w~nastêpuj±cych krokach:
+\begin{itemize}
+\item pobierana jest nowa ramka z~aparatu z~wyestymowan±
+  wcze¶niejsza pozycja kamery z~modelu przemieszczenia,
+\item mapa punktów jest przewidywana przez pod±¿anie za wcze¶niej
+  wyestymowan± pozycj± ramki,
+\item ma³a liczba (ok. 20-50) punktów jest wyszukiwana przy
+  du¿ym promieniu na zdjêciu (do
+  tych punktów odnosiæ siê bêdzie przesuniêcie kamery)
+\item nastêpnie aktualizowana jest pozycja kamery, która dopasowana
+  jest wed³ug tych punktów,
+\item punkty s± odwzorowywane na zdjêciu i~nastêpuje wyszukiwanie
+  wiêkszej ilo¶ci punktów (ok. 1000),
+\item finalnie wyestymowana pozycja kamery jest obliczana z~wszystkich
+  zebranych punktów. 
+\end{itemize}
+
+Zadanie mapowania odbywa siê w~dwóch etapach. Po pierwsze jest
+budowana wstêpna mapa przy wykorzystaniu technik stereo. Nastêpnie
+mapa ta jest ci±gle wzbogacana i~udoskonalana przez otrzymywanie chmur
+punktów z~nowych klatek kluczowych oddawanych przez system ¶ledzenia.
+		\begin{figure}[h!]
+		\centering
+			\includegraphics[scale=0.45]{grafika/ptam1.jpg}
+			\caption{PTAM - ¶ledzenie i~mapowanie}
+			\label{PT_SM}
+		\end{figure}
+
+
+

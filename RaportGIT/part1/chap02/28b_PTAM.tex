@@ -1,0 +1,80 @@
+
+\subsubsection{PTAM a~ROS}
+Poniewa¿ algorytm wykrywania przemieszczenia mia³ byæ stosowany na
+platformie ROS, znaleziono zmodyfikowan± wersjê algorytmu
+PTAM. Modyfikacje te odnosi³y siê g³ównie do kompatybilno¶ci kodu
+z~platform± ROS oraz mo¿liwo¶ci uruchomienia algorytmu na platformach
+z~mocno ograniczon± mo¿liwo¶ci± obliczeniow±.
+Zmodyfikowana wersja PTAM korzysta z~komponentów platformy ROS
+dziêki temu uzyskano mo¿liwo¶ci:
+\begin{itemize}
+  \item obraz wej¶ciowy uzyskiwany jest z~wêz³a, a~obraz zweryfikowany
+    wraz ze swoimi komponentami jest publikowany. Umo¿liwia to
+    u¿ytkownikowi kontrole nad algorytmem bez interfejsu
+    cz³owiek-maszyna.
+  \item Wizualizacja trajektorii kamery i~chmury punktów zosta³a
+    przeniesiona do RVIZ dziêki czemu mo¿na dokonac wizualizacji
+    w~stacji naziemnej, w~razie potrzeby.
+    \item Parametry regulacyjne mog± byæ zmieniane dynamicznie
+      w~specjalnym GUI.      
+\end{itemize}
+\subsubsection{Uruchomienie kamery}
+ Do uruchomienia algorytmu PTAM potrzebny jest monochromatyczny obraz
+ z~kamery, która zosta³a uruchomiona przy u¿yciu sterowników z~paczki
+ \textit{gscam} oraz \textit{image\_proc}. Dla u³atwienia
+ uruchamiania algorytmu zosta³ napisany plik launch, który uruchamia
+ kamerê, algorytm i~komponenty wspomagaj±ce jego dzia³anie jak:
+ \textit{rviz}, \textit{rqt\_reconfigurator} \ref{PT_SM4}. 
+\begin{figure}[h!]
+		\centering
+			\includegraphics[scale=0.2]{grafika/ptam4.png}
+			\caption{PTAMi i~komponenty wspomagaj±ce}
+			\label{PT_SM4}
+		\end{figure}
+
+\subsubsection{Kalibracja kamery}
+ Do prawid³owego dzia³ania algorytmu ptam nale¿y skalibrowaæ u¿ywan±
+ kamerê. Do tej czynno¶ci pos³u¿y³ wbudowany w~paczkê algorytmu modu³
+ do kalibracji \ref{PT_KA}. Kalibracja kamery polega³a na wykonaniu
+ dziesiêciu zdjêæ ``szachownicy'', a~nastêpnie pozwoleniu wykonania
+ optymalizacji wbudowanemu modu³owi. Wynikiem powy¿szej operacji by³
+ plik *.yaml.    
+
+\begin{figure}[h!]
+		\centering
+			\includegraphics[scale=0.6]{grafika/ptamkalib1.png}
+			\caption{PTAM - kalibracja kamery}
+			\label{PT_KA}
+\end{figure}
+
+\subsubsection{Uruchomienie algorytmu}
+Po uzyskaniu obrazu monochromatycznego oraz skalibrowaniu kamery mo¿na
+przej¶æ do uruchomienia algorytmu. Algorytm uruchamia wcze¶niej
+wspomniany plik launch, a~dokonuje siê tego komend±: \textit{roslaunch
+ptam ptam.launch}. Po uruchomieniu mamy dostêp do podgl±du z~kamery,
+chmury punktów i~¶cie¿ki przesuniêcia w~\textit{rvizie} oraz gui
+z~dynamiczn± konfiguracj± umo¿liwiaj±c± dostosowywanie dzia³ania
+algorytmu do naszych potrzeb.\\
+Kolejnym krokiem jest inicjalizacja pierwszego
+przesuniêcia. Dokonaæ jej mo¿na przez naci¶niêcie spacji, przesuniêcie
+kamery i~ponowne naci¶niêcie spacji. Nale¿y pamiêtaæ, aby przesuwaj±c
+kamerê rzeczywi¶cie zmieniæ jej pozycjê, a~nie tylko k±t
+obrotu. Ilustruje to rysunek \ref{PT}. Po wykonaniu inicjalizacji
+przesuniêcia, mo¿emy obserwowaæ w~\textit{rvizie} zbieran± chmurê
+punktów oraz przesuniêcie kamery reprezentowane przez ma³e uk³ady
+wspó³rzêdnych po³±czone ¿ó³t± lini±.  
+\begin{figure}[h!]
+		\centering
+			\includegraphics[scale=0.2]{grafika/ptam3.png}
+			\caption{PTAM - dzia³anie algorytmu}
+			\label{PT}
+\end{figure}
+
+\subsubsection{Pozycja kamery}
+Paczka algorytmu \texttt{PTAM} publikuje pozycje kamery
+w~topicu \texttt{/vslam/pose}. Struktura topicu i~uzyskanie dostêpu do
+niego jest takie same jak w~algorytmie \texttt{SVO} i~zosta³o to
+opisane w~kolejnym rozdziale.
+
+\subsubsection{Modyfikacje}
+Na potrzeby projektu zautomatyzowano proces inicjalizacji pierwszego przesuniêcia.
