@@ -1,15 +1,10 @@
 
-Do realizacji fuzji z algorytmu SVO pozyskiwane s± informacje o pozycji kamery. Dziêki znanej pozycji pocz±tkowej $[x_0, y_0, z_0]$ kamery mo¿na obliczyæ przesuniêcie. Na tej podstawie wysy³ana jest wiadomo¶æ do sterownika o przesuniêciu, uzyskanym z algorytmu wizualnego. Pozycjê kamery nale¿y przekonwertowaæ na pozycjê quadrocoptera przez odpowiedni± macierz rotacji (komentarz: jeszcze nie wiem jak±, bo nie wiem, z której kamery w koñcu bêdê korzystaæ i gdzie ona bêdzie). Wiadmo¶æ wysy³ana do sterownika jest umieszczana w topicu o typie \textit{geometry\_msg/Vector3}. Parametr $\delta$, który trzeba dobraæ podczas testu, bêdzie decydowa³ czy wyst±pi³o przesuniêcie, czy te¿ nie. Poni¿szy wydruk pokazuje funkcjê rosow± \textit{Collback}, która uzyskuje informacjê o pozycji kamery z topicu \texttt{/svo/points}.
+Do realizacji fuzji z algorytmu SVO pozyskiwane s± informacje o pozycji kamery. Dziêki znanej pozycji pocz±tkowej $[x_0, y_0, z_0]$ kamery mo¿na obliczyæ przesuniêcie. Na tej podstawie wysy³ana jest wiadomo¶æ do sterownika o przesuniêciu, uzyskanym z algorytmu wizualnego. Pozycjê kamery nale¿y przekonwertowaæ na pozycjê quadrocoptera przez odpowiedni± macierz rotacji (komentarz: jeszcze nie wiem jak±, bo nie wiem, z której kamery w koñcu bêdê korzystaæ i gdzie ona bêdzie). Wiadomo¶æ wysy³ana do sterownika jest umieszczana w topicu o typie \textit{geometry\_msg/Vector3}. Parametr $\delta$, który trzeba dobraæ podczas testu, bêdzie decydowa³ czy wyst±pi³o przesuniêcie, czy te¿ nie. Poni¿szy wydruk pokazuje funkcjê rosow± \textit{Callback}, która uzyskuje informacjê o pozycji kamery z topicu \texttt{/svo/points}.
 \begin{lstlisting}[language=C++, frame=single,tabsize=1, caption={Uruchomienie kamery}] 
-<launch>
-  <node name="usb_cam" pkg="usb_cam" type="usb_cam_node"
-  // output="screen" >
-    <param name="video_device" value="/dev/video0" />
-    <param name="image_width" value="640" />
-    <param name="image_height" value="480" />
-    <param name="pixel_format" value="mjpeg" />
-    <param name="camera_frame_id" value="usb_cam" />
-    <param name="io_method" value="mmap"/>
-  </node>
-</launch>
+void chatterCallback(const visualization_msgs::Marker::ConstPtr& msg)
+{
+  t[0][0]=msg->pose.position.x;
+  t[0][1]=msg->pose.position.y;
+  t[0][2]=msg->pose.position.z;
+}
 \end{lstlisting}
