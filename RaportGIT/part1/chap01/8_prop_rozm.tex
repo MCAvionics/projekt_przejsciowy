@@ -1,0 +1,27 @@
+%Pawe³ Urbaniak, Wroc³aw 20.10.2015r
+Zosta³y zaproponowane dwie konfiguracje przedstawione na rys. \ref{rys:konfI} oraz \ref{tys:konfII}.
+Kolorem fioletowym zosta³y oznaczone czujniki bliskiego zasiêgu --- SHARP GP2Y0A02YK0F, ¿ó³tym sonary ultrad¼wiêkowe --- XL-MaxSonar-EZL0 [MB1260], natomiast zielony kolor to k±t i zasiêg widzenia kamery $3D$.
+
+
+\begin{figure}
+	\centering
+	% wpisz nazwe rysunku i format
+	\includegraphics[scale=0.6]{grafika/rozm.png}
+	% Opisz rysunek jesli potrzebujesz
+	\caption{Konfiguracja I}
+	\label{rys:konfI}
+\end{figure}
+
+\begin{figure}
+	\centering
+	% wpisz nazwe rysunku i format
+	\includegraphics[scale=0.6]{grafika/rozm2.png}
+	% Opisz rysunek jesli potrzebujesz
+	\caption{Konfiguracja II}
+	\label{tys:konfII}
+\end{figure}
+
+Ze wzglêdu na optymalizacjê kosztów oraz wagi uk³adów sensorycznych ostatecznie zdecydowano siê na rozwi±zanie II. Dodatkowym aspektem wynikaj±cym z przyjêtej konfiguracji jest trywialny sposób kontroli równoleg³ego lotu wzd³u¿ ¶ciany, który polega na bezpo¶rednim porównywaniu odczytów z czujników znajduj±cych siê po tej samej stronie quadrocoptera.
+Czujniki dalekiego zasiêgu zosta³y zainstalowane ze wzglêdu na potrzebê podejmowania decyzji wzd³u¿ której ¶ciany powinien poruszaæ siê quadrocopter zaraz po wleceniu do nieznanego pomieszczenia.\\ 
+
+Do stabilizacji w pionie zostan± wykorzystane dwa czujniki typu SHARP skierowane prostopadle w dó³ (do ziemi) i w górê (w stronê sufitu). Zbierane pomiary zostan± u¶rednione i wybrany do sterowania ten, który zmienia siê wolniej (jego pochodna jest mniejsza). Dziêki zainstalowanym na platformie czujnikom inercyjnym wyliczanie prawdziwej wysoko¶ci, na której znajduje siê quadrocopter, odbywaæ siê bêdzie z wykorzystaniem bezpo¶rednich odczytów SHARP'a oraz aktualnymi wychyleniami platformy.
