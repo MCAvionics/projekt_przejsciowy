@@ -30,7 +30,7 @@ Przedstawiona kamera wykorzystuje metodê pomiaru okre¶lan± mianem \emph{TOF} (\t
 \end{center}
 \end{figure}
 
-\noindent \textbf{Portowanie pakietu \emph{pmd\_camboard\_nano}}\\
+\subsubsection{Portowanie pakietu \emph{pmd\_camboard\_nano}}
 
  W celu zapewnienia dostêpu do obrazów kamery 3D z poziomu ¶rodowiska \emph{ROS}, które umo¿liwia integracjê tworzonego w ramach projektu oprogramowania zdecydowano siê na przeniesienie pakietu \emph{pmd\_camboard\_nano} obs³uguj±cego kamerê \emph{PMD Camboard nano}, autorstwa Sergey'a Alexandrov'a do nowszej wersji ROS \emph{Hydro} z wersji Fuerte.
 
@@ -40,7 +40,7 @@ Dodatkowo, zdecydowano siê na usuniêcie z zale¿no¶ci pakietu \emph{dynamic\_reco
 
 Kolejnym rozwi±zaniem, które uleg³o zmianie jest sposób dostarczania sterowników kamery. W bie¿±cej wersji s± one umieszczane bezpo¶rednio w katalogu \emph{pmd\_driver} pakietu \emph{pmd\_camboard\_nano}. Wykorzystane zosta³y sterowniki w wersji \emph{1.3.2}.\\
 
-\noindent \textbf{Wybrane topiki publikowane przez pakiet \emph{pmd\_camboard\_nano}}
+\subsubsection{Wybrane topiki publikowane przez pakiet \emph{pmd\_camboard\_nano}}
 
 	\begin{itemize}
 	\item obraz w odcieniach szaro¶ci (\textit{/camera/amplitude/image}),
@@ -51,7 +51,7 @@ Kolejnym rozwi±zaniem, które uleg³o zmianie jest sposób dostarczania sterowników
 	\item chmura punktów (\textit{$\sim$points\_unrectified}),
 	\end{itemize}
 
-\noindent \textbf{Uruchomienie pakietu i weryfikacja poprawno¶ci dzia³ania} 
+\subsubsection{Uruchomienie pakietu i weryfikacja poprawno¶ci dzia³ania} 
 \begin{itemize}
 	\item \textsf{source devel/setup.bash} - za³adowanie zmiennych ¶rodowiskowych workspace'a,
 	\item \textsf{roslaunch pmd\_camboard\_nano pmd\_camboard\_nano.launch} - uruchomienie pakietu,
