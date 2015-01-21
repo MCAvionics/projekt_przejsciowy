@@ -1,0 +1,77 @@
+% Alicja Jurasik
+Na podstawie specyfikacji dokonano rozeznania dostêpnych na rynku czujników odleg³o¶ci. Odrzucono sensory cyfrowe ze wzglêdu na to, ¿e nie zwracaj± informacji o odleg³o¶ci do obiektu. Wybieraj±c czujniki analogowe kierowano siê prêdko¶ci± z jak± dokonuj± pomiaru. Dodatkowo podczas selekcji czujników istotny by³ zakres prawid³owego dzia³ania, cena oraz waga. Wyniki rozeznania dostêpnych sensorów przedstawiono w tabeli \ref{tab:czujniki}.
+(((((obrazki mia³y byæ u³o¿one ³adnie w jednym wierszu, ale w raporcie zbiorczym nie chce siê to kompilowaæ)))))
+
+\begin{figure}[tp] \centering
+        \includegraphics[width=0.18\textwidth]{./grafika/czujnik1.PNG}
+        \caption{skaner}
+        \label{fig:cz1}
+\end{figure}
+\begin{figure}[tp] \centering
+        \includegraphics[width=0.18\textwidth]{./grafika/czujnik2.PNG}
+        \caption{SHARP}
+        \label{fig:cz2}
+\end{figure}
+\begin{figure}[tp] \centering
+        \includegraphics[width=0.18\textwidth]{./grafika/czujnik3.PNG}
+        \caption{SHARP}
+        \label{fig:cz3}
+\end{figure}
+\begin{figure}[tp] \centering
+        \includegraphics[width=0.18\textwidth]{./grafika/czujnik4.PNG}
+                        \caption{sonar}
+        \label{fig:cz4}
+\end{figure}
+\begin{figure}[tp] \centering
+        \includegraphics[width=0.18\textwidth]{./grafika/czujnik5.PNG}
+                        \caption{sonar}
+        \label{fig:cz5}
+\end{figure}
+%\begin{figure}[h]
+%        \centering
+%        \begin{subfigure}[b]{0.18\textwidth}{it}
+%                \includegraphics[width=\textwidth]{./grafika/czujnik1.PNG}
+%                \caption{cz. laserowy}
+%                \label{fig:cz1}
+%        \end{subfigure}
+%        ~\\
+%        \begin{subfigure}[b]{0.18\textwidth}{it}
+%                \includegraphics[width=\textwidth]{./grafika/czujnik2.PNG}
+%                \caption{SHARP}
+%                \label{fig:cz2}
+%        \end{subfigure}
+%        ~\\
+%        \begin{subfigure}[b]{0.18\textwidth}{it}
+%                \includegraphics[width=\textwidth]{./grafika/czujnik3.PNG}
+%                                \caption{SHARP}
+%                \label{fig:cz3}
+%        \end{subfigure}
+%        ~\\
+%        \begin{subfigure}[b]{0.18\textwidth}{it}
+%                \includegraphics[width=\textwidth]{./grafika/czujnik4.PNG}
+%                                \caption{sonar}
+%                \label{fig:cz4}
+%        \end{subfigure}
+%        \\
+%        \begin{subfigure}[b]{0.18\textwidth}{it}
+%                \includegraphics[width=\textwidth]{./grafika/czujnik5.PNG}
+%                                \caption{sonar}
+%                \label{fig:cz5}
+%        \end{subfigure}       
+%
+%        \caption{Obrazy dostêpnych czujników odleg³o¶ci}\label{fig:czujniki}
+%\end{figure}
+\begin{table}
+	\caption{Zestawienie dostêpnych na rynku czujników spe³niaj±cych za³o¿enia}
+	\label{tab:czujniki}
+	
+	\begin{tabular}{|l|l|c|c|c|c|}
+	\hline 
+	no¶nik energii & czujnik & cena [z³]  & zasiêg [m] & waga [g] & zdjêcie \\  \hline
+	laser& skaner laserowy RPLidar & 1870 & 6 & - & \ref{fig:cz1}		\\ \hline
+	podczerwieñ  & Sharp GP2Y0A02YK0F & 59 & 0,2 - 1,5	& 4,8 & \ref{fig:cz2}\\ \hline
+	podczerwieñ  & Sharp GP2Y0A710K0F & 139 & 1 - 5,5	& 10 & \ref{fig:cz3}\\ \hline
+	ultrad¼wiêki & US-020& 16 & 0,02 - 7 & - &\ref{fig:cz4} \\ \hline
+	ultrad¼wiêki & XL-MaxSonar-EZL0& 169 & 10 & 8 & \ref{fig:cz5}\\ \hline
+	\end{tabular}
+\end{table}
