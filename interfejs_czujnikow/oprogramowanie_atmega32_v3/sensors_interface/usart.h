@@ -1,6 +1,5 @@
 ﻿/** \file usart.h
- *	\brief Obsługa interfejsu USART
- *		   Zaprojektowany protokół komunikacji.
+ *	\brief USART interface and communication protocol
  *
  * \author Michal Drwiega
  * \date   2014.10.12 

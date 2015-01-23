@@ -17,6 +17,7 @@ void InitPorts()
 	SET_SONAR1_EN_OUT;	SET_SONAR2_EN_OUT;
 	SET_SONAR1_IN; SET_SONAR2_IN;
 	SET_PPM_IN;
+	SET_FAILSAFE_OUT;
 }
 
 //=============================================================================

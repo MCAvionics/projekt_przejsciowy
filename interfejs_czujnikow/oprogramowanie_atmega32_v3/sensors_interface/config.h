@@ -9,8 +9,7 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
-/// Microcontroller frequency in Hz
-#define F_CPU 8000000L
+#define F_CPU 8000000L //< Microcontroller frequency in Hz
 
 //_____  I N C L U D E S ___________________________________________________
 
@@ -21,7 +20,7 @@
 //_____ D E F I N I T I O N S ______________________________________________
 
 /*******************************************************************/
-/* MAIN SETTINGS                                               */
+/* MAIN SETTINGS												   */
 /*******************************************************************/
 
 /// Selection of source of reference voltage for ADC -- AVCC
@@ -88,6 +87,10 @@
 // PPM signal input port
 #define SET_PPM_IN			DDRB  &= ~_BV(2)
 
+// FailSafe 
+#define SET_FAILSAFE_OUT	DDRB  |= _BV(1)
+#define SET_FAILSAFE		PORTB |= _BV(1)
+#define CLR_FAILSAFE		PORTB &= ~_BV(1)
 
 //_____ D E C L A R A T I O N S ____________________________________________
 

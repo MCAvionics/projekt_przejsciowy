@@ -110,19 +110,27 @@ ISR(USART_RXC_vect)
 				tmp = CheckSum8(0xC0);
 				UsartTransmit1byte(0x55);
 				tmp += CheckSum8(0x55);
-				UsartTransmit1byte(tmp); // Wysłanie sumy kontrolnej.
+				UsartTransmit1byte(tmp); // Send checksum
 				break;
-			case 0xC1: // Wysłanie odczytów z różnych sensorów.
+			case 0xC1: // Send measurements
 				if (txFlag == 0)
 					txFlag = 1;
 				break;			
-			case 0xD0: // Polecenie uruchomienia oswietlenia quadrocoptera.
+			case 0xD0: // Turn on quadrocopter lights
 				UsartTransmit1byteAndChecksum(order);
 				SET_ALL_LEDS;
 				break;
-			case 0xD1: // Polecenie wylaczenia oswietlenia quadrocoptera.
+			case 0xD1: // Turn off quadrocopter lights
 				UsartTransmit1byteAndChecksum(order);
 				CLR_ALL_LEDS;
+				break;
+			case 0xD2: // High state on Pixhawk Failsafe
+				UsartTransmit1byteAndChecksum(order);
+				SET_FAILSAFE;
+				break;
+			case 0xD3: // High state on Pixhawk Failsafe
+				UsartTransmit1byteAndChecksum(order);
+				CLR_FAILSAFE;
 				break;
 			default:
 				break;

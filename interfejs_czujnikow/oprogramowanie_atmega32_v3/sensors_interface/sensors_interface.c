@@ -29,6 +29,8 @@ volatile uint8_t channelPPMcnt = 0;
 /// Store measured values for PPM channels
 volatile uint16_t channelPPM[8];
 
+volatile uint8_t newFrame = 0;
+
 //=============================================================================
 ISR (TIMER0_COMP_vect) // Frequency 100Hz
 {
@@ -105,30 +107,30 @@ ISR (INT1_vect)
 }
 
 //=============================================================================
-ISR (INT2_vect)
+ISR (INT2_vect) // PPM
 {
 	cli();
-	if (MCUCR & _BV(ISC2)) // Rising edge interrupt
+
+	if ((timeCntPPM + TCNT2) > MAX_PPM_WIDTH) // new frame
 	{
-		TCNT2 = 0; // Timer2 reset
-		timeCntPPM = 0;
-		MCUCR &= ~_BV(ISC2); // Change to falling edge detect on INT2
+		newFrame = 1;
+		channelPPMcnt = 0;
 	}
-	else // Falling edge interrupt
+	else if(newFrame) // measurement for properly PPM channel
 	{
-		if ((timeCntPPM + TCNT2) > MAX_PPM_WIDTH) // new frame
+		channelPPM[channelPPMcnt] = timeCntPPM + TCNT2;
+		if (channelPPMcnt < 7) // increase channel counter
 		{
-			channelPPMcnt = 0;
+			channelPPMcnt++;
 		}
-		else // measurement for properly PPM channel
+		else
 		{
-			channelPPM[channelPPMcnt] = timeCntPPM + TCNT2;
-			if (channelPPMcnt < 7) // increase channel counter
-			{
-				channelPPMcnt++;
-			}				
-		}	
+			newFrame = 0;
+		}
 	}
+	TCNT2 = 0; // Timer2 reset
+	timeCntPPM = 0;
+	
 	GIFR |= (1 << INTF1);	// Interrupt flag clear
 	sei();
 }
