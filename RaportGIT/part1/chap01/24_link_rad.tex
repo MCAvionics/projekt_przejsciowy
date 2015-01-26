@@ -1,0 +1,50 @@
+Kolejn± propozycj± jest link radiowy. S± to rozwi±zania niewiele tañsze oraz mniej skomplikowane. Wydaj± siê byæ w zupe³no¶ci wystarczaj±ce na potrzeby projektu. Podczas planowania przedstawione zosta³y nastêpuj±ce warianty:
+
+\begin{itemize}
+\item Gotowy modu³ od Texas Instruments z serii CC11xx
+\item U¿ycie kart sieciowych 
+\item Stworzenie w³asnych modu³ów komunikacji radiowej
+\end{itemize}
+
+Ju¿ na pocz±tku mo¿na zauwa¿yæ, ¿e tworzenie w³asnego modu³u jest bardzo czasoch³onne oraz wymaga pisania od nowa wszystkich sterowników. Rezultaty te¿ nigdy nie bêd± takie jak w przypadku dro¿szych, komercyjnych rozwi±zañ.
+
+Do zalet gotowego modu³u od Texas Instruments nale¿±:
+
+\begin{itemize}
+\item czêstotliwo¶ci 169,433,868,915,920 MHz
+\item niski pobór pr±du
+\item wzmacniacz np. CC1190 (+0,5W)
+\item programowalna moc wyj¶ciowa
+\item modulacje 2-FSK,2-GFSK,4-FSK,4-GFSK,OOK
+\item Wake-On-Radio
+\item single-chip
+\end{itemize}
+
+Wad± natomiast jest bardzo ma³a przepustowo¶æ (1.25 Mbps).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{./grafika/link.png}
+\caption[Modu³ radiowy TI CC1200]}
+\end{figure}
+
+£atwiej dostêpnym i bardziej sprawdzonym rozwi±zaniem jest wykorzystanie wszechobecnych kart sieciowych.
+
+Do zalet takiego rozwi±zania mo¿na zaliczyæ:
+
+\begin{itemize}
+\item £atwy dostêp i du¿y wybór gotowych rozwi±zañ
+\item Sterowniki oraz aplikacja obs³uguj±ca urz±dzenie w wybranym
+\item ¶rodowisko nie jest problemem
+\item Prêdko¶æ transmisji
+\end{itemize}
+
+Wady:
+
+\begin{itemize}
+\item Praca na bardzo wysokich czêstotliwo¶ciach - mo¿liwe problemy z zasiêgiem
+\item Podatno¶æ na zak³ócenia
+\item S³abe zabezpieczenia 
+\end{itemize}
+
+Pomimo podanych powy¿ej wad, wydaje siê to byæ najbardziej optymalnym rozwi±zaniem, który znalaz³o zastosowanie w projekcie.
