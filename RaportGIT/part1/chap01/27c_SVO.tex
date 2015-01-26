@@ -1,15 +1,3 @@
-VO (ang. Visual Odometry) jest to proces estymacji ruchu pojazdu poprzez badanie zmian ruchu dziêki zdjêciom otrzymanym z pok³adowej kamery.
-Warunki dobrej estymacji to
-\begin{itemize}
-\item odpowiednie o¶wietlenie sceny,
-\item dostosowanie szybko¶ci zmienno¶ci otoczenia do u¿ytego algorytmu, preferuje siê raczej scenê statyczn±,
-\item wybór odpowiednich zdjêæ do przetwarzania.
-\end{itemize}
-
-\subsubsection{Zalety}
-Ze wzglêdu na formê zawodów, quadrocopter bêdzie porusza³ siê w zamkniêtym pomieszczeniu, gdzie jak wiadomo sygna³ GPS zawodzi. Dlatego zdecydowano siê na u¿ycie kamery pok³adowej. Wizualna odometria mo¿e wspó³pracowaæ z innymi rozwi±zaniami, dlatego finalnie do stabilizacji w punkcie system wizyjny zostanie po³±czony z czujnikami laserowymi oraz ultrad¼wiêkowymi. Zminimalizuje to b³±d estymacji ruchu, a co za tym idzie, bêdzie mo¿na przeciwdzia³aæ dryfowi.
-
-\subsubsection{Ogólny schemat algorytmu SVO } 
 Program SVO (Semi-direct Monocular Visual Odometry) \cite{svo} jest zaimplementowany w ROSie. Wykorzystuje on obrazy dostarczone z pok³adowej kamery. Quadrocopter zbiera informacje ze ¶rodowiska poprzez zdjêcia w dyskretnych chwilach czasu
 \begin{equation*}
 I_1,I_2, \ldots, I_n.
@@ -30,7 +18,7 @@ pocz±wszy od znanej pozycji $C_0$, ustawianej jako parametr.
 G³ównym zadaniem algorytmu jest obliczenie transformacji $A_k$, po to ¿eby obliczyæ pozycjê kamery $C_k$, a co za tym idzie jej trajektorii, wykorzystuj±c do tego obrazy $I_k$.
 		\begin{figure}[tp]
 		\centering
-			\includegraphics[scale=0.7]{grafika/schemat_alg.PNG}
+			\includegraphics[scale=1]{grafika/schemat_alg.PNG}
 			\caption{Schemat algorytmu SVO \cite{svo}}
 			\label{schemSVO}
 		\end{figure}
@@ -41,7 +29,7 @@ Estymacjê ruchu/po³o¿enia kamery mo¿na podzieliæ na trzy etapy
 \item etap pierwszy
 		\begin{figure}[tp]
 			\centering
-			\includegraphics[scale=0.7]{grafika/1.PNG}
+			\includegraphics[scale=1]{grafika/1.PNG}
 			\caption{pierwszy etap \cite{svo}}
 			\label{1etap}
 		\end{figure}
@@ -49,7 +37,7 @@ Estymacjê ruchu/po³o¿enia kamery mo¿na podzieliæ na trzy etapy
 \item drugi etap
 		\begin{figure}[tp]
 			\centering
-			\includegraphics[scale=0.7]{grafika/2.PNG}
+			\includegraphics[scale=1]{grafika/2.PNG}
 			\caption{drugi etap \cite{svo}}
 			\label{2etap}
 		\end{figure}
@@ -57,7 +45,7 @@ Estymacjê ruchu/po³o¿enia kamery mo¿na podzieliæ na trzy etapy
 \item trzeci etap
 		\begin{figure}[tp]
 			\centering
-			\includegraphics[scale=0.7]{grafika/3.PNG}
+			\includegraphics[scale=1]{grafika/3.PNG}
 			\caption{trzeci etap \cite{svo}}
 			\label{3etap}
 		\end{figure}
