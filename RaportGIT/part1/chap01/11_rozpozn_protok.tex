@@ -1,0 +1,26 @@
+Do komunikacji z quadrocopterem s³u¿y protokó³ mavlink, który udostêpniany jest na licencji LGPL \cite{mav}. Pozwala on na przep³yw danych pomiêdzy stacj± naziemn± a autopilotem, który jest 
+zamontowany na maszynie. Do wspieranych platform nale¿±:
+\begin{itemize}
+\item PX4,
+\item PIXHAWK,
+\item APM,
+\item Parrot AR.Drone.
+\end{itemize}
+Informacje przesy³ane s± za pomoc± wiadomo¶ci. Dziêki nim mo¿emy wykonaæ poni¿sze czynno¶ci:
+\begin{itemize}
+\item ustawiaæ lub odczytywaæ parametry maszyny,
+\item przesy³aæ obrazy,
+\item przesy³aæ listê punktów orientacyjnych,
+\item sterowaæ lotem maszyny.
+\end{itemize}
+Struktury i zawarto¶ci komunikatów s± opisywane za pomoc± jêzyka xml. Poni¿ej przedstawiono definicjê przyk³adowej wiadomo¶ci:
+\lstset{language=XML}
+\begin{lstlisting}
+    <message id="0" name="NAZWA">
+	<description>Opis</description>
+	<field type="uint8_t" name="type">Typ</field>
+    </message>
+\end{lstlisting}
+Powy¿sza wiadomo¶æ nosi nazwê: "NAZWA" oraz zawiera pole type, które jest typu unit8\_t. Korzystaj±c z powy¿szej definicji mo¿emy wygenerowaæ
+za pomoc± odpowiedniego programu kod w jêzyku c++ lub python do obs³ugi powy¿szego komunikatu. Na stronie zawieraj±cej opis protoko³u\cite{mav}
+dostêpne s± równie¿ gotowe zbiory definicji typowych komunikatów.
