@@ -1,0 +1,15 @@
+Sam sterownik nie zosta³ zaimplementowany, a wiêc podana poni¿ej specyfikacja jest pogl±dowa i mo¿e siê ró¿niæ od wersji finalnej. 
+
+Quadcopter, w momencie kiedy znajdzie siê w nowym pomieszczeniu nie posiada ¿adnej wcze¶niejszej wiedzy o otoczeniu. Dlatego tez musi reagowaæ na bie¿±co oraz zapamiêtywaæ niektóre dane tak, aby da³o je siê wykorzystaæ w przysz³o¶ci np. do znalezienia wyj¶cia. Ogóln± zasadê mo¿na przedstawiæ w nastêpuj±cych krokach:
+
+\begin{enumerate}
+\item Lot do przodu a¿ do napotkania ¶ciany (nie wiemy gdzie siê znajdujemy).\\
+Pryz u¿yciu sterownika antykolizyjnego oraz mapy pól potencja³ów musimy rozró¿niæ ¶cianê od przeszkody np. kolumny.
+\item Skrêt w lewo.
+\item Lot do przodu, przy zachowanej odpowiedniej odleg³o¶ci od ¶ciany, a¿ do napotkania kolejnej ¶ciany, równocze¶nie omijaj±c napotkane po drodze przeszkody.
+\item Po napotkaniu ¶ciany znów skrêt w lewo. 
+\item Powtarzanie dwóch powy¿szych czynno¶ci a¿ do momentu, kiedy quadcopter znajdzie siê w bliskiej okolicy punktu, w którym pierwszy raz wykry³ ¶cianê.
+\item Podjêcie decyzji, na podstawie zebranych informacji o otoczeniu, wyliczonej mapy pól potencja³ów oraz danych z sterownika nadrzêdnego.
+\end{enumerate}
+
+To jaka decyzja zostanie podjêta, jest uzale¿nione od zaplanowania i implementacji sterownika decyzyjnego, który musia³by zostaæ specjalnie stworzony do tego celu.
