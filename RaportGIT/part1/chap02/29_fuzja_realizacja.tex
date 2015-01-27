@@ -1,5 +1,11 @@
-
-Do realizacji fuzji z algorytmu SVO oraz PTAM pozyskiwane s± informacje o pozycji kamery. Dziêki znanej pozycji pocz±tkowej $[x_0, y_0, z_0]$ kamery mo¿na obliczyæ przesuniêcie. Na tej podstawie wysy³ana jest wiadomo¶æ do sterownika o przesuniêciu, uzyskanym z algorytmu wizualnego. Pozycjê kamery nale¿y przekonwertowaæ na pozycjê quadrocoptera przez odpowiedni± macierz rotacji $R$. Kamera zamontowana jest w dolnej, centralnej czê¶ci quadrocoptera, skierowana jest w pionowo w dó³.
+Rysunek~\ref{fuzja_sch} przedstawia schemat realizacji fuzji sygna³ów z czujników odleg³o¶ci oraz z kamery.
+\begin{figure}[H]
+\centering
+	\includegraphics[scale=1]{grafika/graf_przeplywu.png}
+	\caption{Schemat fuzji sygna³ów z czujników odleg³o¶ci oraz z kamery}
+	\label{fuzja_sch}
+\end{figure}
+Do realizacji fuzji z algorytmu SVO oraz PTAM pozyskiwane s± informacje o pozycji kamery. Dziêki znanej pozycji pocz±tkowej $[x_0, y_0, z_0]$ kamery mo¿na obliczyæ przesuniêcie. Na tej podstawie wysy³ana jest wiadomo¶æ do sterownika o przesuniêciu, uzyskanym z algorytmu wizualnego. Pozycjê kamery nale¿y przekonwertowaæ na pozycjê quadrocoptera przez odpowiedni± macierz rotacji $Rot(Y,\alpha)$. Kamera zamontowana jest w dolnej, centralnej czê¶ci quadrocoptera, skierowana jest w pionowo w dó³.
 \begin{equation*}
 Rot(Y,\alpha)=
 \left[ \begin{array}{ccc}
