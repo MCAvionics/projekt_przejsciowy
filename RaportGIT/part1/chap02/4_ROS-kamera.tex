@@ -1,0 +1,32 @@
+Modu³ ROS zawiera wiele ciekawych i przydatnych w sterowaniu robotami funkcji. Pierwszym zadaniem po zainstalowaniu pakietu ROS, by³o uruchomienie kamery internetowej $2-D$, wykorzystuj±c wbudowane funkcje. W tym celu ROS wykorzystuje pakiet Gstream, którego konfiguracja jest opisana poni¿ej.
+
+\begin{enumerate}
+\item Przygotowanie repozytorium\\
+$sudo apt-get install ubuntu-restricted-extras$
+\item Instalacja pakietu GStream (w naszym przypadku manualnie, poniewa¿ z automatem zdarzaj± siê problemy)\\
+$sudo apt-get install gstreamer-dbus-media-service gstreamer-tools gstreamer0.10-alsa gstreamer0.10-buzztard$\\
+$gstreamer0.10-buzztard-doc gstreamer0.10-crystalhd gstreamer0.10-doc$\\
+$gstreamer0.10-ffmpeg gstreamer0.10-ffmpeg-dbg$\\
+$gstreamer0.10-fluendo-mp3 gstreamer0.10-gconf gstreamer0.10-gnomevfs$\\
+$gstreamer0.10-gnonlin gstreamer0.10-gnonlin-dbg$\\
+$gstreamer0.10-gnonlin-doc gstreamer0.10-hplugins gstreamer0.10-nice$\\
+$gstreamer0.10-packagekit gstreamer0.10-plugins-bad$\\
+$gstreamer0.10-plugins-bad-doc gstreamer0.10-plugins-bad-multiverse$\\
+$gstreamer0.10-plugins-base gstreamer0.10-plugins-base-apps$\\
+$gstreamer0.10-plugins-base-dbg gstreamer0.10-plugins-base-doc$\\
+$gstreamer0.10-plugins-cutter gstreamer0.10-plugins-good$\\
+\item Instalacja funkcji $"gscam"$\\
+$rosdep install gscam$\\
+$rosmake gscam$
+\end{enumerate}
+
+Gdy pakiety zosta³y przygotowane i dysponujemy kamerk±, nastêpnym krokiem jest weryfikacja dzia³ania oprogramowania. W terminalu nale¿y wpisaæ nastêpuj±ce polecenia:
+
+\begin{itemize}
+\item $cd$ $bin$
+\item $export$ $GSCAM\_CONFIG="v4l2src$ \\
+$device=/dev/video0! video/x-raw-rgb ! ffmpegcolorspace"$
+\item $rosrun$ $gscam$ $gscam$
+\end{itemize}
+
+Powy¿ej zaprezentowana metoda mo¿e nie zadzia³aæ w ka¿dej dystrybucji Ubuntu i ROS'a. Za ka¿dym razem nale¿y zweryfikowaæ posiadane wersje i siêgn±æ do dokumentacji udostêpnionej przez producenta. Je¶li jednak wszystko siê uda³o, w okienku wy¶wietli siê obraz z kamery, bez dodatkowych informacji i funkcji.
