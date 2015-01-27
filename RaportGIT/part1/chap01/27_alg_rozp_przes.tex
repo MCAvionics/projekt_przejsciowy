@@ -1,8 +1,13 @@
-Jednym z~wa¿nych zadañ niniejszego projektu, by³a detekcja
+Ze wzglêdu na formê zawodów, quadrocopter bêdzie porusza³ siê w
+zamkniêtym pomieszczeniu, gdzie jak wiadomo sygna³ GPS
+zawodzi. Dlatego jednym z~wa¿nych zadañ niniejszego projektu, by³a detekcja
 przesuniêcia, ruchu quadrocoptera, która powinna byæ dokonywana
 automatycznie przy wykorzystaniu sekwencji obrazów z~kamery
-wizyjnej. Poniewa¿ projekt opiera siê na platformie ROS za³o¿ono, ¿e
-istniej± ju¿ gotowe rozwi±zania problemu detekcji ruchu kamery
+wizyjnej.Wizualna odometria mo¿e wspó³pracowaæ z innymi rozwi±zaniami,
+dlatego do stabilizacji w punkcie system wizyjny zostanie po³±czony z
+czujnikami laserowymi oraz ultrad¼wiêkowymi. Zminimalizuje to b³±d
+estymacji ruchu, a co za tym idzie, bêdzie mo¿na przeciwdzia³aæ
+dryfowi. Poniewa¿ projekt opiera siê na platformie ROS za³o¿ono, ¿e istniej± ju¿ gotowe rozwi±zania problemu detekcji ruchu kamery
 i~dokonano przegl±du dostêpnych algorytmów. 
 Do implementacji i~badañ wybrano algorytm Lucas--Kanade oraz dwa
 algorytmy monoSLAM PTAM i~SVO 
