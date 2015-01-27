@@ -1,0 +1,20 @@
+Algorytm detekcji przesuniêcia Lucasa-Kanade zosta³ oparty o implementacjê z biblioteki OpenCV 3.0b. Nastêpnie zosta³ on przystosowany do platformy ROS. Ca³o¶æ zosta³a zaimplementowana w jêzyku Python. 
+
+Bibliotekê skompilowano pod docelow± platformê, Ubuntu 12.04 server, wersja 32 bitowa. Nastêpnie zaimplementowano specjalny \textit{topic} pod platformê ROS, który oblicza³ ¶redni± ze sk³adowych x i y. 
+
+Kamera, z której korzysta algorytm jest skierowana w dó³. Dzia³a on poprawnie, je¶li obraz zawiera odpowiedni± liczbê punktów charakterystycznych, dla których mo¿na jednoznacznie okre¶liæ przesuniêcie. Lista wektorów przesuniêæ jest uaktualniana z ka¿d± now± klatk± obrazu. 
+
+Algorytm nie jest algorytmem uniwersalnym. Istniej± pewne okoliczno¶ci, w których nale¿y ograniczyæ zaufanie co do warto¶ci jakie zwraca. 
+
+Pewnym problemem jest szum, który jest wykrywany jako ruch. Jednak mo¿na ten problem wyeliminowaæ, na przyk³ad poprzez na³o¿enie odpowiednich masek na obraz. Wszystko zale¿y od jako¶ci sensora u¿ytej kamery.
+
+Innym powa¿nym problemem, który wynika z samych za³o¿eñ dotycz±cych dzia³ania algorytmu jest zmienna jasno¶æ obrazu. Algorytm zak³ada, ¿e jest ona sta³a. Problem ten mo¿e byæ istotny w przypadku pomieszczeñ o¶wietlanych ¶wietlówkami. Je¶li kamera wychwyci jej migotanie, algorytm mo¿e nie zadzia³aæ poprawnie. 
+
+Algorytm operuje na p³aszczy¼nie XY, a wysoko¶æ na jakiej umieszczona jest kamera powinna byæ sta³a. W przypadku kiedy siê ona zmienia, warto¶ci jakie zwraca mog± byæ niepoprawne. 
+
+\begin{figure}[tp]
+\centering
+	\includegraphics[scale=0.6]{grafika/lucas.png}
+	\caption{Przyk³ad dzia³ania detekcji ruchu w oparciu o algorytm Lucasa-Kanade}
+	\label{yml}
+\end{figure}

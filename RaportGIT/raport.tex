@@ -55,7 +55,7 @@
 %\usepackage[sectionbib]{chapterbib}  %niestety nie dzia³a w klasie mwrep 
                                       %nie ma b³êdu przy klasie memoir!
 \usepackage{chapterbib}
-
+\usepackage{float}
 \graphicspath{{./part1/chap01/},{./part1/chap02/},{./part1/chap03/},{./part1/chap04/},{./part1/chap05/},{./part1/chap06/},{./part1/chap07/grafika/},{./part1/chap08/},{./part1/chap09/},{./part2/chap01/},{./part2/chap02/},{./part2/chap03/},{./part2/chap04/},{./part2/chap05/}}
 
 % Definicje ustalaj±ce wygl±d wydruków programów
@@ -177,7 +177,7 @@
 
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-\part{Wstêp}
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \chapter{Wstêp, Piotrek}
 \input{part0/chap00/0_wstep}
@@ -194,11 +194,72 @@
 	\input{part0/chap00/4_cel_pracy}
 
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\part{Sprzêt}
+	
+	\chapter{Ahsoka, Marcin}
+	\input{part1/chap02/1a_ahsoka}
+			
+	\chapter{Uruchomienie platformy lataj±cej, Marcin}
+	\input{part1/chap02/1b_ahsoka_fly}
+		
+		\section{Uzbrajanie silników, Marcin}
+			
+	\chapter{Uruchomienie kamery 3D, Micha³}
+	\input{part1/chap02/2a_urucomienie_kamery}
+	
+	\chapter{Uruchomienie komunikacji, Micha³}
+		\input{part1/chap02/3_komunikacja_ROS}
+			\section{Komunikacja ROS---kamera, Mateusz} %kamera 2d
+			\input{part1/chap02/4_ROS-kamera}
+			\section{Komunikacja ROS---MAVLINK, Mateusz}
+			\input{part1/chap02/4_ROS-mavlink}
+			\section{Komunikacja ROS---GroundStation, Krzysiek} 
+			\input{part1/chap02/4_ROS-GS}
+			\section{Komunikacja ROS---czujniki, Daniel} 
+			\input{part1/chap02/4_ROS-czujniki}			
+			\section{Komunikacja MAVLINK---PixHawk, Mateusz}
+			\input{part1/chap02/4_ROS-pixhawk}
+	
+	\chapter{Czujniki odleg³o¶ci, Alicja}
+		\input{part1/chap01/1_cz_odl_wstep}
+		\section{Dobór czujników odleg³o¶ci, Hania}
+		\input{part1/chap01/2_dobor_cz_odleg}
+			\subsection{Specyfikacja potrzeb, Hania}
+			\input{part1/chap01/3_specyf_pot}	
+			\subsection{Dostêpne rozwi±zania, Alicja}
+			\input{part1/chap01/4_dostep_rozw}
+			\subsection{Dobór czujników, Alicja}
+			\input{part1/chap01/5_dobor_cz}
+		\section{Rozmieszczenie czujników odleg³o¶ci, Pawe³}
+		\input{part1/chap01/6_rozm_cz}
+			\subsection{Przegl±d rozwi±zañ, Pawe³}
+			\input{part1/chap01/7_przeglad_rozw}
+			\subsection{Propozycja rozmieszczenia, Pawe³}
+			\input{part1/chap01/8_prop_rozm}		
+		\section{P³ytka PCB, Alicja}
+		\input{part1/chap02/8_PCB}
+			\subsection{Specyfikacja potrzeb, Marcin}
+			\input{part1/chap02/8a_specyfikacja_potrzeb}
+			\subsection{Wykonanie i uruchomienie p³ytki PCB, Micha³}
+			\input{part1/chap02/8b_wykonananie_i_uruchomienie}
+			\newpage
+			\section{Oprogramowanie interfejsu, Micha³}
+			\input{part1/chap02/8c_oprogramowanie_plytki}
+			\subsection{Komunikacja ROS-czujniki, Daniel}
+			\input{part1/chap02/8d_komunikacja_ROS}
+		\section{Monta¿ czujników na platformie docelowej, Mateusz}
+		\input{part1/chap02/9_montaz_czujnikow}
+
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 \part{Zadania}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\chapter{Stabilizacja w punkcie - przygotowania, Daniel}
+\chapter{Rozpoznanie dostêpnych rozwi±zañ, Daniel}
 \input{part1/chap01/0_wstep}
 %--------------------------------------------------------------------------------------------------------
 	\section{Interfejs do istniej±cego oprogramowania i sprzêtu, Kacper}
@@ -224,79 +285,17 @@
 	\subsection{Link radiowy, Mateusz}
 		\input{part1/chap01/24_link_rad}
 		\subsection{Przegl±d rozwi±zañ FPV, Krzysiek}
-		\input{part1/chap01/25_przeglad_rozw_FPV}
-
-%--------------------------------------------------------------------------------------------------------
-	\section{Czujniki odleg³o¶ci, Alicja}
-	\input{part1/chap01/1_cz_odl_wstep}
-		\subsection{Dobór czujników odleg³o¶ci, Hania}
-		\input{part1/chap01/2_dobor_cz_odleg}
-			\subsubsection{Specyfikacja potrzeb, Hania}
-			\input{part1/chap01/3_specyf_pot}	
-			\subsubsection{Dostêpne rozwi±zania, Alicja}
-			\input{part1/chap01/4_dostep_rozw}
-			\subsubsection{Dobór czujników, Alicja}
-			\input{part1/chap01/5_dobor_cz}
-		\subsection{Rozmieszczenie czujników odleg³o¶ci, Pawe³}
-		\input{part1/chap01/6_rozm_cz}
-			\subsubsection{Przegl±d rozwi±zañ, Pawe³}
-			\input{part1/chap01/7_przeglad_rozw}
-			\subsubsection{Propozycja rozmieszczenia, Pawe³}
-			\input{part1/chap01/8_prop_rozm}		
-%--------------------------------------------------------------------------------------------------------
-	\section{Algorytmy rozpoznawania przesuniêcia, Kacper}
-		\input{part1/chap01/27_alg_rozp_przes}
-			\subsection{Algorytm Lucas---Kanade, Piotrek}
-			\input{part1/chap01/27a_LK}
-			\subsection{Zmodyfikowany PTAM, Kacper}
-			 \input{part1/chap01/27b_PTAM}
-			 \subsection{Algorytm SVO, Hania}
-			 \input{part1/chap01/27c_SVO}
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\chapter{Stabilizacja w punkcie - realizacja, Krzysiek}
+		\input{part1/chap01/25_przeglad_rozw_FPV}			
+\chapter{Stabilizacja w punkcie, Krzysiek}
 \input{part1/chap02/0_wstep}
-	
-	\section{Ahsoka, Marcin}
-	\input{part1/chap02/1a_ahsoka}
-			
-	\section{Uruchomienie platformy lataj±cej, Marcin}
-	\input{part1/chap02/1b_ahsoka_fly}
-		
-		\subsection{Uzbrajanie silników, Marcin}
-			
-	\section{Uruchomienie kamery 3D, Micha³}
-	\input{part1/chap02/2a_urucomienie_kamery}
-	
-	\section{Uruchomienie komunikacji, Micha³}
-		\input{part1/chap02/3_komunikacja_ROS}
-			\subsection{Komunikacja ROS---kamera, Mateusz} %kamera 2d
-			\input{part1/chap02/4_ROS-kamera}
-			\subsection{Komunikacja ROS---MAVLINK, Mateusz}
-			\input{part1/chap02/4_ROS-mavlink}
-			\subsection{Komunikacja ROS---GroundStation, Krzysiek} 
-			\input{part1/chap02/4_ROS-GS}
-			\subsection{Komunikacja ROS---czujniki, Daniel} 
-			\input{part1/chap02/4_ROS-czujniki}			
-			\subsection{Komunikacja MAVLINK---PixHawk, Mateusz}
-			\input{part1/chap02/4_ROS-pixhawk}
-	
-	\section{Czujniki odleg³o¶ci}
-		\subsection{P³ytka PCB, Alicja}
-		\input{part1/chap02/8_PCB}
-			\subsubsection{Specyfikacja potrzeb, Marcin}
-			\input{part1/chap02/8a_specyfikacja_potrzeb}
-			\subsubsection{Wykonanie i uruchomienie p³ytki PCB, Micha³}
-			\input{part1/chap02/8b_wykonananie_i_uruchomienie}
-			\newpage
-			\subsection{Oprogramowanie interfejsu, Micha³}
-			\input{part1/chap02/8c_oprogramowanie_plytki}
-			\subsubsection{Komunikacja ROS-czujniki, Daniel}
-			\input{part1/chap02/8d_komunikacja_ROS}
-		\subsection{Monta¿ czujników na platformie docelowej, Mateusz}
-		\input{part1/chap02/9_montaz_czujnikow}
-			
-
+		\section{Algorytmy rozpoznawania przesuniêcia, Kacper}
+			\input{part1/chap01/27_alg_rozp_przes}
+				\subsection{Algorytm Lucas---Kanade, Piotrek}
+				\input{part1/chap01/27a_LK}
+				\subsection{Zmodyfikowany PTAM, Kacper}
+				 \input{part1/chap01/27b_PTAM}
+				 \subsection{Algorytm SVO, Hania}
+				 \input{part1/chap01/27c_SVO}
 		\section{Implementacja algorytmów przesuniêcia, Kacper}
 		\input{part1/chap02/28_implem_alg}
 			\subsection{Algorytm Lucas---Kanade, Piotrek}
@@ -329,6 +328,7 @@
 		\section{Algorytm stabilizacji w punkcie}	
 		
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
 \chapter{Stabilizacja w pomieszczeniu}
 \input{part1/chap03/0_wstep}
 	
@@ -347,7 +347,10 @@
 			\subsubsection{Specyfikacja, Mateusz}
 			\input{part1/chap03/1_lot_specyf}
 			
-
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Zadania dodatkowe}
+\section{Center Plate}
+\input{part1/chap03/66_center}
 	
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -360,7 +363,7 @@
 
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-\part{Zakoñczenie}
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \chapter{Podsumowanie}
 
