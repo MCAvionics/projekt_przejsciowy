@@ -1,0 +1,33 @@
+Na potrzeby projektu zosta³ napisany modu³, który odpowiada za pobieranie oraz udostêpnianie pomiarów odleg³o¶ci. Implementuje on interfejs komunikacyjny w jaki zosta³ wyposa¿ony modu³ z czujnikami. Komunikacja odbywa siê z wykorzystaniem portu szeregowego.
+Do implementacji przesy³ania danych zosta³a u¿yta biblioteka termios. 
+Poni¿ej zosta³a przedstawiona konfiguracja portu:
+\lstset{language=c++}
+\begin{lstlisting}
+    settings.c_iflag = IGNBRK | IGNPAR | IGNCR;
+    settings.c_oflag = 0;
+    settings.c_cflag = CS8 | CREAD | CLOCAL;
+    settings.c_lflag = 0;
+    settings.c_cc[VMIN] = 0;
+    settings.c_cc[VTIME] = 0;
+    cfsetispeed(&settings, B9600);
+    cfsetospeed(&settings,B9600);
+\end{lstlisting}
+Czytanie z portu odbywa siê w sposób asynchroniczny. Poni¿ej przedstawiono konfiguracjê oraz obs³ugê sygna³u wysy³anego w momencie, gdy s± mo¿liwe dane do czytania:
+\lstset{language=c++}
+\begin{lstlisting}
+sigaio.sa_handler = Device::signalHandler;
+sigaio.sa_flags = 0;
+sigemptyset(&sigaio.sa_mask);
+sigprocmask(SIG_SETMASK, &sigaio.sa_mask, NULL);
+sigaction(SIGIO, &sigaio, NULL);
+fcntl(fd, F_SETOWN, getpid());
+fcntl(fd, F_SETFL, FASYNC);
+\end{lstlisting}
+W powy¿szym wydruku w pierwszej kolejno¶ci ustawiamy funkcje, która jest odpowiedzialna za wywo³anie odpowiednich czynno¶ci po otrzymaniu sygna³u. W nastêpnych trzech liniach konfigurowana jest obs³uga sygna³u. Na koñcu modyfikowany jest deskryptor w którym powinni¶my siê spodziewaæ odpowiedniego zdarzenia. Kiedy sygna³ jest odbierany z wej¶cia pobierane s± dane z czujników, które nastêpnie s± publikowane w topicu o nazwie: pomiary. Odczyty publikowane s± w formacie:
+\lstset{language=c++}
+\begin{lstlisting}
+uint16[] dane
+time timestamp
+\end{lstlisting}
+Pierwsze pole w powy¿szej wiadomo¶ci to wektor zawieraj±cy odczyty z czujników w cm, drugi to czas wykonania pomiaru. Kiedy otrzymamy niekompletny lub pusty zestaw danych pomiary nie s± publikowane, a w logach pojawia siê informacja: "Receive data failed".
+
