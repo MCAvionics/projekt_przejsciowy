@@ -123,31 +123,30 @@ Na potrzeby dekodowania sygna³u PPM wykorzystano przerwanie zewnêtrzne generowan
 
 %====================================================================
 \begin{lstlisting}[language=C, frame=single,tabsize=2, caption={Obs³uga przerwania realizuj±cego dekodowanie PPM}] 
-ISR (INT2_vect)
+ISR (INT2_vect) // PPM
 {
 	cli();
-	if (MCUCR & _BV(ISC2)) // rising edge interrupt
+	if ((timeCntPPM + TCNT2) > MAX_PPM_WIDTH) // new frame
 	{
-		TCNT2 = 0; // Timer2 reset
-		timeCntPPM = 0;
-		MCUCR &= ~_BV(ISC2); // change to falling edge detect
+		newFrame = 1;
+		channelPPMcnt = 0;
 	}
-	else // falling edge interrupt
+	else if(newFrame) // measurement for properly PPM channel
 	{
-		if ((timeCntPPM + TCNT2) > MAX_PPM_WIDTH) // new frame
+		channelPPM[channelPPMcnt] = timeCntPPM + TCNT2;
+		if (channelPPMcnt < 7) // increase channel counter
 		{
-			channelPPMcnt = 0;
+			channelPPMcnt++;
 		}
-		else // measurement for PPM channel
+		else
 		{
-			channelPPM[channelPPMcnt] = timeCntPPM + TCNT2;
-			if (channelPPMcnt < 7) // increase channel counter
-			{
-				channelPPMcnt++;
-			}				
-		}	
+			newFrame = 0;
+		}
 	}
-	GIFR |= (1 << INTF1);	// interrupt flag clear
+	TCNT2 = 0; // Timer2 reset
+	timeCntPPM = 0;
+	
+	GIFR |= (1 << INTF1);	// Interrupt flag clear
 	sei();
 }
 \end{lstlisting}

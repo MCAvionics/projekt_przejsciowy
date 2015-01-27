@@ -1,0 +1,40 @@
+Algorytm stabilizacji wysoko¶ci zrealizowano w postaci pakietu ¶rodowiska ROS. Zasada dzia³ania pakietu opiera siê na pobieraniu pomiarów czujników odleg³o¶ci z topiku \textsf{/pomiary} oraz orientacji quadrocoptera ze sterownika Pixhawk za po¶rednictwem protoko³u \textsf{mavlink}, pakietu \textsf{mavros} oraz topiku \textsf{/mavros/imu/data}. Wysoko¶æ robota publikowana jest w topiku \textsf{/height}.
+
+W celu obliczenia rzeczywistej wysoko¶ci quadrocoptera, jego orientacja w postaci kwaternionu jest konwertowana do reprezentacji w postaci k±tów RPY (Roll, Pitch, Yaw), z wykorzystaniem przedstawionej poni¿ej funkcji.
+
+\begin{lstlisting}[language=C, frame=single,tabsize=2, caption={Funkcja konwertuj±ca orientacjê w postaci kwaternionów do k±tów RPY}] 
+void quaternionsToRPY(double q0, double q1, double q2, 
+double q3, double *roll, double *pitch, double *yaw)
+{
+  *roll = atan2(2*(q0*q1+q2*q3), 1-2*(q1*q1+q2*q2))*180/M_PI; 
+  *pitch = asin(2*(q0*q2-q3*q1)) * 180 / M_PI;
+  *yaw = atan2(2*(q0*q3+q1*q2), 1-2*(q2*q2 + q3*q3))*180/M_PI;
+}
+\end{lstlisting}
+~~\\
+Dane wej¶ciowe z czujników odleg³o¶ci s± wstêpnie filtrowane, a nastêpnie na ich podstawie oraz na podstawie orientacji obliczana jest rzeczywista wysoko¶æ. W dalszej czê¶ci przedstawiono sposób pobierania danych o orientacji z odpowiedniego topika oraz sposób wyznaczania wysoko¶ci quadrocoptera.
+
+\begin{lstlisting}[language=C, frame=single,tabsize=2, caption={Pobieranie danych o orientacji quadrocoptera}] 
+void HeightQuadro::sensorsCallback(
+			const height_control::Sensors::ConstPtr& msg)
+{
+	_upMeasurements[_measureIter] = msg->dane[UP_SENSOR_NR];
+	_downMeasurements[_measureIter] = msg->dane[DOWN_SENSOR_NR];
+	
+	if(++_measureIter >= PREFILTER_A)
+		_measureIter = 0;
+	preFilter();
+	heightFromDistance();
+} 
+\end{lstlisting}
+
+\begin{lstlisting}[language=C, frame=single,tabsize=2, caption={Obliczanie wysoko¶ci robota}]
+ void HeightQuadro::heightFromDistance()
+{	
+	double _roll, _pitch, _yaw;
+	quaternionsToRPY(_orientation.x, _orientation.y, 
+	_orientation.z, _orientation.w, &_roll, &_pitch, &_yaw);
+	_realUpHeight 	= _filteredUp[1]/(cos(_roll)*cos(_pitch));		
+	_realDownHeight = _filteredDown[1]/(cos(_roll)*cos(_pitch));
+}
+\end{lstlisting}
