@@ -1,0 +1,16 @@
+Debugowanie, jest to proces systematycznego redukowania liczby b³êdów w oprogramowaniu b±d¼ w systemie mikroporcesorowym, który polega na kontrolowanym wykonywaniu programu pod nadzorem narzêdzia debugujacego. \\
+Proces usuwania b³êdów mo¿na podzieliæ na kilka etapów:
+\begin{enumerate}
+\item Reprodukcja b³êdu
+\item Wyizolowanie ¼ród³a b³êdu
+\item Identyfikacja przyczyny awarii
+\item Usuniêcie defektu
+\item Weryfikacja powodzenia naprawy
+\end{enumerate}
+Centralnym punktem procesu usuwania b³êdów programu jest obserwacja jego wykonania w celu lokalizacji ¼ród³a usterki. Zadanie to u³atwia g³ówne narzêdzie do dynamicznej analizy programu, czyli \textit{Debugger}. Umo¿liwia on:
+\begin{itemize}
+\item wykonywanie programu w trybie pracy krokowej lub z zastawianiem tzw. pu³apek
+\item podgl±danie i ewentualna zmiana zawarto¶ci rejestrów, pamiêci itd. 
+\end{itemize}
+W celu zdalnego debugowania wykorzystane zosta³o po³±czenie quadrocoptera z GroundStation, a dok³adnie z programem qGroundControl. Pozwala on na podgl±d na zmienne stanu i status coptera w czasie rzeczywistym. \\
+Po³±czenie sterownika komputera pok³adowego z qGroundControl nastêpuje poprzez SSH. Komunikaty o stanie quadrocoptera wysy³ane s± w formie komunikatów gcc oraz komunikatów: ROS\_INFO, ROS\_ERROR oraz ROS\_FATAL. 
