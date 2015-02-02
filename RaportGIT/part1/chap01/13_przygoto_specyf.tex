@@ -1,0 +1,11 @@
+Protokó³ wykorzystany do komunikacji Quadrocoptera zosta³ oparty o opisany protokó³ MAVLink. Ramka tego protoko³u ma nastêpuj±c± strukturê:
+\begin{itemize}
+\item ,,Start-of-frame'' - oznacza pocz±tek ramki transmisyjnej,
+\item ,,Pay-load-length'' - d³ugo¶æ wiadomo¶æ,
+\item ,,Packet sequence'' - numer sekwencji, pozwala okre¶liæ czy jaki¶ pakiet nie zosta³ zgubiony,
+\item ,,System ID'' - pozwala okre¶liæ z jakiego systemu w sieci pakiet zosta³ wys³any
+\item ,,Component ID'' - okre¶la z jakiego elementu systemu zosta³a wys³ana ramka
+\item ,,Message ID'' - okre¶la kodowanie d³ugo¶ci wiadomo¶ci oraz sposób w jaki powinna zostaæ zdekodowana 
+\item ,,Payload'' - tre¶æ wiadomo¶ci
+\item ,,CRC'' - suma kontrolna
+\end{itemize}
