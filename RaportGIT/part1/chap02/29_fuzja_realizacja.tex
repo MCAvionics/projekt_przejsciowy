@@ -19,7 +19,7 @@ Rot(Y,\alpha)=
 -1 & 0 & 0
 \end{array} \right].
 \end{equation*}
-Wiadomo¶æ wysy³ana do sterownika jest umieszczana w topicu o typie \textit{geometry\_msg/Vector3}. Parametr $\delta$, który trzeba dobraæ podczas testu, bêdzie decydowa³ czy wyst±pi³o przesuniêcie, czy te¿ nie. Poni¿szy wydruk pokazuje funkcjê rosow± \textit{Callback}, która uzyskuje informacjê o pozycji kamery z topicu \texttt{/svo/points}, którego typ to \textit{visualizatio\_msgs/Marker}.
+Wiadomo¶æ wysy³ana do sterownika jest umieszczana w topicu o typie \textit{geometry\_msg/Vector3}. Poni¿szy wydruk pokazuje funkcjê rosow± \textit{Callback}, która uzyskuje informacjê o pozycji kamery z topicu \texttt{/svo/points}, którego typ to \textit{visualizatio\_msgs/Marker}.
 \begin{lstlisting}[language=C++, frame=single,tabsize=1, caption={Pobranie warto¶ci po³o¿enia kamery}] 
 void chatterCallback(const visualization_msgs::
 /Marker::ConstPtr& msg)
@@ -30,22 +30,38 @@ void chatterCallback(const visualization_msgs::
 }
 \end{lstlisting}
 W taki sam sposób uzyskiwany jest pomiar pozycji kamery z algorytmu PTAM z topicu \texttt{/vslam/pose}. Wiadomo¶æ ta jest typu \textit{geometry\_msgs/PoseWithCovarianceStamped}.
-\begin{lstlisting}[language=C++, frame=single,tabsize=1, caption={Cze¶æ fuzji wykorzystuj±ca wizualne algorytmy wykrywania przesuniêcia}] 
+Podczas testów algorytmów wizualnych spostrze¿ono lepsze dzia³anie algorytmu PTAM. Dlatego zdecydowano siê oprzeæ fuzjê sensoryczn± na pomiarach dostarczonych z tego algorytmu. Je¿eli program siê zawiesi, wtedy pobierane s± informacje z programu SVO. Je¿eli i ten zawiedzie, informacja o przesuniêciu jest dostarczona z czujników odleg³o¶ci.
+\begin{lstlisting}[language=C++, frame=single,tabsize=1, caption={Czê¶æ fuzji wykorzystuj±ca wizualne algorytmy wykrywania przesuniêcia oraz czujniki odleglo¶ci}]
+geometry_msgs::Vector3 Msg;
+if((t[1][0]-x_0)==0 && (t[1][1]-y_0)==0 && (t[1][2]-z_0)==0)
 {
- geometry_msgs::Vector3 Msg;
-
- if(abs(0.5*t[0][0]+0.5*t[1][0]-x_0)>delta){
- 	x_0=0.5*t[0][0]+0.5*t[0][1];
- 	Msg.x=x_0;
- }
- if(abs(0.5*t[0][1]+0.5*t[1][1]-y_0)>delta){
- 	y_0=0.5*t[0][1]+0.5*t[1][1];
-  	Msg.y=y_0;
- }
- if(abs(0.5*t[0][2]+0.5*t[1][2]-z_0)>delta){
- 	z_0=0.5*t[0][2]+0.5*t[1][2];
-  	Msg.z=z_0;
- }
- 
+if((t[0][0]-xx_0)==0 && /
+(t[0][1]-yy_0)==0 && (t[0][2]-zz_0)==0)
+{
+//czujniki
+roll=atan2(2*(o.x*o.y+o.z*o.w),
+/ 1-2*(o.y*o.y+o.z*o.z))*180/M_PI;
+pitch=asin(2*(o.x*o.z-o.w*o.y))*180/M_PI;
+yaw=atan2(2*(o.x*o.w+o.y*o.z),1-2*(o.z*o.z+o.w*o.w))*180/M_PI;
+if(roll!=roll2 || pitch!=pitch2 || yaw!=yaw2)
+{
+czujniki_ref[0]-d[0];//linia 1 X
+czujniki_ref[1]-d[1];//linia 1 X
+czujniki_ref[4]-d[4];//linia 2 X
+czujniki_ref[5]-d[5];//linia 2 X
+Msg.x(czujniki_ref[5]-d[5]);
+Msg.y(czujniki_ref[6]-d[6]);// Y
+}}
+else{
+Msg.x=t[1][0]-xx_0;
+Msg.y=t[1][1]-yy_0;
+Msg.z=t[1][2]-zz_0;
+}}
+else{
+Msg.x=t[0][0]-x_0;
+Msg.y=t[0][1]-y_0;
+Msg.z=t[0][2]-z_0;
 }
+chatter_pub.publish(Msg);
 \end{lstlisting}
+Wyliczanie k±tów $roll$, $pitch$ i $yaw$ zosta³o zaczerpniête ze sterownika stabilizacji wysoko¶ci. Czujniki odleg³o¶ci dostarczaj± przesuniêcia liniowe w lokalnym uk³adzie wspó³rzêdnych.
