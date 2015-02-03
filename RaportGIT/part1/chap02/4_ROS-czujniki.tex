@@ -29,5 +29,21 @@ W powy¿szym wydruku w pierwszej kolejno¶ci ustawiamy funkcje, która jest odpowie
 uint16[] dane
 time timestamp
 \end{lstlisting}
-Pierwsze pole w powy¿szej wiadomo¶ci to wektor zawieraj±cy odczyty z czujników w cm, drugi to czas wykonania pomiaru. Kiedy otrzymamy niekompletny lub pusty zestaw danych pomiary nie s± publikowane, a w logach pojawia siê informacja: "Receive data failed".
-
+Razem z danymi o odleg³o¶ci przesy³ane s± dane o sygnale PPM, które s± publikowane w topicu o nazwie ppm w formacie:
+\lstset{language=c++}
+\begin{lstlisting}
+uint16[] ppm
+time timestamp
+\end{lstlisting}
+Pierwsze pola w powy¿szych wiadomo¶ci to wektor zawieraj±cy odczyty, drugi to czas wykonania pomiaru. Kiedy otrzymamy niekompletny lub pusty zestaw danych pomiary nie s± publikowane, a w logach pojawia siê informacja: "Receive data failed". Do sterowania ca³ym oprogramowaniem s³u¿y interfejs:
+\lstset{language=c++}
+\begin{lstlisting}
+uint8 SENSOR_ON=0
+uint8 SENSOR_OFF=1
+uint8 PPM_ON=2
+uint8 PPM_OFF=3
+uint8 FAILSAFE_ON=2
+uint8 FAILSAFE_OFF=3
+uint8 control
+\end{lstlisting}
+Za pomoc± powy¿szego interfejsu mo¿emy wy³±czaæ lub w³±czaæ pomiary odleg³o¶ci lub ppm, a tak¿e korzystaæ z failsafe. Komendy interpretowane s± w serwisie o nazwie: czujniki\_ster.
