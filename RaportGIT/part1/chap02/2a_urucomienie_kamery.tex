@@ -34,7 +34,7 @@ Przedstawiona kamera wykorzystuje metodê pomiaru okre¶lan± mianem \emph{TOF} (\t
 
  W celu zapewnienia dostêpu do obrazów kamery 3D z poziomu ¶rodowiska \emph{ROS}, które umo¿liwia integracjê tworzonego w ramach projektu oprogramowania zdecydowano siê na przeniesienie pakietu \emph{pmd\_camboard\_nano} obs³uguj±cego kamerê \emph{PMD Camboard nano}, autorstwa Sergey'a Alexandrov'a do nowszej wersji ROS \emph{Hydro} z wersji Fuerte.
 
-Przeniesienie pakietu do ROS'a w wersji Hydro wymaga³o miêdzy innymi zmiany rozwi±zania odno¶nie budowania paczek. W poprzedniej wersji pakietu u¿ywano \emph{rosbuild}, natomiast w nowszej wersji wykorzystano ¶rodowisko \emph{catkin} oparte na wieloplatformowym systemie budowania pakietów \emph{cmake}.
+Przeniesienie pakietu do ROS'a w wersji Hydro wymaga³o miêdzy innymi zmiany rozwi±zania odno¶nie budowania paczek. W poprzedniej wersji pakietu u¿ywano \emph{rosbuild}\cite{http://wiki.ros.org/rosbuild}, natomiast w nowszej wersji wykorzystano ¶rodowisko \emph{catkin} oparte na wieloplatformowym systemie budowania pakietów \emph{cmake}. Warto zaznaczyæ, ¿e rozwi±zanie z rosbuild'em wykorzystywane by³o we wcze¶niejszych wersjach ROS'a, natomiast w nowszych odchodzi siê od jego u¿ycia na rzecz ¶rodowiska catkin. Proces migracji do nowszego systemu opisany zosta³ \cite{migration}. 
 
 Dodatkowo, zdecydowano siê na usuniêcie z zale¿no¶ci pakietu \emph{dynamic\_reconfigure} odpowiadaj±cego za dynamiczn± zmianê parametrów pakietu, ze wzglêdu na problemy z jego uruchomieniem oraz w celu ujednolicenia sposobu konfiguracji ca³o¶ci oprogramowania, za pomoc± plików \emph{launch}. W obecnej wersji pe³n± konfiguracjê mo¿na przeprowadziæ z u¿yciem odpowiedniego pliku \emph{launch}, w którym opisane zosta³y parametry.
 
@@ -54,8 +54,8 @@ Kolejnym rozwi±zaniem, które uleg³o zmianie jest sposób dostarczania sterowników
 \subsubsection{Uruchomienie pakietu i weryfikacja poprawno¶ci dzia³ania} 
 \begin{itemize}
 	\item \textsf{source devel/setup.bash} - za³adowanie zmiennych ¶rodowiskowych workspace'a,
-	\item \textsf{roslaunch pmd\_camboard\_nano pmd\_camboard\_nano.launch} - uruchomienie pakietu,
-	\item \textsf{rosrun image\_view image\_view image:=/camera/depth/image} \\- wy¶wietlenie obrazu g³êbi,
+	\item \textsf{roslaunch pmd\_camboard\_nano pmd\_camboard\_nano.launch} - uruchomienie pakietu, z wykorzystaniem oprogramowania roslaunch, czyli plików uruchomieniowych,
+	\item \textsf{rosrun image\_view image\_view image:=/camera/depth/image} \\- wy¶wietlenie obrazu g³êbi. Dwukrotne wyst±pienie image\_view zwi±zane jest z organizacj± pakietów w ROS'ie, co znaczy tyle, ¿e pierwszy parametr okre¶la metapaczkê, natomiast drugi paczkê, która zawiera siê w wymienionej wcze¶niej metapaczce. W przypadku, gdy pakiet nie nale¿y do ¿adnej metapaczki, podaje siê jego nazwê dwukrotnie.
 	\item \textsf{rosrun image\_view image\_view image:=/camera/amplitude/image} \\- wy¶wietlenie obrazu w odcieniach szaro¶ci.
 \end{itemize}
 
