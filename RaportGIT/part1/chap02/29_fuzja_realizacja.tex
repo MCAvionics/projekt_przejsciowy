@@ -39,19 +39,13 @@ if((t[0][0]-xx_0)==0 && /
 (t[0][1]-yy_0)==0 && (t[0][2]-zz_0)==0)
 {
 //czujniki
-roll=atan2(2*(o.x*o.y+o.z*o.w),
-/ 1-2*(o.y*o.y+o.z*o.z))*180/M_PI;
-pitch=asin(2*(o.x*o.z-o.w*o.y))*180/M_PI;
-yaw=atan2(2*(o.x*o.w+o.y*o.z),1-2*(o.z*o.z+o.w*o.w))*180/M_PI;
-if(roll!=roll2 || pitch!=pitch2 || yaw!=yaw2)
-{
 czujniki_ref[0]-d[0];//linia 1 X
 czujniki_ref[1]-d[1];//linia 1 X
 czujniki_ref[4]-d[4];//linia 2 X
 czujniki_ref[5]-d[5];//linia 2 X
 Msg.x(czujniki_ref[5]-d[5]);
 Msg.y(czujniki_ref[6]-d[6]);// Y
-}}
+}
 else{
 Msg.x=t[1][0]-xx_0;
 Msg.y=t[1][1]-yy_0;
@@ -64,4 +58,4 @@ Msg.z=t[0][2]-z_0;
 }
 chatter_pub.publish(Msg);
 \end{lstlisting}
-Wyliczanie k±tów $roll$, $pitch$ i $yaw$ zosta³o zaczerpniête ze sterownika stabilizacji wysoko¶ci. Czujniki odleg³o¶ci dostarczaj± przesuniêcia liniowe w lokalnym uk³adzie wspó³rzêdnych.
+Czujniki odleg³o¶ci dostarczaj± przesuniêcia liniowe w lokalnym uk³adzie wspó³rzêdnych.

@@ -35,4 +35,4 @@ Do dalszego przetwarzania informacji dostarczonych z dzia³aj±cej paczki SVO mo¿n
 \end{figure}
 Rysunek \ref{t} pokazuje strukturê kluczowego topicu SVO. Typ wiadomo¶ci to \textit{visualization\_msgs}. Wiadomo¶æ ta jest zbiorem informacji u¿ywanych przez takie pakiety jak, np. \textit{rviz}. G³ówn± wiadomo¶ci± w tym topicu jest \textit{visualization\_msgs/Marker}. Do dalszego przetwarzania u¿yto komunikatu zawieraj±cego informacjê o pozycji kamery. Mo¿na t± informacjê uzyskaæ poprzez subskrybowanie siê do tego topicu.
 \subsubsection{Modyfikacja}
-Algorytm SVO posiada w±tek u¿ytkownika. Program zmodyfikowano tak, by dzia³a³ automatycznie, bez czekania na akcjê u¿ytkownika, który decydowa³ o starcie algorytmu, przy jego wcze¶niejszym resecie.
+Algorytm SVO posiada w±tek u¿ytkownika. Zdecydowano siê na wy³±cznie tego w±tku. Program zmodyfikowano tak, by dzia³a³ automatycznie, bez czekania na akcjê u¿ytkownika, który decydowa³ o starcie algorytmu, przy jego wcze¶niejszym resecie.
