@@ -1,4 +1,26 @@
+W oparciu o powy¿sze wytyczne zaprojektowano schemat \ref{fig:PCBSCH} oraz p³ytkê PCB. Jako mikrokonroler zastosowano chip ATmega32 firmy ATmel, a konwerter napiêæ dla RS-232 to popularny MAX232 w implementacji przetwornicy pojemno¶ciowej. P³ytka zawiera kluczowanie zasilania sonarów oraz w³±czalny bypass dla sygna³u RC.
+
+\begin{figure}[pt]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{grafika/schemat.png}
+		\caption{Schemat p³ytki PCB}
+		\label{fig:PCBSCH}
+	\end{center}
+\end{figure}
+
+Opis z³±cz znajduje siê na rys. \ref{fig:PCBZL}.
+
+\begin{figure}[pt]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{grafika/zlacza.png}
+		\caption{Schemat powierzchni górnej PCB. \\ Ix - wej¶cia analogowe, \\ Sx - wej¶cia PWM, \\ PX - z³±cze RC dla \emph{Pixhawka}, \\ RC - Sygna³ CPPM oraz RSSI \\ Kwadratowy pad jest pinem nr 1}
+		\label{fig:PCBZL}
+	\end{center}
+\end{figure}
+
+
 Na rysunku \ref{fig:interfejs} przedstawiono wykonany interfejs czujników. Widoczne z³±cza umo¿liwiaj± pod³±czenie zasilania, czujników odleg³o¶ci Sharp, stopnia mocy o¶wietlenia, czy sygna³u z aparatury RC.
+
 
 \begin{figure}[h!]
   \begin{center}

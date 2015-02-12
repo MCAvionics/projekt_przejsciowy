@@ -1,0 +1,58 @@
+\subsection{U¿ywanie ¶rodowiska mavros}
+¦rodowisko \emph{mavros} wspera 2 g³ówne mechanizmy komunikacji z sterownikiem lotu:
+\begin{itemize}
+\item Podprogramy uruchamiane z poziomu ¶rodowiska konsoli
+\item ROS Topics
+\end{itemize}
+Pierwszy z nich pozwala na zmianê ustawieñ platformy oraz wysy³anie poleceñ.
+
+Drugi z kolei s³u¿y stricte do akwizycji danych i sterowania platform±.
+
+\subsection{Uruchamianie po³±czenia z Pixhawkiem}
+Aby uruchomiæ ROSa oraz zainicjowaæ jego po³±czenie z sterownikiem lotu \emph{Pixhawk} nale¿y wykonaæ polecenie: \\
+\emph{roslaunch mavros PX4.launch}
+
+Polecenie to sk³ada siê z 3 czê¶ci:
+\begin{itemize}
+\item roslaunch - s³u¿y do uruchomienia ¶rodowiska ROS (\emph{roscore}) wraz z modu³em oraz plikiem \emph{".launch"}
+\item mavros - nazwa uruchamianej paczki
+\item PX4.launch - nazwa pliku konfiguracyjnego, znajduj±cego siê w katalogu paczki w folderze launch: (w tym wypadku \emph{roscd mavros/launch})
+\end{itemize}
+
+W wymienionym powy¿ej pliku \emph{PX4.launch} znajduje siê tak¿e konfiguracja po³±czenia TCP dla QGroundControlStation. Nale¿y ustawiæ parametr dot. portu dla QGCS w nastêpuj±cy sposób:\\
+$<$arg name="gcs\underline{\space}url" default="tcp-l://" \/$>$
+
+Poprawnie uruchomiony modu³ powinien wy¶wietliæ informacje o posiadaniu(lub braku) fixa GPS.
+
+Poprawnie wykonana procedura utworzy w±tki komunikacyjne dla ROS oraz umo¿liwi wykonywanie poni¿szych poleceñ \emph{mavros}.
+ 
+\subsection{Uzbrajanie silników}
+Do zarz±dzania uzbrajaniem silników s³u¿± polecenia: \emph{rosrun mavros mavsafety arm} oraz \emph{rosrun mavros mavsafety disarm}
+
+Ten typ poleceñ sk³ada siê z 4 czê¶ci:
+\begin{itemize}
+\item rosrun - uruchom podprogram z paczki
+\item mavros - nazwa paczki
+\item mavsafety - nazwa podprogramu
+\item arm/disarm - parametr 
+\end{itemize}
+
+Wykonuje siê je za pomoc± linii poleceñ BASH lub kodu C++ za pomoc± funkcji \emph{system()} dostarczanej przez system Linux.
+
+\subsection{Tryb sterowania nadrzêdnego}
+Aby kontroler lotu przyjmowa³ polecenia od sterownika nadrzêdnego(modu³u ROS), nale¿y ustawiæ tryb lotu na \emph{OFFBOARD}.
+
+Dokonuje siê tego za pomoc± polecenia: \emph{rosrun mavros mavcmd guided -e}. Aby polecenie wykona³o siê poprawnie, silniki musz± byæ uzbrojone, a do topców odpowiedzialnych za sterowanie musi dotrzeæ choæ jedna poprawna ramka sterowania.
+
+Tryb \emph{OFFBOARD} wy³±czamy w analogiczny sposób, zamieniaj±c parametr "-e" na "-d".
+
+\subsection{Sterownik ahsoka\underline{\space}control}
+Modu³ \emph{ahsoka\underline{\space}control} implementuje funkcje sterowania robotem. Zawiera ona instancjê klasy \emph{PX\underline{\space}data}, która implementuje odczyt orientacji (\emph{/mavros/imu/data}), \\
+stanu (\emph{/mavros/state}) oraz sterowanie robotem poprzez powy¿sze polecenia oraz topic'i ROS:
+\emph{/mavros/setpoint/local\underline{\space}position} i \emph{/mavros/setpoint/accel}.
+
+Klasa implementuje metody \emph{Set\underline{\space}yaw(rad)} i \emph{Set\underline{\space}force(x,y,z)} s³u¿±ce do sterowania robotem. Komendy te powinno stosowaæ siê w wymienionej powy¿ej kolejno¶ci, a jako argumenty przyjmuj± liczby typu \emph{double}. Konstruktor klasy przyjmuje charakterystyczny dla danego modu³u obiekt klasy \emph{ros::NodeHandle}.
+
+W danym module przewidziano implementacjê sterowników nadrzêdnych. Nale¿y stworzyæ klasy im opowiadaj±ce, uaktualniæ plik \emph{CMakeLists.txt} oraz \emph{package.xml}, pod³±czyæ je do interfejsów sterowania instancji klasy \emph{PX\underline{\space}data} w pliku \emph{ahsoka\underline{\space}control.cpp} a nastêpnie zbudowaæ modu³y poleceniem \emph{catkin\underline{\space}make}.
+
+Modu³ uruchamiamy za pomoc± polecenia \emph{roslaunch ahsoka\underline{\space}control PID.launch}. Plik \emph{PID.launch} zawiera nastawy nadrzêdnych regulatorów i znajduje siê w folderze \emph{roscd ahsoka\underline{\space}control/launch}.

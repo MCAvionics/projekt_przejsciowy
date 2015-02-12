@@ -1,12 +1,5 @@
-Modu³ MAVLINK zosta³ przygotowany przez producentów tak, aby dzia³aæ wspólnie z ROS'em. Dlatego te¿ jego instalacja oraz pó¼niejsze u¿ytkowanie jest bardzo proste. Aby zainstalowaæ MAVLINK'a nale¿y wykonaæ nastêpuj±ce kroki:
-
-\begin{itemize}
-\item Pobranie paczek z np. GitHub?a \\
-$git$ $clone$ $https://github.com/mavlink/mavlink\_ros.git$
-\item Kompilacja\\
-$cd$ $mavlink\_ros$\\
-$rosmake$
-\end{itemize}
+Modu³ MAVLINK zosta³ przygotowany przez producentów tak, aby dzia³aæ wspólnie z ROS'em. Dlatego te¿ jego instalacja oraz pó¼niejsze u¿ytkowanie jest bardzo proste. Aby zainstalowaæ MAVLINK'a nale¿y wykonaæ nastêpuj±ce polecenie:
+\emph{sudo apt-get install ros-hydro-mavros ros-hydro-mavros-extras}
 
 Tak zainstalowany modu³ daje piêkne i intuicyjne ¶rodowisko do podgl±du tego co dzieje siê "na" i wokó³ lataj±cego robota. Aby móc odbieraæ dane z czujników, kamer itp., nale¿y "podpi±æ" port pod widget programu.
 W tym celu u¿ywamy opcji $Network => Add Link$. Dane otrzymane w ten sposób mo¿na wyeksportowaæ oraz wizualizowaæ równie¿ w zewnêtrznych ¶rodowiskach, np. w Matlab'ie. Wszystkie widgety mo¿na do woli edytowaæ(rozmieszczenie, ilo¶æ itp) poprzez klikniêcie prawym przyciskiem myszy i wybranie w³a¶ciwo¶ci danego elementu.

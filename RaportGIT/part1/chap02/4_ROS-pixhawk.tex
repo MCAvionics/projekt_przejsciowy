@@ -1,0 +1,3 @@
+Modu³ \emph{mavros} jest skonfigurowany w taki sposób, aby generowa³ komunikaty w formacie \emph{mavlink} dla urz±dzenia typu konwerter \emph{UART} o nazwie \emph{ttyACM0} z czêstotliwo¶ci± 57600 baud. Konfiguracja tego parametru znajduje siê w pliku \emph{px4.launch} modu³u \emph{mavros}.
+
+Od strony peryferyjnej do jednego z portów USB komputera \emph{NANO 6060} pod³±czony jest konwerter USB to UART, który odpowiada za fizyczn± translacjê komunikacji pomiêdzy \emph{Pixhawkiem} a \emph{NANO 6060}. Gniazdo UART konwertera pod³±czone jest do pinów portu \emph{Telemetry 1} sterownika lotu, co zapewnia odczyt danych telemetrycznych oraz przesy³anie komend.

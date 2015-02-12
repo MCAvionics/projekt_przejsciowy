@@ -1,5 +1,5 @@
 \subsection{Wybór ¶rodowiska pracy}
-Do realizacji sterowania wielowirnikowcem wymagane jest ¶rodowsko, które spe³nia szereg wymagañ, m. in.:
+Do realizacji sterowania wielowirnikowcem wymagane jest ¶rodowisko, które spe³nia szereg wymagañ, m. in.:
 \begin{enumerate}
 	\item Jest niezawodne.
 	\item Nie wymaga zbyt du¿ych zasobów sprzêtowych.
@@ -7,15 +7,15 @@ Do realizacji sterowania wielowirnikowcem wymagane jest ¶rodowsko, które spe³nia
 	\item Zapewnia wsparcie narzêdziom wykorzystywanym w projekcie.
 \end{enumerate}
 
-Dlatego te¿ zdecydowano, aby projekt by³ realizowany przy u¿yciu ¶rodowiska Linux. Poniewa¿ najpopularniejsz± dystrybucj± jest w tej chwili Ubuntu Server, co implikuje du¿± ilo¶æ dobrze napisanej dokumentacji/poradników, dobre wsparcie techniczne, bogactwo uruchomionych i gruntownie przetestowanych narzedzi - wybór ten okaza³ siê najlepsz± z rozpatrywanych opcji.
+Dlatego te¿ zdecydowano, aby projekt by³ realizowany przy u¿yciu ¶rodowiska Linux. Poniewa¿ najpopularniejsz± dystrybucj± jest w tej chwili Ubuntu Server, co implikuje du¿± ilo¶æ dobrze napisanej dokumentacji/poradników, dobre wsparcie techniczne, bogactwo uruchomionych i gruntownie przetestowanych narzêdzi - wybór ten okaza³ siê najlepsz± z rozpatrywanych opcji.
 
-Pomimo pocz±tkowej chêci pracy na aktualnym wydaniu LTS, tzn 14.04.1, o wiele lepsz± alternatyw± okaza³a siê wersja 12.04.5 LTS - ze wzglêdu na fakt, i¿ ROS Hydro, dedykowany na tê platformê zawiera wiêcej przydatnych modu³ów, które w wypaku u¿ycia nowszej wersji, wymaga³yby portowania. 
+Pomimo pocz±tkowej chêci pracy na aktualnym wydaniu LTS, tzn 14.04.1, o wiele lepsz± alternatyw± okaza³a siê wersja 12.04.5 LTS - ze wzglêdu na fakt, i¿ ROS Hydro, dedykowany na tê platformê zawiera wiêcej przydatnych modu³ów, które w wypadku u¿ycia nowszej wersji, wymaga³yby portowania. 
 
 Do realizacji projektu wykorzystano Ubuntu 12.04.5 wraz z ROS Hydro. Ze wzglêdu na problem z cyfrowym podpisem paczek dla polskiego repozytorium, u¿yto wersji angielskiej.
 
 \subsection{¦rodowisko maszyny wirtualnej}
-Do celów zapoznania siê z ¶rodowiskiem ROS stworzono, przy u¿yciu porogramowania Virtualbox, ¶rodowisko typu sandbox. We wczesnych etapach projektow s³u¿y³o ono do bezpiecznego eksperymentowania ze ¶rodowiskiem. Dziêki faktowi, i¿ by³a to maszyna wirtualna - przeinstalowanie ca³ego systemu by³o banaln± operacj±.
-Pnadto na maszynie wirtualnej ka¿dy z u¿ytkowników mia³ prawa administratora, przez co móg³ testowaæ oprogramiwanie przed docelow± instalacj± na platformie lataj±cej.
+Do celów zapoznania siê z ¶rodowiskiem ROS stworzono, przy u¿yciu oprogramowania Virtualbox, ¶rodowisko typu sandbox. We wczesnych etapach projektów s³u¿y³o ono do bezpiecznego eksperymentowania ze ¶rodowiskiem. Dziêki faktowi, i¿ by³a to maszyna wirtualna - przeinstalowanie ca³ego systemu by³o banaln± operacj±.
+Ponadto na maszynie wirtualnej ka¿dy z u¿ytkowników mia³ prawa administratora, przez co móg³ testowaæ oprogramowanie przed docelow± instalacj± na platformie lataj±cej.
 
 \subsection{¦rodowisko uruchomieniowe - Nano 6060}
 Jako platformê docelow± wybrano komputer x86 typu Small-Form-Factor. Ze wzglêdu na miern±, w dniu dzisiejszym, kompatybilno¶æ systemu ROS z platform± ARM - po rozpoznaniu mo¿liwo¶ci, zarzucono ten pomys³.
@@ -51,27 +51,23 @@ Jako kontroler lotu u¿yto komputera pok³adowego Pixhawk [\ref{fig:PX}]. Dziêki o
 \label{fig:PX}
 \end{figure}
  
-Kontrolrer jest podpiêty do komputera pok³adowego za pomoc± z³±cza USB - co pozwala na administrowanie systemem Pixhawka, oraz poprzez przej¶æiówk UART - USB - s³u¿±c± do czytania danych telemetrycznych.
+Kontroler jest podpiêty do komputera pok³adowego za pomoc± z³±cza USB - co pozwala na administrowanie systemem Pixhawka, oraz poprzez przej¶ciówkê UART - USB - s³u¿±c± do czytania danych telemetrycznych.
 
-Do kontrolera popiêty jest tak¿e GPS oraz system konroli stanu zasilania.
+Do kontrolera podpiêty jest tak¿e GPS oraz system kontroli stanu zasilania.
 
 \subsection{Administracja maszyn±}
 	\subsubsection{Wymagane oprogramowanie}
-Aby uruchomiæ projekt, oprócz zainstalwoania systemu, nale¿y zainstalowaæ nastêpuj±ce paczki:
+Aby uruchomiæ projekt, oprócz zainstalowania systemu, nale¿y zainstalowaæ nastêpuj±ce paczki:
 \begin{itemize}
 \item build-essential
-\item dselect
-\item geany
-\item geany-common
-\item geany-plugins
-\item geany-plugins-common
 \item git
 \item guvcview
 \item h264enc
+\item hostapd
+\item isc-dhcp-server
 \item libcanberra-gtk-module
 \item libgtk2.0-dev
 \item liblapack-dev
-\item live-config-systemd
 \item openssh-blacklist
 \item openssh-blacklist-extra
 \item openssl-blacklist
@@ -93,9 +89,24 @@ Aby uruchomiæ projekt, oprócz zainstalwoania systemu, nale¿y zainstalowaæ nastêp
 \item wireless-tools
 \item wpasupplicant
 \end{itemize} 
-	\subsubsection{Uprawnienia u¿ytkownika}
-Aby usprawniæ pracê nad projektem zwykli u¿ytkownicy wspó³dzielili konto uzytkownika \emph{start}. Ma on uprawnienia jedynie do modyfikowania workspace'a programu catkin oraz pe³ni dostêp do wymaganych peryferów, gdy¿ nale¿y do grup: \emph{dialout} oraz \emph{video}.
+
+\subsubsection{Uprawnienia u¿ytkownika}
+Aby usprawniæ pracê nad projektem zwykli u¿ytkownicy wspó³dzielili konto u¿ytkownika \emph{start}. Ma on uprawnienia jedynie do modyfikowania workspace'a programu catkin oraz pe³ni dostêp do wymaganych peryferiów, gdy¿ nale¿y do grup: \emph{dialout} oraz \emph{video}.
 Oprócz tego na maszynie istnieje konto administratora - \emph{tano}.
 
+\subsubsection{Lokalna sieæ Wi-Fi}
+Przy u¿yciu narzêdzia \emph{hostapd} oraz \emph{isc-dhcp-serwer} jako serwer DHCP utworzono tzw. software access point, dziêki czemu mo¿na pod³±czyæ siê bezpo¶rednio do robota za pomoc± sieci Wi-Fi. Sieæ nadaje w standardzie 802.11g i czêstotliwo¶ci 2.4 GHz. Po³±czenie szyfrowane jest w standardzie WPA2-PSK. 
+
+Plik konfiguracji znajduje siê w \emph{/etc/hostapd/hostapd.conf}
+
 \subsection{Paczka mavros}
-Do obs³ugi komunikacji pomiêdzy Pihawkiem a systemem ROS wykorzytano modu³ \emph{mavros}. Uruchamia ona topic \emph{/mavros/} oraz zapewnia ³±cze dla programu QGroundControl za pomoc± protoko³u UDP. Dziêki tej ostatniej funkcjonalno¶ci mo¿liwe jest zarz±dzanie robotem za pomoc± ³±cza WiFi, b±d¼ ethernet.
+Do obs³ugi komunikacji pomiêdzy Pihawkiem a systemem ROS wykorzystano modu³ \emph{mavros}. Uruchamia ona topic \emph{/mavros/} oraz zapewnia ³±cze dla programu QGroundControl za pomoc± protoko³u UDP. Dziêki tej ostatniej funkcjonalno¶ci mo¿liwe jest zarz±dzanie robotem za pomoc± ³±cza WiFi, b±d¼ ethernet.
+
+\subsection{Schemat komunikacji w systemie ROS}
+Na rys. \ref{fig:rysPOL} zaprezentowano schemat blokowy podzespo³ów robota Ahsoka.
+\begin{figure}[pt]
+\centering
+\includegraphics[width=0.9\textwidth]{grafika/quadro_schemat_blokowy.png}
+\caption{Fotografia u¿ytego komputera pok³adowego - Nano 6060}
+\label{fig:rysPOL}
+\end{figure}
